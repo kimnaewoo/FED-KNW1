@@ -11,8 +11,7 @@
 
             /* 웹폰트 CDN(contect delevery network) */
 
-            @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gowun+Batang:wght@700&family=Nanum+Gothic&display=swap');
-
+           @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gowun+Batang:wght@400;700&family=Nanum+Gothic&display=swap');
 
             /* 
             웹폰트font-famliy 이름
@@ -81,9 +80,9 @@
             }
             /* 타이틀 */
             #top h1 {
-                color: #e90000;
+                color: #0000;
                 font-size: 70px;
-                font-weight: normal; /*  */
+                font-weight: 700; /*  */
                 font-family:'Gowun Batang', serif;
                 /* font-family 글씨체
                 값 - 콤마로 구분하여 우선순위 적용
@@ -96,10 +95,11 @@
             }
             /* 메뉴링크 */
             #gnb a {
-                color: hsl(0, 61%, 38%);
+                color: hsl(0, 33%, 3%);
                 text-decoration: none;
                 font-size: 25px;
                 font-family: 'Gowun Batang', serif;
+                font-weight: 900;
                 vertical-align: 0;
             }
             /* vertical-align : 인라인요소간 세로정렬 */
@@ -107,9 +107,9 @@
             /* a+a 는 앞에 a요소가 있는 형제 a요소를 선택, 결과적으로 첫번째 a요소가 선택되지않는다 */
 
             #gnb a+a:hover {
-                color: hotpink;
+                color: green;
                 /* 글자데코 : 윗줄 물결모양 */
-                text-decoration: overline;
+                text-decoration: underline;
                 text-decoration-style: wavy;
             }
 
@@ -133,6 +133,7 @@
             /* 회사주소 */
             #info address{
                 /* 기본글짜 이탤릭 스타일 없애기 */
+                font-weight: 700;
                 font-style: normal;
                 font-family:'Gowun Batang', serif;
             }
