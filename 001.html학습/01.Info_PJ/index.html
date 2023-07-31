@@ -13,6 +13,8 @@
 
            @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gowun+Batang:wght@400;700&family=Nanum+Gothic&display=swap');
 
+           
+
             /* 
             웹폰트font-famliy 이름
             font-family: 'Bagel Fat One', cursive;
@@ -76,11 +78,11 @@
 
             /* 1.상단영역 */
             #top {
-                background-color: darkblue;
+                background-color:rgb(107, 107, 201);
             }
             /* 타이틀 */
             #top h1 {
-                color: #0000;
+                color: #f3eded;
                 font-size: 70px;
                 font-weight: 700; /*  */
                 font-family:'Gowun Batang', serif;
@@ -95,7 +97,7 @@
             }
             /* 메뉴링크 */
             #gnb a {
-                color: hsl(0, 33%, 3%);
+                color: hsl(0, 0%, 99%);
                 text-decoration: none;
                 font-size: 25px;
                 font-family: 'Gowun Batang', serif;
@@ -120,7 +122,7 @@
 
             /* 1.상단영역 */
             #top {
-                background-color: rgb(129, 181, 199);
+                background-color: rgb(135, 137, 224);
             }
 
             /* 2. 메인영역 */
@@ -137,6 +139,19 @@
                 font-style: normal;
                 font-family:'Gowun Batang', serif;
             }
+            /* 대표자 span */
+            span.utxt{
+                text-decoration: underline;
+                text-decoration-style: dotted;
+                text-decoration-color: red;
+            }
+            /* 종속선택자로 같은 이름의 클래스인데 다른 디자인으로 변경하여 셋팅하기 */
+            b.utxt{
+                text-decoration: underline;
+                text-decoration-style: wavy;
+                text-decoration-color: blue;
+            }
+
         </style>
     </head>
     <body>
@@ -169,8 +184,8 @@
         <footer id="info" class="bx">
             <address>
                 서울시 강남구 역삼동 119 대호B 8F <br />
-                대표: naewoo KIM <br />
-                전화: 010-4680-9592
+                대표: <span class="utxt">naewoo KIM</span> <br />
+                전화:<b class="utxt">010-4680-9592</b>
             </address>
         </footer>
 
