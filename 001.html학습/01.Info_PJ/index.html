@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- viewport 는 모바일에서 실제픽셀로 변환함 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>네이버 요약뉴스</title>
-    <!-- CSS인터널방식 코딩영역 -->
-    <style>
-      /* CSS영역내 주석문 */
+    <head>
+        <meta charset="UTF-8" />
+        <!-- viewport 는 모바일에서 실제픽셀로 변환함 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>네이버 요약뉴스</title>
+        <!-- CSS인터널방식 코딩영역 -->
+        <style>
+            /* CSS영역내 주석문 */
 
-      /*
+            /*
             [모든 요소 공통 디자인요소 : 박스모델]
             1. 크기 : width 가로, height 세로
             2. 경계선 : border
@@ -33,82 +33,127 @@
             6. 종속선택자 : 요소명#아이디명 / 요소명.클래스명 (div, mymy -> div인데 클래스가 mymy)
 
             */
-      /* 레이아웃 박스 공통 디자인 */
-      .bx {
-        /*크기 :w800 - 가로크기 */
-        width: 800px;
-        /* 외곽선 */
-        border: 4px double darkblue;
-        /* 패딩 */
-        padding: 20px;
-        /* 마진  : 마영오! 씨를 무대중앙으로 모시겠습니다 */
-        margin: 0 auto;
-        /* 양쪽마진을 auto로 쓰면 등분할되어 박스가 중앙위치함 */
-        /*
+            /* 레이아웃 박스 공통 디자인 */
+            .bx {
+                /*크기 :w800 - 가로크기 */
+                width: 800px;
+                /* 외곽선 */
+                border: 4px double darkblue;
+                /* 패딩 */
+                padding: 20px;
+                /* 마진  : 마영오! 씨를 무대중앙으로 모시겠습니다 */
+                margin: 0 auto;
+                /* 양쪽마진을 auto로 쓰면 등분할되어 박스가 중앙위치함 */
+                /*
             [마진/패딩공통 개수별 정의]
             margin: 4방향; (1개)
             margin: 위아래 양쪽; (2개)
             margin: 위 양쪽 아래; (3개)
             margin: 위 오른 아래 왼; (4개는 시계방향) */
-        /* 텍스트중앙 */
-        text-align: center;
-      }
-      /* 메인이미지 */
-      .cimg {
-        width: 100%;
-      }
+                /* 텍스트중앙 */
+                text-align: center;
+            }
+            /* 메인이미지 */
+            .cimg {
+                width: 100%;
+            }
 
             /* 1.상단영역 */
-            #top{background-color: darkblue;}
-      /* 1.상단영역 */
-      #top {
-        background-color: lightblue;
-      }
+            #top {
+                background-color: darkblue;
+            }
+            /* 타이틀 */
+            #top h1 {
+                color: #e90000;
+                font-size: 40px;
+                font-family: 궁서;
+            }
+            /* 메뉴링크 */
+            #gnb a{
+              color: hsl(0, 61%, 38%);
+              text-decoration: none;
+              font-size: 25px;
+              font-family: 굴림;
+              vertical-align: 0;
+            }
+            /* vertical-align : 인라인요소간 세로정렬 */
+            /* 가상클래스: hover 마우스 오버시 */
+            
+            #gnb a:hover{
+              color: hotpink;
+              /* 글자데코 : 윗줄 물결모양 */
+              text-decoration: underline;
+              text-decoration-style: wavy;
+            }
+           
+            /* 로고이미지 */
+            #gnb img{
+              vertical-align: -3px;
+            }
 
-      /* 2. 메인영역 */
-      #cont {
-        margin: 20px auto;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- 1. 상단영역 : 제목, 메뉴 -->
-    <header id="top" class="bx">
-      <!-- 1-1. 제목 -->
-      <h1>네이버 요약뉴스</h1>
-      <!-- 1-2. GNB메뉴 -->
-      <!-- GNB (GLOBAL Navigation Bar) -->
-      <nav id="gnb">
-        <a href="index.html">
-          <!-- 상대경로 -->
-          <img src="./images/logo.png" alt="네이버로고" style="width: 50px" />
-          <!-- style속성으로 css를 셋팅하는 방법은 인라인방식이라고 함 -->
-          <!-- 절대상대경로 -->
-          <!-- <img src="/001.html학습/01.Info_PJ/images/logo.png" alt="네이버로고"> -->
-          <!-- 절대경로 -->
-          <!-- <img src="./https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png" alt="네이버로고"> -->
-        </a>
-        <a href="sub1.html">정치</a>
-        <a href="sub2.html">경제</a>
-        <a href="sub3.html">사회</a>
-        <a href="sub4.html">IT/과학</a>
-        <a href="sub5.html">TV/연예</a>
-      </nav>
-    </header>
-    <!-- 2. 메인영역 : 컨텐츠 -->
-    <main id="cont" class="bx">
-      <img class="cimg" src="./images/maining.jpg" alt="메인이미지" />
-    </main>
-    <!-- 3. 하단영역 : 회사정보 -->
-    <footer id="info" class="bx">
-      <address>
-        서울시 강남구 역삼동 119 대호B 8F <br />
-        대표: naewoo KIM <br />
-        전화: 010-2222-3333
-      </address>
-    </footer>
+            /* 1.상단영역 */
+            #top {
+                background-color: rgb(129, 181, 199);
+            }
 
-    <!--
+            /* 2. 메인영역 */
+            #cont {
+                margin: 20px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 1. 상단영역 : 제목, 메뉴 -->
+        <header id="top" class="bx">
+            <!-- 1-1. 제목 -->
+            <h1>네이버 요약뉴스</h1>
+            <!-- 1-2. GNB메뉴 -->
+            <!-- GNB (GLOBAL Navigation Bar) -->
+            <nav id="gnb">
+                <a href="index.html">
+                    <!-- 상대경로 -->
+                    <img src="./images/logo.png" alt="네이버로고" style="width: 25px" />
+                    <!-- style속성으로 css를 셋팅하는 방법은 인라인방식이라고 함 -->
+                    <!-- 절대상대경로 -->
+                    <!-- <img src="/001.html학습/01.Info_PJ/images/logo.png" alt="네이버로고"> -->
+                    <!-- 절대경로 -->
+                    <!-- <img src="./https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png" alt="네이버로고"> -->
+                </a>
+                <a href="sub1.html">정치</a> | 
+                <a href="sub2.html">경제</a> | 
+                <a href="sub3.html">사회</a> | 
+                <a href="sub4.html">IT/과학</a> | 
+                <a href="sub5.html">TV/연예</a>
+            </nav>
+        </header>
+        <!-- 2. 메인영역 : 컨텐츠 -->
+        <main id="cont" class="bx">
+            <img class="cimg" src="./images/maining.jpg" alt="메인이미지" />
+        </main>
+        <!-- 3. 하단영역 : 회사정보 -->
+        <footer id="info" class="bx">
+            <address>
+                서울시 강남구 역삼동 119 대호B 8F <br />
+                대표: naewoo KIM <br />
+                전화: 010-2222-3333
+            </address>
+        </footer>
+
+        <!--
+      [웹표준이란?]
+      - 모든 브라우저에서 하나의 소스로 동일한 디스플레이 및 기능이 작동하도록 정한 웹코딩의 표준안이다!
+
+      [웹접근성이란?]
+      - 평등의 원칙 즉, 장애인 차별금지법에 따라 이미지(alt 속성), 동영상(자막) 등에 설명을 추가하여 정보제공에 차별이 없도록 하는 것!
+
+      [img 요소 : 이미지 연결요소]
+      - 필수속성
+      1) src : 이미지경로 (source)
+      2) alt : 이미지설명 (alternative text = 대체텍스트) (웹접근성)
+       
+
+
+
        [ 레이아웃을 위한 블록요소 ]
        div : 영역을 나누고 묶어주는 요소
 
@@ -142,5 +187,5 @@
 
        -> 주의: 절대상대경로는 서버 루트폴더가 같지 않으면 경로가 망가진다. 또는 로컬에서 직접 웹 페이지를 열어도 망가짐.
      -->
-  </body>
+    </body>
 </html>
