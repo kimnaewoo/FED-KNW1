@@ -9,6 +9,23 @@
         <style>
             /* CSS영역내 주석문 */
 
+            /* 웹폰트 CDN(contect delevery network) */
+
+            @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gowun+Batang:wght@700&family=Nanum+Gothic&display=swap');
+
+
+            /* 
+            웹폰트font-famliy 이름
+            font-family: 'Bagel Fat One', cursive;
+            font-family: 'Gowun Batang', serif;
+            font-family: 'Nanum Gothic', sans-serif; */
+
+            /* 
+            @import url(주소)
+            - 외부CSS를 불러올때 사용하는 형식
+            - 외부CSS 파일을 하나로 합칠때 많이 사용함 
+             */
+
             /*
             [모든 요소 공통 디자인요소 : 박스모델]
             1. 크기 : width 가로, height 세로
@@ -65,30 +82,40 @@
             /* 타이틀 */
             #top h1 {
                 color: #e90000;
-                font-size: 40px;
-                font-family: 궁서;
+                font-size: 70px;
+                font-weight: normal; /*  */
+                font-family:'Gowun Batang', serif;
+                /* font-family 글씨체
+                값 - 콤마로 구분하여 우선순위 적용
+                 */
+                /* text-shadow : 글자그림자 
+                값 - x축 y축 블러(경계흐림) 색
+                -> 콤마로 다중 그림자 사용가능!
+                */
+                text-shadow: 2px 2px 2px #000000;
             }
             /* 메뉴링크 */
-            #gnb a{
-              color: hsl(0, 61%, 38%);
-              text-decoration: none;
-              font-size: 25px;
-              font-family: 굴림;
-              vertical-align: 0;
+            #gnb a {
+                color: hsl(0, 61%, 38%);
+                text-decoration: none;
+                font-size: 25px;
+                font-family: 'Gowun Batang', serif;
+                vertical-align: 0;
             }
             /* vertical-align : 인라인요소간 세로정렬 */
             /* 가상클래스: hover 마우스 오버시 */
-            
-            #gnb a:hover{
-              color: hotpink;
-              /* 글자데코 : 윗줄 물결모양 */
-              text-decoration: underline;
-              text-decoration-style: wavy;
+            /* a+a 는 앞에 a요소가 있는 형제 a요소를 선택, 결과적으로 첫번째 a요소가 선택되지않는다 */
+
+            #gnb a+a:hover {
+                color: hotpink;
+                /* 글자데코 : 윗줄 물결모양 */
+                text-decoration: overline;
+                text-decoration-style: wavy;
             }
-           
+
             /* 로고이미지 */
-            #gnb img{
-              vertical-align: -3px;
+            #gnb img {
+                vertical-align: -3px;
             }
 
             /* 1.상단영역 */
@@ -99,6 +126,15 @@
             /* 2. 메인영역 */
             #cont {
                 margin: 20px auto;
+            }
+            /* 3. 하단영역 */
+            #info{background-color: #ccc;
+            }
+            /* 회사주소 */
+            #info address{
+                /* 기본글짜 이탤릭 스타일 없애기 */
+                font-style: normal;
+                font-family:'Gowun Batang', serif;
             }
         </style>
     </head>
@@ -119,10 +155,8 @@
                     <!-- 절대경로 -->
                     <!-- <img src="./https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png" alt="네이버로고"> -->
                 </a>
-                <a href="sub1.html">정치</a> | 
-                <a href="sub2.html">경제</a> | 
-                <a href="sub3.html">사회</a> | 
-                <a href="sub4.html">IT/과학</a> | 
+                <a href="sub1.html">정치</a> | <a href="sub2.html">경제</a> | <a href="sub3.html">사회</a> |
+                <a href="sub4.html">IT/과학</a> |
                 <a href="sub5.html">TV/연예</a>
             </nav>
         </header>
@@ -135,7 +169,7 @@
             <address>
                 서울시 강남구 역삼동 119 대호B 8F <br />
                 대표: naewoo KIM <br />
-                전화: 010-2222-3333
+                전화: 010-4680-9592
             </address>
         </footer>
 
