@@ -77,12 +77,16 @@ h2 {
             margin: 위아래 양쪽; (2개)
             margin: 위 양쪽 아래; (3개)
             margin: 위 오른 아래 왼; (4개는 시계방향) */
-    /* 텍스트중앙 */
-    text-align: center;
-
-    /* 둥근모서리  */
-    border-radius: 15px;
-}
+            
+            /* 둥근모서리  */
+            border-radius: 15px;
+        }
+        
+        /* 상단, 하단 중앙정렬 */
+        #top,#info{
+        /* 텍스트중앙 : tac */
+        text-align: center;
+    }
 /* 메인이미지 */
 .cimg {
     width: 100%;
