@@ -1,15 +1,15 @@
-@charset "urf-8";
+@charset "utf-8";
 /* 서브페이지용 CSS - sub.css */
 
 /* 공통외부CSS 합치기 */
 @import url(./common.css);
 
 /* 서브타이틀 */
-h2.stit{ 
-    color: #e01919;
-    font-size: 25px;
-    font-family: "Gowun Batang", serif;
-    font-weight: normal;
-    text-align: center;
-    text-shadow: 1px 1px 1px #00000078;
+h2.stit {
+  color: #e01919;
+  font-size: 25px;
+  font-family: "Gowun Batang", serif;
+  font-weight: normal;
+  text-align: center;
+  text-shadow: 1px 1px 1px #00000078;
 }
