@@ -147,8 +147,26 @@ font-size: 30px; }
   text-align: right;
 }
 .alink a{
+  /* 디자인적용을 위해서 display변경하기 */
+  display: inline-block;
   width: 70px;
   height: 70px;
   border: 1px solid darkslategray;
   border-radius: 50%; 
+  /* 줄간격으로 세로 글자 중앙 */
+  line-height: 70px;
+  /* 가로정렬 중앙 */
+  text-align: center;
+  font-size: 18px;
+
+  /* a요소 기본 글자색변경, 및줄없애기 */
+  color: #807979;
+  text-decoration: none;
+}
+
+/* 마우스 오버시 변경 */
+.alink a{
+  color: hotpink;
+  background-color: #aaa1aa;
+  box-shadow: 0 0 10px 5px fuchsia;
 }
