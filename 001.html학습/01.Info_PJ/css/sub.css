@@ -5,118 +5,117 @@
 @import url(./common.css);
 
 /* 서브페이지 공통 글자설정 */
-#cont{font-family: 'Nanum Gothic', sans-serif; 
-
+#cont {
+  font-family: "Nanum Gothic", sans-serif;
 }
 
 /* 서브타이틀 */
 h2.stit {
-    color: #4360e2;
-    font-size: 25px;
-    font-family: "Gowun Batang", serif;
-    font-weight: normal;
-    text-align: center;
-    text-shadow: 1px 1px 1px #00000078;
-    outline: 0 solid red;
-    border-radius: 10px;
+  color: #4360e2;
+  font-size: 25px;
+  font-family: "Gowun Batang", serif;
+  font-weight: normal;
+  text-align: center;
+  text-shadow: 1px 1px 1px #00000078;
+  outline: 0 solid red;
+  border-radius: 10px;
 
-    /* 
+  /*
     [outline 요소]
     box모델의 필수속성은 아니지만 박스의 외곽선을 표현해주며 박스자체에 크기에 영향을 주지않음!
     outline : 두께 종류 색상 -> border와 셋팅이 같음! 단, border-radius 둥근모서리는 보더만 적용되었으나 아웃트라인도 됨!
-    -> 주로 사용되는 예는 input 입력창에서 포커스가 갈 경우 외곽선표시가 됨 
+    -> 주로 사용되는 예는 input 입력창에서 포커스가 갈 경우 외곽선표시가 됨
      */
-    padding: 40px;
-    /* 배경넣기 */
-    /* background: url(../images/afig4.jpg) no-repeat center/cover; */
-    /* background: 색이반고윙/크; 
+  padding: 40px;
+  /* 배경넣기 */
+  /* background: url(../images/afig4.jpg) no-repeat center/cover; */
+  /* background: 색이반고윙/크;
             배경색 이미지 반복 고정 위치/크기
   */
-    /* 배경넣기 : 속성별쓰기 */
-    /* 반복여부 */
-    background-repeat: no-repeat;
-    /* 배경위치 : 가로 세로 */
-    background-position: center;
-    /* 배경크기 : 가로 세로 (cover - 배경채우기) */
-    background-size: cover;
+  /* 배경넣기 : 속성별쓰기 */
+  /* 반복여부 */
+  background-repeat: no-repeat;
+  /* 배경위치 : 가로 세로 */
+  background-position: center;
+  /* 배경크기 : 가로 세로 (cover - 배경채우기) */
+  background-size: cover;
 
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 
-    /* 박스그림자 */
-    box-shadow: inset 0px 0px 13px 4px #00000070, 0px 0px 4px 10px rgb(17, 17, 17);
-    /* 
+  /* 박스그림자 */
+  box-shadow: inset 0px 0px 13px 4px #00000070, 0px 0px 4px 10px rgb(17, 17, 17);
+  /*
     [ box- shadow 속성]
     - 박스 외부/내부 그림자 설정속성
-    - 값 : x축, y축, blur, spread 색 
+    - 값 : x축, y축, blur, spread 색
     text-shadow와 달리 spread 속성이 있음
     이것은 그림자를 커지게함!
     -내부그림자 옵션: inset
     -그림자 다중설정 : 콤마로 연속사용가능
- */   
+ */
 }
 
 /* IT/과학 배경이미지 */
 h2.st1 {
-    background-image: url(../images/afig1.jpg);
-    background-position: top;
-    padding: 14px;
+  background-image: url(../images/afig1.jpg);
+  background-position: top;
+  padding: 14px;
 }
 h2.st2 {
-    background-image: url(../images/afig2.jpg);
-    background-position: 0px;
+  background-image: url(../images/afig2.jpg);
+  background-position: 0px;
 }
 h2.st3 {
-    background-image: url(../images/afig3.jpg);
-    background-position: 0;
+  background-image: url(../images/afig3.jpg);
+  background-position: 0;
 }
 h2.st4 {
-    /* 배경이미지 */
-    background-image: url(../images/afig4.jpg);
-    padding: 68px;
-    /* tv/연애 배경이미지 */
-    /* .st5의 적용우선순위를 높이기 위해 부모요소를 써줌! ex) #cont .st5  */
+  /* 배경이미지 */
+  background-image: url(../images/afig4.jpg);
+  padding: 68px;
+  /* tv/연애 배경이미지 */
+  /* .st5의 적용우선순위를 높이기 위해 부모요소를 써줌! ex) #cont .st5  */
 }
 h2.st5 {
-    /* 배경이미지 */
-    background-image: url(../images/afig5.jpg);
-    /* 배경위치변경 (세로 Y축) */
-    background-position: 0;
-    color: #c9278b;
+  /* 배경이미지 */
+  background-image: url(../images/afig5.jpg);
+  /* 배경위치변경 (세로 Y축) */
+  background-position: 0;
+  color: #c9278b;
 }
 
-
 /* 언론사로고 */
-.prlogo img{
+.prlogo img {
   height: 32px;
-  /* 
+  /*
   이미지는 기본 비율을 가지고 있어서 가로,세로 중 한쪽만 크기를 주면 나머지 방향은 자동으로 비율을 유지함!
   가로,세로를 다 주면 비율이 깨짐!
   */
   /* 기사타이틀 */
-  
 }
-.atit{
+.atit {
   text-align: center;
-font-size: 30px; }
+  font-size: 30px;
+}
 
 /* 기사이미지 박스 */
-.afig{
+.afig {
   margin-bottom: 40px;
 }
 /* 기사이미지 */
-.afig img{
+.afig img {
   width: 100%;
 }
 
 /* 기사이미지 설명 */
-.afig figcaption{
+.afig figcaption {
   font-size: 15px;
   text-align: center;
   color: #767676;
 }
 
 /* 기사 문단 */
-.acont p{
+.acont p {
   font-size: 17px;
   color: #303038;
   /* 자간 : ls */
@@ -127,7 +126,7 @@ font-size: 30px; }
   text-align: justify;
   /* 줄간격 */
   line-height: 2.1;
-  /* 글자 라인간 간격을 조정함, 숫자만 쓰면 배수임(글자높이값에 대한 배수), 단위를 쓰면 단위에 맞게 줄간견 조정(px) 
+  /* 글자 라인간 간격을 조정함, 숫자만 쓰면 배수임(글자높이값에 대한 배수), 단위를 쓰면 단위에 맞게 줄간견 조정(px)
   -> 줄간격의 응용은 버튼 등의 글자를 세로 중앙에 오게 할때 박스높이값만큼 준다! */
 }
 
@@ -136,28 +135,29 @@ font-size: 30px; }
   height: 450px;
 }
 /* div 와 같은 block요소는 width 설정을 하지않으면 width:auto 로 자동설정된다. 이는 싸고 있는 박스컨텐트 영역을 자동으로 채워준다 */
-.mvbx iframe{
+.mvbx iframe {
   border: none;
   width: 100%;
   height: 100%;
 }
 
 /* 기사원문 */
-.alink{
+.alink {
   text-align: right;
 }
-.alink a{
+.alink a {
   /* 디자인적용을 위해서 display변경하기 */
   display: inline-block;
   width: 70px;
   height: 70px;
   border: 1px solid darkslategray;
-  border-radius: 50%; 
+  border-radius: 50%;
   /* 줄간격으로 세로 글자 중앙 */
   line-height: 70px;
   /* 가로정렬 중앙 */
   text-align: center;
   font-size: 18px;
+  background-color: #000;
 
   /* a요소 기본 글자색변경, 및줄없애기 */
   color: #807979;
@@ -165,7 +165,7 @@ font-size: 30px; }
 }
 
 /* 마우스 오버시 변경 */
-.alink a{
+.alink a:hover {
   color: hotpink;
   background-color: #aaa1aa;
   box-shadow: 0 0 10px 5px fuchsia;
