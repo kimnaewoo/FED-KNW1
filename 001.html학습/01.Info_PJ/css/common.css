@@ -65,7 +65,7 @@ h2 {
   width: 800px;
   /* 외곽선 */
   /* border: 4px double darkblue; */
-  border: 3px dashed lightgreen;
+  border: 3px dashed rgb(33, 125, 185);
   /* 패딩 */
   padding: 20px;
   /* 마진  : 마영오! 씨를 무대중앙으로 모시겠습니다 */

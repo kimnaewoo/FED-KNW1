@@ -6,10 +6,17 @@
 
 /* 서브타이틀 */
 h2.stit {
-  color: #e01919;
+  color: #4360e2;
   font-size: 25px;
   font-family: "Gowun Batang", serif;
   font-weight: normal;
   text-align: center;
   text-shadow: 1px 1px 1px #00000078;
+}
+h3.atit{
+  text-align: center;
+}
+.afig img{
+  width: 100%;
+  margin: 0px;
 }
