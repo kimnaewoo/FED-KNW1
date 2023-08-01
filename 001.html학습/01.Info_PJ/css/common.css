@@ -62,7 +62,12 @@ h2, figure {
 
 .bx {
   /*크기 :w800 - 가로크기 */
-  width: 800px;
+  
+  max-width: 1000px; 
+/* 최대가로크기 1000px의 의미는 1000px 보다 안커지고, 작을 경우 auto로 전환(부모박스 크기로 맞춤) */
+  /* min-width: 700px; */
+/* 최소가로크기를 설정하면 최소크기보다 작아지지 않는다! */
+
   /* 외곽선 */
   /* border: 4px double darkblue; */
   border: 3px dashed rgb(33, 125, 185);
