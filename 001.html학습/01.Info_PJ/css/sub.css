@@ -6,17 +6,63 @@
 
 /* 서브타이틀 */
 h2.stit {
-  color: #4360e2;
-  font-size: 25px;
-  font-family: "Gowun Batang", serif;
-  font-weight: normal;
-  text-align: center;
-  text-shadow: 1px 1px 1px #00000078;
+    color: #4360e2;
+    font-size: 25px;
+    font-family: "Gowun Batang", serif;
+    font-weight: normal;
+    text-align: center;
+    text-shadow: 1px 1px 1px #00000078;
+    outline: 1px solid red;
+    padding: 40px;
+    /* 배경넣기 */
+    /* background: url(../images/afig4.jpg) no-repeat center/cover; */
+    /* background: 색이반고윙/크; 
+  배경색 이미지 반복 고정 위치/크기
+  */
+
+    /* 배경넣기 : 속성별쓰기 */
+    /* 반복여부 */
+    background-repeat: no-repeat;
+    /* 배경위치 : 가로 세로 */
+    background-position: center;
+    /* 배경크기 : 가로 세로 (cover - 배경채우기) */
+    background-size: cover;
 }
-h3.atit{
-  text-align: center;
+
+/* IT/과학 배경이미지 */
+.st1 {
+  background-image: url(../images/afig1.jpg);
+  background-position: 0;
 }
-.afig img{
-  width: 100%;
-  margin: 0px;
+.st2 {
+  background-image: url(../images/afig2.jpg);
+  background-position: center;
+}
+.st3 {
+  background-image: url(../images/afig3.jpg);
+  background-position: 0;
+}
+.st4 {
+    /* 배경이미지 */
+    background-image: url(../images/afig4.jpg);
+    /* tv/연애 배경이미지 */
+    /* .st5의 적용우선순위를 높이기 위해 부모요소를 써줌! ex) #cont.st5  */
+}
+.st5 {
+    /* 배경이미지 */
+    background-image: url(../images/afig5.jpg);
+    /* 배경위치변경 (세로 Y축) */
+    background-position: 0;
+    color: rgb(201, 39, 139);
+}
+h3.atit {
+    text-align: center;
+}
+.afig img {
+    width: 100%;
+    margin: 0px;
+}
+.aifg img {
+    width: 100%;
+    margin: 0px;
 }
