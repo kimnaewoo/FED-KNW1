@@ -12,14 +12,21 @@ h2.stit {
     font-weight: normal;
     text-align: center;
     text-shadow: 1px 1px 1px #00000078;
-    outline: 1px solid red;
+    outline: 0 solid red;
+    border-radius: 10px;
+
+    /* 
+    [outline 요소]
+    box모델의 필수속성은 아니지만 박스의 외곽선을 표현해주며 박스자체에 크기에 영향을 주지않음!
+    outline : 두께 종류 색상 -> border와 셋팅이 같음! 단, border-radius 둥근모서리는 보더만 적용되었으나 아웃트라인도 됨!
+    -> 주로 사용되는 예는 input 입력창에서 포커스가 갈 경우 외곽선표시가 됨 
+     */
     padding: 40px;
     /* 배경넣기 */
     /* background: url(../images/afig4.jpg) no-repeat center/cover; */
     /* background: 색이반고윙/크; 
-  배경색 이미지 반복 고정 위치/크기
+            배경색 이미지 반복 고정 위치/크기
   */
-
     /* 배경넣기 : 속성별쓰기 */
     /* 반복여부 */
     background-repeat: no-repeat;
@@ -27,33 +34,49 @@ h2.stit {
     background-position: center;
     /* 배경크기 : 가로 세로 (cover - 배경채우기) */
     background-size: cover;
+
+    margin-bottom: 30px;
+
+    /* 박스그림자 */
+    box-shadow: inset 0px 0px 13px 4px #00000070, 0px 0px 4px 10px rgb(17, 17, 17);
+    /* 
+    [ box- shadow 속성]
+    - 박스 외부/내부 그림자 설정속성
+    - 값 : x축, y축, blur, spread 색 
+    text-shadow와 달리 spread 속성이 있음
+    이것은 그림자를 커지게함!
+    -내부그림자 옵션: inset
+    -그림자 다중설정 : 콤마로 연속사용가능
+ */   
 }
 
 /* IT/과학 배경이미지 */
-.st1 {
-  background-image: url(../images/afig1.jpg);
-  background-position: 0;
+h2.st1 {
+    background-image: url(../images/afig1.jpg);
+    background-position: top;
+    padding: 14px;
 }
-.st2 {
-  background-image: url(../images/afig2.jpg);
-  background-position: center;
+h2.st2 {
+    background-image: url(../images/afig2.jpg);
+    background-position: 0px;
 }
-.st3 {
-  background-image: url(../images/afig3.jpg);
-  background-position: 0;
+h2.st3 {
+    background-image: url(../images/afig3.jpg);
+    background-position: 0;
 }
-.st4 {
+h2.st4 {
     /* 배경이미지 */
     background-image: url(../images/afig4.jpg);
+    padding: 68px;
     /* tv/연애 배경이미지 */
-    /* .st5의 적용우선순위를 높이기 위해 부모요소를 써줌! ex) #cont.st5  */
+    /* .st5의 적용우선순위를 높이기 위해 부모요소를 써줌! ex) #cont .st5  */
 }
-.st5 {
+h2.st5 {
     /* 배경이미지 */
     background-image: url(../images/afig5.jpg);
     /* 배경위치변경 (세로 Y축) */
     background-position: 0;
-    color: rgb(201, 39, 139);
+    color: #c9278b;
 }
 h3.atit {
     text-align: center;
@@ -65,4 +88,12 @@ h3.atit {
 .aifg img {
     width: 100%;
     margin: 0px;
+}
+/* 언론사로고 */
+.prlogo img{
+  height: 32px;
+  /* 
+  이미지는 기본 비율을 가지고 있어서 가로,세로 중 한쪽만 크기를 주면 나머지 방향은 자동으로 비율을 유지함!
+  가로,세로를 다 주면 비율이 깨짐!
+  */
 }
