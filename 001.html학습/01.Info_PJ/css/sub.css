@@ -166,7 +166,7 @@ h2.st5 {
 
 /* 마우스 오버시 변경 */
 .alink a:hover {
-  color: hotpink;
+  color: rgb(14, 13, 13);
   background-color: #aaa1aa;
-  box-shadow: 0 0 10px 5px fuchsia;
+  box-shadow: 0 0 10px 5px rgb(255, 254, 255);
 }
