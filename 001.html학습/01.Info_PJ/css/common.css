@@ -57,11 +57,15 @@ body,
 h1,
 h2,
 figure,
-blockquote {
+blockquote,ul,ol,dl,dd {
   margin: 0;
   padding: 0;
 }
 
+/* 리스트 블릿, 숫자 없애기 */
+ul,ol{
+  list-style: none;
+}
 .bx {
   /*크기 :w800 - 가로크기 */
 

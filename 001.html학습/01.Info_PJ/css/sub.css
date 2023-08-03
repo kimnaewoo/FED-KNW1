@@ -236,3 +236,135 @@ h2.st5 {
     font-family: "Gowun Batang", serif;
     width: 60%;
 }
+
+/* 오늘의 작품&느낌 */
+.work{
+    text-align: center;
+    /* background-color: lightpink; */
+
+    /* 그라데이션 -> 이미지로! bgi */
+    background-image: 
+    linear-gradient(to right,#ff000021, #0000ff7d, rgb(255 255 0 / 23%));
+    /* linear-gradient(to right, #red, #blue, #yellow) */
+
+    /* [ 선형 그라데이션 : linear-gradient]
+    background-image: linear-gradient(방향,색1,색2);
+    background-image: linear-gradient(방향,색1 몇%,색2 몇%);
+    background-image: linear-gradient(각도,색1 몇%,색2 몇%);
+    - 옵션
+        1. 방향 : to top, to bottom, to left. to :right
+        2. 각도 : 각도deg
+        3. 콤마로 나열된 색상에 %를 뒤에 쓰면 비율 */
+    /* border: 50px dotted #09a1ff;
+    padding: 50px; */
+
+    /*
+      배경 옵션 추가!!!
+      backgound-clip : 배경이 적용되는 범위설정 
+      1. border-box -> border 까지 적용(기본값)  
+      2. padding-box -> padding 까지 적용
+      3. content-box -> 내용영역만 적용 (padding, border 빠짐)
+      */
+      background-clip: content-box;
+      box-shadow: 0 0 10px #86e59ea4 inset;
+    }
+
+    /* 작품 타이틀 */
+    .work h3{
+        font-family: 'Gowun Batang';
+        font-weight: normal;
+        font-size: 26px;
+        color: #333;
+        padding-top: 20px;
+    }
+    /* 작품 이미지 */
+    .work img{
+        border: 15px ridge goldenrod;
+        /* ridge - 액자틀모양 */
+
+    }
+    /* 작품명 */
+    .work figcaption{
+        font-family: 'Gowun Batang';
+        padding: 10px;
+        font-size: 20px;
+    }
+    /* 작품명 인용구 */
+    .work figcaption cite{
+        font-style: normal;
+        color: saddlebrown;
+    }
+
+
+
+
+/* 뉴스 파트 공통 class */
+.nbx{
+    border-top: 2px dashed #ccc;
+    margin: 20px 0;
+    padding: 20px 0;
+}
+/* 뉴스 파트 공통 A요소 */
+.nbx a{
+    /* 글자크기 : fz */
+    font-size: 17px;
+    /* 줄간격 : LH(line-height) ; */
+    line-height: 2.5;
+    /* 글자색 : C(color) */
+    color: #222;
+    /* 밀줄없앰 */
+    text-decoration: none;
+}
+/* 공통 A마우스 오버 */
+.nbx a:hover{
+    color: yellowgreen;
+    text-shadow: 1px 1px 1px #000;
+}
+
+/* 뉴스 타이틀 공통 */
+.nbx h3{
+    font-family: 'Gowun Batang';
+    font-weight: normal;
+    font-size: 30px;
+    background-image: linear-gradient(to right, lightblue, transparent);
+    padding: 10px;
+}
+
+
+/* 주요뉴스 ul */
+.cnews ul li::before{
+content: '▶';
+}
+.cnews ul li::after{
+content: '◀';
+}
+
+
+/* [CSS 가상요소 : before, after] 
+- 모든 요소는 맨앞과 맨뒤에 가상요소를 사용할 수 있다
+- 맨앞은 before 맨뒤는 after
+- 필수속성 : content
+- 이미지는 url() 사용!
+*/
+
+
+/*  분양별 뉴스 */
+
+.snews dt{
+    font-family: 'Gowun Batang';
+    font-size: 25px;
+    text-shadow: 1px 1px 1px #b87373;
+    background-color: lightsalmon;
+    display: inline-block;
+    padding: 15px;
+    border-radius: 50%;
+    border: 4px dashed #6d4a4a;
+    margin-top: 15px;
+}
+/* dd앞에 가상요소로 블릿넣기 */
+.snews dd::before{
+    content: '🍀';
+}
+.snews dd::after{
+    content: '🍀';
+}
