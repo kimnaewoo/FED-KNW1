@@ -40,7 +40,8 @@ h1.tit{
     width: 3px;
     height: 17px;
     background-color: green;
-/* 패딩 넣기 */
+
+    /* 패딩 넣기 */
 padding: 5px;
 /* 드라마 테이블 박스 */
 box-sizing: border-box;
