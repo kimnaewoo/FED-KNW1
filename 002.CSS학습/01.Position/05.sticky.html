@@ -15,7 +15,7 @@
                 line-height: 300px;
             }
 
-            .stbx{
+            .stbx {
                 position: sticky;
                 /************************************************************************************************************************************** 
                     [ 5. sticky 포지션 ]
@@ -46,10 +46,10 @@
                 z-index: 9999;
             }
             /* fixed 박스 공통 */
-            .fxbx{
-                position: fixed;/* pof */
- 
-                background: url(./images/ab0.jpg) repeat-x 0/auto 100% ;
+            .fxbx {
+                position: fixed; /* pof */
+
+                background: url(./images/ab0.jpg) repeat-x 0 / auto 100%;
                 color: #fff;
                 z-index: 999;
                 width: 100%;
@@ -58,8 +58,8 @@
                 line-height: 200px;
                 text-align: center;
             }
-            
-            .f2{
+
+            .f2 {
                 top: 0;
                 left: 0%;
                 /* 보이는 화면 최상단 */
@@ -217,7 +217,7 @@
             }
 
             /* 최하단요소를 fixed로 변경하기 */
-            .iamfixed{
+            .iamfixed {
                 position: fixed;
                 z-index: 9999;
                 top: 0;
@@ -227,7 +227,7 @@
                 border-radius: 50%;
             }
             /* 고정 포스터 박스 */
-            .fixedPoster{
+            .fixedPoster {
                 position: fixed;
                 top: 250px;
                 right: 0;
@@ -237,11 +237,11 @@
                 right: -119px;
             }
             /* 박스에 오버시 right값 변경으로 보이기 */
-            .fixedPoster:hover{
+            .fixedPoster:hover {
                 right: 0;
             }
             /* 글자span */
-            .fixedPoster span{
+            .fixedPoster span {
                 position: absolute;
                 top: 0;
                 left: -50px;
@@ -262,11 +262,27 @@
             }
 
             /* 포스터이미지 */
-            .fixedPoster img{
+            .fixedPoster img {
                 height: 200px;
                 /* 하단간극없앰 */
                 vertical-align: middle;
-                
+            }
+
+            /* 구간적용 스티키 */
+            .stickyBox{
+                height: 1000px;
+                padding-top: 500px;
+                border: 5px dashed darkblue;
+            }
+
+
+            /* 스티키박스 */
+            .iambox{
+                position: sticky;
+                top: 500px;
+                width: 200px;
+                height: 200px;
+                border: 5px dotted red;
             }
         </style>
     </head>
@@ -274,24 +290,19 @@
         <div class="bx" id="r1">r1</div>
         <div class="bx" id="s1">s1</div>
         <!-- 스티키 포지션박스 -->
-        <div class="stbx">
-            나는 sticky다! 사라지지 않아!
-        </div>
+        <div class="stbx">나는 sticky다! 사라지지 않아!</div>
         <div class="bx" id="a1" title="나는 젠틀앱솔루트다!">a1</div>
         <div class="bx" id="r2">r2</div>
         <div class="bx" id="s2">s2</div>
         <!-- 화면고정 fixed 포지션박스 -->
-        <div class="fxbx f2">
-            나는 fixed다! 부모는 화면이다!
-        </div>
+        <div class="fxbx f2">나는 fixed다! 부모는 화면이다!</div>
 
         <!-- 포스터 고정박스 -->
 
         <div class="fixedPoster">
-            <img src="./images/ab0.jpg" alt="포스터">
+            <img src="./images/ab0.jpg" alt="포스터" />
             <span>포스터보기</span>
         </div>
-
 
         <div
             class="bx"
@@ -311,16 +322,6 @@
             <img src="./images/ab4.jpg" alt="닥터 스트레인지" />
         </div>
 
-
-
-
-
-
-
-
-
-
-
         <!-- 부모를 찾는 apsolute! -->
         <div class="bx2 s5">
             s5
@@ -336,7 +337,7 @@
                         <div class="abs a4" title="나는 부모찾아 올라간다!">
                             a4
                         </div>
-                        <span class="spabs iamfixed"title="자동블록전환!!!"
+                        <span class="spabs iamfixed" title="자동블록전환!!!"
                             >나는 span fixed다!</span
                         >
                     </div>
@@ -344,6 +345,16 @@
             </div>
         </div>
 
+        <!-- sticky 구간적용박스 -->
+        <div class="stickyBox">
+            <div class="iambox"></div>
+        </div>
+        <div class="stickyBox">
+            <div class="iambox"></div>
+    </div>
+        <div class="stickyBox">
+            <div class="iambox"></div>
+    </div>
         <!-- 
         [ 젠코딩(에밋코딩) ]
 
