@@ -35,8 +35,11 @@ html,body{
 #drama{
     font-size: 24px;
     margin: 0 auto;
-    max-width: 1000px;
-    /* 테이블은 가로크기설정이 없으면 내용만큼 늘어난다. max-width로 가로스크롤대비! */
+     /* 가로크기 1000px */
+    max-width: 95%;
+    /* 최대크기 95%란 싸고 있는 박스의 95%를 유지한다. */
+    width: 1000px;
+    /* 테이블은 가로크기설정이 없으면 내용만큼 늘어난다. max-width를 특정 px로 줄때 table은 적용되지 않는다. */
 }
 
 /* 테이블 제목 - 기본 중앙정렬되어 있음! */
@@ -55,10 +58,15 @@ html,body{
 #drama tbody td{
     border-bottom: 1px solid #000;
 }
-/* th에 윗줄, 아랫줄 두꺼운 보더넣기 */
+/* tbody의 tr의 첫번째 td 중앙정렬 */
+#drama tbody tr td:first-child{
+    text-align: center;
+}
+/* th에 윗줄, 아랫줄 두꺼운 보더넣기 + 배경색 */
 #drama th{
     border-top: 3px solid #555;
     border-bottom: 3px solid #555;
+    background-color: #ccc;
 }
 /* tbody의 마지막 tr의 td 아랫줄 두꺼운 보더넣기 */
 #drama tbody tr:last-child td{
@@ -92,4 +100,43 @@ border-bottom: 3px solid #555;
     color: rgb(183, 32, 189);
     text-decoration: overline;
     text-decoration-style: double;
+}
+
+/* 구분테이블 박스 */
+.gubun{
+    margin: 0 auto;
+    width: 1000px;
+    /* 가로크기 1000px */
+    max-width: 95%;
+    /* 최대크기 95%란 싸고 있는 박스의 95%를 유지한다. */
+    margin-bottom: 200px;
+    /* outline: 2px dashed red; */
+    /* 자식table에 float 감싸기 */
+    overflow: hidden;
+}
+/* 구분테이블 */
+/* 요소명#아이디명 - 종속선택자 */
+table#gubun{
+    font-size: 24px;
+    /* 테이블을 오른쪽 끝으로 보내기 */
+    float: right;
+    border: 1px solid #999;
+    /* td에 사이간격 주기 */
+    border-collapse: separate;
+    /* td 셀 사이간격 
+    border-spacing: 가로 세로 
+    border-spacing: 양방향 */
+    border-spacing: 10px;
+}
+/* 구분테이블 td */
+#gubun td{
+    padding: 10px;
+}
+/* 구분테이블 첫번째 tr의 첫번째 td의 오른쪽 점선 넣기 */
+#gubun tr:first-child td:first-child{
+    border-right: 1px dotted #999;
+}
+/* 구분테이블 두번째 tr부터끝까지 td 위쪽 점선 보더 넣기 */
+#gubun tr+tr td{
+    border-top: 4px dotted #999;
 }
