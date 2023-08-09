@@ -3,7 +3,7 @@
 /* Robot PJ 메인 CSS - robot.css */
 
 /* 웹폰트 CDN */
-@import url('https://fonts.googleapis.com/css2?family=Barlow&family=Black+Ops+One&family=Chakra+Petch&family=Orbitron:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Barlow&family=Black+Ops+One&family=Chakra+Petch&family=Orbitron:wght@500&display=swap");
 
 /* 
     font-family: 'Barlow', sans-serif;
@@ -12,3 +12,165 @@
     font-family: 'Orbitron', sans-serif;
 */
 
+/* 초기화 */
+html,
+body,
+h1,
+h2,
+h3,
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
+body {
+/* 전체 배경이미지 */
+    background: url(../images/bg.jpg) no-repeat fixed top/cover;
+}
+
+/* 공사중 표시 */
+body *{
+    outline: 2px dashed yellow;
+}
+/* 공통 클래스 */
+
+/* 메탈 배경 클래스 */
+.metal1{
+    background: url(../images/metal01.jpg)no-repeat center/cover;
+}
+.metal2{
+    background: url(../images/metal02.jpg)no-repeat center/cover;
+}
+/************************************************************* 1. 상단영역 *************************************************************/
+/* 1-1. 로고 */
+/* 1-2. 링크타이틀 */
+/* 1-3. 탑이동버튼 */
+/************************************************************* 2. 메인영역 *************************************************************/
+.main-aria{
+    overflow: hidden;
+    /* 첫번째 자식요소 블록박스에 마진탑을 준경우 그 마진값은 부모요소 바깥쪽으로 나간다.(기본성질)
+    마진탑을 포함하려면 부모요소에 overflow:hidden; 을 셋팅해야한다. + 하단margin도 부모요소가 바깥으로 나간다. */
+}
+/* 2-1. 로봇박스 */
+.box-robot{
+    /* 패딩 : 위, 아래 */
+    padding: 200px 0 50px;
+    /* margin-top */
+    margin-top: 30px;
+}
+/* 2-1-1. 머리 */
+.head{
+    width: 198px;
+    height: 244px;
+    /* 무대중앙 마영오 */
+    margin: 0 auto;
+    /* 메탈배경 */
+    background: url(../images/metal01.jpg) no-repeat center/cover;
+    /* 부모자격 - 하위 apsolute 자식들 */
+    position: relative;
+    /* 둥근 모서리 */
+    border-radius: 65px 65px 150px 150px;
+}
+/* 가상요소로 머리에 가발씌우기 */
+.head::after{
+    content: '';
+    display: block;
+    /* 마치 div를 넣은것 같다. */
+    position: absolute;
+    /* 앱솔루트 요소 */
+    top: -92px;
+    left: -61px;
+    width: 323px;
+    height: 317px;
+    
+
+    /* 배경 */
+    background: url(../images/hair5.png) no-repeat 0/100% 100%;
+}
+/* hover 시, 가상요소 가발 변경하기 */
+.head:hover::after{
+    content: '';
+    display: block;
+    /* 마치 div를 넣은것 같다. */
+    position: absolute;
+    /* 앱솔루트 요소 */
+    top: -92px;
+    left: -61px;
+    width: 323px;
+    height: 317px;
+    /* 배경 */
+    background:url(../images/hair4.png) no-repeat 0/100% 100%;
+}
+/* 머리 하위요소 공통 */
+.head>div{
+    position: absolute;
+    /* 모든 직계하위요소는 apsolute */
+}
+/* 눈 공통 */
+.eye{
+    /* apsolute top값은 공통 */
+    top: 70px;
+
+    width: 40px;
+    height: 30px;
+    /* 원형 */
+    border-radius: 50%;
+    /* 이중선 보더 */
+    border: 4px double #000;
+    /* 배경 공통 */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: #fff;
+}
+
+/* 왼눈 */
+.eye1{
+    left: 35px; /* l50 */
+    background-image: url(../images/e1.jpg);
+}
+.eye2{
+    right: 35px; /* r50 */
+    background-image: url(../images/e2.jpg);
+}
+.nose{
+    top: 105px;
+    left: 70px;
+    width: 61px;
+    height: 65px;
+    background: url(../images/nose.jpg) no-repeat center/cover;
+    border-radius: 50%;
+}
+.mouth{
+    top: 180px;
+    left: 64px;
+    width: 74px;
+    height: 30px;
+    background: url(../images/mouth.png) no-repeat center/cover;
+}
+/* 귀공통 */
+.ear{
+    /* 위치 */
+    top: 60px;
+    /* 크기 */
+    width: 50px;
+    height: 80px;
+    /* 배경 */
+}
+/* 왼귀 */
+.ear1{
+    /* 개별위치 왼쪽 바깥 */
+    left: -50px;
+    /* 둥근 모서리 : 왼쪽위 왼쪽아래 */
+    border-radius: 20px 20px 0 100%;
+    background:url(../images/ear.png) no-repeat center/210% 150%;
+}
+.ear2{
+    /* 개별위치 오른쪽 바깥 */
+    background:url(../images/ear2.png)#f7d6ce no-repeat center/100% 100%;
+    right: -50px;
+    border-radius: 0 10px 50px 10px;
+}
+/* 2-1-2. 몸통 */
+/************************************************************* 2-2. 로봇설명박스 *************************************************************/
+/* 3. 하단영역 */
+/* 3-1. 회사정보  */
