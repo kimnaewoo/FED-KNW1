@@ -193,7 +193,7 @@
             */
             #trans8:hover img {
                 /* 트랜스폼 스케일 tf:s */
-                transform: scale(.5);
+                transform: scale(1.5) rotate(720deg) translate(-200px, -100px);
             }
             /* 초기배율설정 */
             #trans8 img {
@@ -229,7 +229,7 @@
             }
             /* 이미지에 겹치도록 앱솔루트 포지션 셋팅 */
             #trans10 img{
-                
+                position: absolute;
                 /* 젠틀앱솔루트! 
                 부모자격이 없지만 그자리에 그대로!
                 주의: 크기를 %로 주지말것!(부모를 찾음) */
@@ -237,35 +237,35 @@
 
             /* 1. 보거미 원본 */
             #trans10 img:last-child{
-                /* 0도 회전하기 */
-                
+                /* 0도 회전하기 - 안써도 초기값 0deg 이다!! */
+                transform: rotateY(0deg);
                 /* 트랜지션: 속시이지 - 0.4초기다림 */
-                
+                transition: .4s ease-out .4s;
                 /* ease-out 나중에 천천히 처음엔 등속도 */
             }
             /* 2. 보거미 오버시 */
             #trans10:hover img:last-child{
                 /* 90도 회전하기 */
-                
+                transform: rotateY(90deg);
                 /* 트랜지션: 속시이지 - 기다림없음 */
-                
+                transition:  .4s ease-in;
                 /* ease-in 처음에 천천히 나중엔 등속도 */
             }
             /* 3. 유정이 원본 */
             #trans10 img:first-child{
                 /* 90도 회전하기(처음상태) */
-                
+                transform: rotateY(90deg);
                 /* 트랜지션: 속시이지 - 기다림없음 */
-                
+                transition:  .4s ease-out;
                 /* ease-in 처음에 천천히 나중엔 등속도 */
                 
             }
             /* 4. 유정이 오버시 */
             #trans10:hover img:first-child{
                 /* 0도 회전하기 */
-                
+                transform: rotateY(0deg);
                 /* 트랜지션: 속시이지 - 0.4초기다림 */
-                
+                transition:  .4s ease-in .4s;
                 /* ease-out 나중에 천천히 처음엔 등속도 */
             }
 
