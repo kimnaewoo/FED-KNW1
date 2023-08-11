@@ -69,7 +69,7 @@
                                 <!-- 유튜브 동영상 -->
                                 <iframe
                                     id="mv"
-                                    src="https://www.youtube.com/embed/3P1CnWI62Ik"
+                                    allow="autoplay" src="https://www.youtube.com/embed/3P1CnWI62Ik"
                                 ></iframe>
                                 <!-- 영상아이디
                                     1. pdnXvgrJdXI
@@ -88,6 +88,8 @@
                                 <button onclick="바꿔('pdnXvgrJdXI')">ch1</button>
                                 <button onclick="바꿔('rIQT_y90rXs')">ch2</button>
                                 <button onclick="바꿔('46kjsixDfzU')">ch3</button>
+                                <!-- 축소 확대 버튼 -->
+                                <button onclick="커짐()">▣</button>
                             </div>
                         </div>
                     </div>
@@ -141,16 +143,45 @@
                 console.log("영상바꿔!", 먹이);
                 // 아이프레임 요소.src = 동영상값 
                 document.getElementById("mv").src =
-                    "https://www.youtube.com/embed/"+먹이;
+                "https://www.youtube.com/embed/"+먹이
+                +'?autoplay=1';
 
                 // src에 할당된 값 
                 console.log('src할당값:',"https://www.youtube.com/embed/"+먹이)
                     
-                    
-                    
-                    
-                    
-            }
+            
+            } /////////////////////////// 바꿔함수 /////////////////////////////
+
+            /******************************************
+             함수명 : 커짐
+             기능 : 클릭시 클래스를 한번은 넣고 또 한번 뺴기
+             *******************************************/
+
+            // TV 배율 변경 클래스 적용함수 //
+            function 커짐(){
+            console.log('커지냐?');
+
+            /************************************************************************************* 
+              [ JS 에서 클래스 제어하기]
+              classList 내장객체
+              1) add(클래스명) : 클래스 추가
+              2) remove(클래스명) : 클래스 제거
+              3) toggle(클래스명) : 클래스넣기/빼기 -> toggle은 없으면 넣고 있으면 뺀다. 
+             *************************************************************************************/
+                document
+                .getElementsByClassName('tv').item(0)
+                .classList.toggle('on');
+            
+                
+                // getelementbuClassNaeme(클래스명)
+                // getelementbuClassNaeme
+                // 가져와 요소들 클래스명으로! 
+                // item(순번) - 클래스 중 순번(0부터)
+                
+                
+            
+            } /////////////////커짐함수/////////////////////////////////////////
+            
         </script>
     </body>
 </html>

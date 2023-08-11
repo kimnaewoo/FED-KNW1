@@ -444,10 +444,9 @@ body * {
 }
 /* tv */
 .tv{
-    top: 10%;
-    left: 50%;
+    top: 7%;
+    left: 7%;
     /* left 방향 중앙이동 */
-    transform: translateX(-50%) scale(5);
     width: 200px;
     height: 150px;
     border-radius: 5px;
@@ -455,8 +454,16 @@ body * {
     border: 2px solid black;
     /* 배경이미지 */
     background: url(../images/tv.jpg) no-repeat 0/100%;
+    /* 트랜지션 : 속시이지 */
+    transition: 1.2s ease-in-out;
     z-index: 999;
 }
+
+/* TV가 커지는 클래스 */
+.tv.on{
+    transform: translateX(-50%) scale(3); 
+}
+
 /* screen */
 .screen{
     position: absolute;
