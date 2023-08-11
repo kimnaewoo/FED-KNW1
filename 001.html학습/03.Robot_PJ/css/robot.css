@@ -30,7 +30,7 @@ body {
 
 /* 공사중 표시 */
 body * {
-    /* outline: 2px dashed yellow; */
+    outline: 2px dashed yellow;
 }
 /* 공통 클래스 */
 
@@ -447,7 +447,7 @@ body * {
     top: 10%;
     left: 50%;
     /* left 방향 중앙이동 */
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(5);
     width: 200px;
     height: 150px;
     border-radius: 5px;
@@ -455,12 +455,13 @@ body * {
     border: 2px solid black;
     /* 배경이미지 */
     background: url(../images/tv.jpg) no-repeat 0/100%;
+    z-index: 999;
 }
 /* screen */
 .screen{
     position: absolute;
-    top: 53px;
-    left: 21px;
+    top: 16px;
+    left: 10px;
     /* 부모는 ? */
     width: 141px;
     height: 112px;
@@ -472,15 +473,27 @@ body * {
 
 /* 아이프레임 */
 #mv{
-    
     position: absolute;
     top: 0px;
     left: -19px;
     width: 178px;
     height: 100%;
-    
+    /* 부모는? .screen */
 
-}
+    /* 아이프레임 기본 보더 없앰 */
+    border: none;
+   }
+   /* 동영상 선택버튼박스 */
+   .box-btn{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 45px;
+    height: 90px;
+   }
+   .box-btn button{
+    width: 100%;
+   }
 
 /************************************************************* 2-2. 로봇설명박스 *************************************************************/
 /* 3. 하단영역 */

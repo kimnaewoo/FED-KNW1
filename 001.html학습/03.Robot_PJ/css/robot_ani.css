@@ -173,15 +173,15 @@
 }
 @keyframes right-arm-ani-02 {
     to{
-        transform: rotate(-15deg);
+        transform: rotate(-55deg);
     }
 }
 /* 오른팔 애니2 키프레임 : 올리기 */
 @keyframes right-arm-ani-03 {
     from{
-        transform: rotate(-100deg);
+        transform: rotate(-75deg);
     }
-   to {transform: rotate(-140deg);
+   to {transform: rotate(35deg);
 }
 }
 @keyframes right-arm-ani-04 {
@@ -214,4 +214,15 @@
     /* 손목흔들기 */
     animation: 
     right-arm-ani-04 .4s ease-in-out 10.4s infinite alternate;
+}
+
+/* 입 나불나불 애니 */
+@keyframes mouth-ani {
+    to{
+        transform: scaleY(.5);
+    }
+}
+/* 입애니 호출 */
+.mouth{
+    animation: mouth-ani .15s linear 10.8s infinite alternate;
 }
