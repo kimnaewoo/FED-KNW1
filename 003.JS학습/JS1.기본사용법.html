@@ -158,14 +158,34 @@
                 -> 순번선택 방법 : item(순번) / [순번]
                 document.getElementsByClassName(클래스명).item(순번)
                 document.getElementsByClassName(클래스명)[순번]
-
+                -> 개수 : length
+                
             3. 태그 선택법 : getElementByTagName(태그명)
                 -> get Element By Tag Name가져와 요소들을 클래스명으로!
                 -> 클래스는 여러번 사용가능하므로 선택후, 순번을 선택해야 구체적인 요소애 접근할수 있다.
                 -> 순번선택 방법 : item(순번) / [순번]
                 document.getElementsByTagName(태그명).item(순번)
                 document.getElementsByTagName(태그명)[순번]
+                -> 개수 : length
+
+            _______________________________________________________________________________________
+
+            [ 선택자 문법을 그대로 사용하는 요소 선택법 ]
+            1. querySeletor(CSS선택자)
+            -> 선택자에 맞는 요소를 처음 만나는 것으로 선택 
+            -> 무조건 하나만 가져오므로 순번이 필요없다. 
             
+            예) document.querySeletor('#my>li') -> 만나는 첫번째 li 요소를 선택한다. 
+            
+
+            2. querySeletorAll(CSS선택자)
+            -> 선택자에 맞는 요소를 모두 가져온다.
+            -> html요소 컬렉션에 담겨서 저장됨
+            -> 순번과 개수를 구할수 있음
+                순번 : item(순번) / [순번]
+                개수 : length
+                 예) document.querySeletorAll('#my>li')
+                 -> 만나는 li모두를 선택함(순번,개수 사용함!)
             _______________________________________________________________________________________
             
             [ JS에서 요소 선택 후 CSS변경하기 ]
@@ -308,7 +328,16 @@ function 바꿔(){
 function 맘대로해라(헐,헉스){
     // 헐 - .원이야 순번 / 헉스 - 그림제목
     // 1. 호출 및 전달값 확인 
-    console.log('니맘대로하세요!,헐,헉스');
+    console.log('니맘대로하세요!',헐,헉스);
+
+    // 2. 대상선정 : .박스야 . 원이야
+    var 멍청이 = 
+    document.querySelectorAll('.박스야 .원이야');
+    
+    //기존 방식보다 더 간단한 querySelector를 사용한다! 
+  /* document.getElementsByClassName('박스야').item(0)
+    .getElementsByClassName('원이야') */
+
 } //////////////// 맘대로해라 함수 ///////////////////
 
 
