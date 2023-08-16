@@ -104,7 +104,7 @@
 /* 로봇 위치/크기 변경 애니 */
 @keyframes robot-ani {
     to{
-        transform:translate(0,0) scale(1);
+        transform:translate(0,0) scale(0.6);
     }
 }
 

@@ -52,6 +52,7 @@ body * {
     
     width: 200px;
     height: 200px;
+    /* 배경이미지 */
     background: hotpink url(../images/robot_03.png) no-repeat center/160px;
     border-radius: 50%;
     border: 2px solid #ccc;
@@ -76,12 +77,18 @@ body * {
 /* 1-3. 탑이동버튼 */
 /************************************************************* 2. 메인영역 *************************************************************/
 .main-aria {
-    overflow: hidden;
+    padding-top: 860px;
+    /* 자식요소인 box-robot이 fixed포지션이 됨에 따라 상단부분이 없어졌으므로 패딩으로 로봇영역을 채운다 */
+    /* overflow: hidden; */
     /* 첫번째 자식요소 블록박스에 마진탑을 준경우 그 마진값은 부모요소 바깥쪽으로 나간다.(기본성질)
     마진탑을 포함하려면 부모요소에 overflow:hidden; 을 셋팅해야한다. + 하단margin도 부모요소가 바깥으로 나간다. */
 }
 /* 2-1. 로봇박스 */
 .box-robot {
+    position: fixed;
+    /* top값을 안주면 젠틀픽스드 이므로 패딩/static요소를 존중하므로 위치값을 줘서 화면을 기준한다 */
+    top: 0;
+    width: 100%;
     /* 패딩 : 위, 아래 */
     padding: 200px 0 520px;
     /* margin-top */
@@ -89,19 +96,18 @@ body * {
 
     /* 처음에 트랜스폼 변경설정 */
     transform:  translate(20%, 2%) scale(0.3);
-    position: fixed;
-    width: 100%;
+   
 }
 /* 2-1-1. 머리 */
 .head {
+    position: relative;
+    /* 부모자격 - 하위 apsolute 자식들 */
     width: 198px;
     height: 244px;
     /* 무대중앙 마영오 */
     margin: 0 auto;
     /* 메탈배경 */
     background: url(../images/metal01.jpg) no-repeat center/cover;
-    /* 부모자격 - 하위 apsolute 자식들 */
-    position: relative;
     /* 둥근 모서리 */
     border-radius: 65px 65px 150px 150px;
     /* .body 보다 위 */
@@ -229,6 +235,8 @@ body * {
     height: 230px;
     background-image: linear-gradient(to top, #c05454, #8316b6);
     border-radius: 30px;
+    /* 클립패스 : 부분만 보이기 */
+    clip-path: polygon(0% 0%,100% 0%, 85% 100%, 17% 100%);
 }
 /* 몸통의 가상요소로 하체 만들기 */
 .body::after {
@@ -241,6 +249,7 @@ body * {
     height: 150px;
     background-image: linear-gradient(to top, #302e2e, #252425);
     border-radius: 30px;
+    clip-path: polygon(0% 0%,100% 0%, 85% 100%, 17% 100%);
 }
 
 /* 목 */
