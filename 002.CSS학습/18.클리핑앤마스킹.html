@@ -25,14 +25,16 @@
             -> 소괄호안의 값을 안쓰면 이미지를 채우는 중심원이 나옴
         */
         .clip-circle{
-           
+           /* clip-path: circle(135px at 124px 50%); */
+           clip-path: circle(36% at 32% 48%);
         }
         /* 2. 타원클리핑 
             clip-path: ellipse(가로축 세로축 at x좌표 y좌표)
             -> 소괄호안의 값을 안쓰면 이미지를 채우는 타원이 나옴
         */
         .clip-ellipse{
-            
+            /* clip-path: ellipse(192px 105px at 196px 156px); */
+            clip-path: ellipse(50% 31% at 50% 50%);
         }
         /* 3. 다각형클리핑 
             clip-path: polygon(x1 y1,x2 y2,...)
@@ -40,7 +42,7 @@
             -> 각 좌표값은 px,%모두 가능
         */
         .clip-polygon{
-           
+           clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
         }
 
         /* 4. svg클리핑 
@@ -49,7 +51,7 @@
             그 모양만큼만 이미지가 보임
         */
         .clip-svg{
-           
+            clip-path: url(#myClip);
         }
 
         /* 
@@ -61,7 +63,8 @@
             CSS함수를 이용하여 셋팅함
         */
         .masking1{
-            
+            -webkit-mask-image: 
+            linear-gradient(to right, #1d1515 10%, #6a262600 90%);
 
         }
 
@@ -77,8 +80,8 @@
     <svg>
         <defs>
             <clippath id="myClip">
-                <circle cx="90" cy="100" r="40"></circle>
-                <circle cx="90" cy="200" r="70"></circle>
+                <circle cx="90" cy="100" r="60"></circle>
+                <circle cx="90" cy="200" r="80"></circle>
             </clippath>
         </defs>
     </svg>
