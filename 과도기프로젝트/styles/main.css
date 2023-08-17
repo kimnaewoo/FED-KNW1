@@ -53,4 +53,8 @@ header a {
 div h2{
 color: red;
 }
-
+.info{
+  position: absolute;
+    bottom: 0px;
+    text-align: center;
+}
