@@ -29,9 +29,9 @@ body {
 }
 
 /* 공사중 표시 */
-body * {
-    outline: 2px dashed yellow;
-}
+/* body * {
+outline: 2px dashed yellow; 
+} */
 /* 공통 클래스 */
 
 /* 메탈 배경 클래스 */
@@ -43,17 +43,16 @@ body * {
 }
 /************************************************************* 1. 상단영역 *************************************************************/
 /* 1-1. 로고 */
-.logo{
+.logo {
     /* fixed 포지션 */
     position: fixed;
     /* 화면 정중앙 이동! */
-    top:calc(50% - 200px/2);
-    left:calc(50% - 200px/2);
-    
-    width: 200px;
-    height: 200px;
+    top: calc(50% - 20vw / 2);
+    left: calc(50% - 20vw / 2);
+    width: 20vw;
+    height: 20vw;
     /* 배경이미지 */
-    background: hotpink url(../images/robot_03.png) no-repeat center/160px;
+    background: hotpink url(../images/robot_03.png) no-repeat center/60%;
     border-radius: 50%;
     border: 2px solid #ccc;
     /* 텍스트 */
@@ -61,7 +60,7 @@ body * {
     /* line-height: 200px; */
     color: aquamarine;
     /* font : 스두크/줄체 */
-    font: 45px/200px 'orbitron';
+    font: 4vw/20vw "orbitron";
     /* 글자그림자 */
     text-shadow: 2px 2px 5px black;
 
@@ -71,7 +70,6 @@ body * {
     transform: scale(2);
     z-index: 99;
 }
-
 
 /* 1-2. 링크타이틀 */
 /* 1-3. 탑이동버튼 */
@@ -95,8 +93,7 @@ body * {
     /* margin-top: 30px; */
 
     /* 처음에 트랜스폼 변경설정 */
-    transform:  translate(20%, 2%) scale(0.3);
-   
+    transform: translate(20%, 2%) scale(0.3);
 }
 /* 2-1-1. 머리 */
 .head {
@@ -147,6 +144,11 @@ body * {
 .body > div {
     position: absolute;
     /* 모든 직계하위요소는 apsolute */
+}
+/* 각 몸에 글로우효과 주기 */
+.body > div,
+.body > div > span {
+    box-shadow: 0 0 10px 5px aqua;
 }
 /* 눈 공통 */
 .eye {
@@ -208,7 +210,8 @@ body * {
 }
 .ear2 {
     /* 개별위치 오른쪽 바깥 */
-    background: url(../images/ear2.png) no-repeat center/cover;right: -40px;
+    background: url(../images/ear2.png) no-repeat center/cover;
+    right: -40px;
     border-radius: 0 10px 50px 10px;
 }
 /* 2-1-2. 몸통 */
@@ -236,7 +239,7 @@ body * {
     background-image: linear-gradient(to top, #c05454, #8316b6);
     border-radius: 30px;
     /* 클립패스 : 부분만 보이기 */
-    clip-path: polygon(0% 0%,100% 0%, 85% 100%, 17% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 17% 100%);
 }
 /* 몸통의 가상요소로 하체 만들기 */
 .body::after {
@@ -249,7 +252,7 @@ body * {
     height: 150px;
     background-image: linear-gradient(to top, #302e2e, #252425);
     border-radius: 30px;
-    clip-path: polygon(0% 0%,100% 0%, 85% 100%, 17% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 17% 100%);
 }
 
 /* 목 */
@@ -270,13 +273,13 @@ body * {
     height: 200px;
     border-radius: 20%;
     /* 팔 트랜스폼 회전축변경 */
-    transform-origin:left top;
+    transform-origin: left top;
 }
 /* 가상요소로 팔관절 만들기 */
-.arm::after{
-    content: '';
+.arm::after {
+    content: "";
     position: absolute;
-    bottom: calc(-50px/2);
+    bottom: calc(-50px / 2);
     left: 0;
     /* 부모는? .arm */
     width: 50px;
@@ -287,8 +290,8 @@ body * {
     background-color: #ccc;
 }
 /* 가상 팔관절 만들기 */
-.arm::before{
-    content: '';
+.arm::before {
+    content: "";
     position: absolute;
     bottom: -15px;
     left: 10px;
@@ -362,13 +365,12 @@ body * {
     border-radius: 20%;
     /* 애니를 위한 트랜스폼 기준 축 변경 */
     transform-origin: top;
-
 }
 /* 가상요소로 다리관절 만들기 */
-.leg::after{
-    content: '';
+.leg::after {
+    content: "";
     position: absolute;
-    bottom: calc(-80px/2);
+    bottom: calc(-80px / 2);
     left: 0;
     /* 부모는? .leg */
     width: 80px;
@@ -379,8 +381,8 @@ body * {
     background-color: #ccc;
 }
 /* 가상 다리관절 만들기 */
-.leg::before{
-    content: '';
+.leg::before {
+    content: "";
     position: absolute;
     bottom: -30px;
     left: 10px;
@@ -452,7 +454,7 @@ body * {
     border-radius: 0 50% 0;
 }
 /* tv */
-.tv{
+.tv {
     top: 7%;
     left: 7%;
     /* left 방향 중앙이동 */
@@ -469,12 +471,12 @@ body * {
 }
 
 /* TV가 커지는 클래스 */
-.tv.on{
-    transform: translateX(-50%) scale(3); 
+.tv.on {
+    transform: translateX(-50%) scale(3);
 }
 
 /* screen */
-.screen{
+.screen {
     position: absolute;
     top: 16px;
     left: 10px;
@@ -488,7 +490,7 @@ body * {
 }
 
 /* 아이프레임 */
-#mv{
+#mv {
     position: absolute;
     top: 0px;
     left: -19px;
@@ -498,19 +500,66 @@ body * {
 
     /* 아이프레임 기본 보더 없앰 */
     border: none;
-   }
-   /* 동영상 선택버튼박스 */
-   .box-btn{
+}
+/* 동영상 선택버튼박스 */
+.box-btn {
     position: absolute;
     bottom: 0;
     right: 0;
     width: 45px;
     height: 90px;
-   }
-   .box-btn button{
+}
+.box-btn button {
     width: 100%;
-   }
+}
 
-/************************************************************* 2-2. 로봇설명박스 *************************************************************/
+/**************** 2-2. 로봇설명박스 ******************/
+.box-text {
+    /* 로봇보다 위 - 포지션있어야 위에옴 */
+    position: relative;
+    /* 최대크기 : 800px */
+    max-width: 800px;
+    /* 박스중앙 : 마영오 */
+    margin: 0 auto;
+    /* 하단마진 200px */
+    margin-bottom: 200px;
+    /* 반투명 검정배경 */
+    background-color: rgba(0, 0, 0, 0.363);
+    /* 글자색 : 흰색 */
+    color: #fff;
+    /* 글자그림자 */
+    text-shadow: 1px 1px 1px #000;
+    /* 패딩 : 15px 30px */
+    padding: 15px 30px;
+    /* 경계선 : 3px solid #fff */
+    border: 3px solid #fff;
+    /* 둥근모서리 : 20px */
+    border-radius: 20px;
+    /* 박스그림자를 이용한 글로우효과 : 내부,외부 2개씩 */
+    box-shadow: inset 0 0 20px blue, inset 0 0 50px 10px chocolate;
+    /* 박스그림자 : x y blur spread color */
+}
+
+/* 2-2-1. 제목 */
+.box-text h2 {
+    /* 스티키 포지션 */
+    position: sticky;
+    /* top값 설정시 위치고정 */
+    top: 15px;
+    /* 글자 : 35px 'chakra petch' */
+    font: 2.18rem "chakra-patch";
+    /* 글자색 lime */
+    color: lime;
+    /* 글자중앙정렬 */
+    text-align: center;
+    /* 배경색 흰색 반투명 */
+    background-color: #ffffff70;
+    /* 둥근모서리 20px */
+    border-radius: 20px;
+}
+/* 2-2-2. 출처 */
+
+/* 2-2-3. 내용단락 */
+
 /* 3. 하단영역 */
 /* 3-1. 회사정보  */
