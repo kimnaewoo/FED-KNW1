@@ -97,10 +97,19 @@ outline: 2px dashed yellow;
     height: 100%;
 
     /* 글자셋팅 */
-    color: blue;
+    color: black;
     font: 30px/90px 'black Ops one';
     /* 줄간격은 높이값 100px - 보더10px */
     text-decoration: none;
+}
+/* 버튼 마우스 오버시 */
+.btn-top:hover{
+    background-color: #000;
+    border-style: inset;
+}
+/* 버튼 오버시 글자색 */
+.btn-top:hover a{
+    color: #fff;
 }
 /************************************************************* 2. 메인영역 *************************************************************/
 
