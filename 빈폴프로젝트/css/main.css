@@ -1,34 +1,47 @@
 @charset "utf-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
-h1 a{
-    font-family: 'DM Serif Display';
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+h1 a {
+    font-family: "DM Serif Display";
     text-decoration: none;
     color: #000;
+    left: 30px;
 }
-.header{
-    display: flex;
-    justify-content: space-between;
-    }
- nav ul li{
+.part-box{
+    float: left;
+}
+ul, ol{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+li a{
+    color: #000;
+    text-decoration: none;
+}
+ul::after,
+ol::after,
+.clb::after {
+    content: "";
     display: block;
-    position: relative;
+    clear: both;
+}
+nav ul li {
     padding: 0 30px;
     height: 80px;
     line-height: 80px;
     font-size: 18px;
     font-weight: bold;
+    float: left;
 }
-ul{
-    display: flex;
-    padding-right: 10px;
-   }
+
 body {
-    font-family: 'bebas Neue';
+    font-family: "bebas Neue";
     padding: 0px;
     margin: 0px;
 }
+/* beanpole 최신영상
 .main-video {
     width: 100%;
     height: 100%;
@@ -38,6 +51,4 @@ body {
 }
 video {
     width: 100%;
-}
-
-
+} */
