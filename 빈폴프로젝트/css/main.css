@@ -6,17 +6,18 @@ h1 a {
     font-family: "DM Serif Display";
     text-decoration: none;
     color: #000;
-    left: 30px;
+    line-height: 4.5vw;
 }
-.part-box{
+.part-box {
     float: left;
 }
-ul, ol{
+ul,
+ol {
     margin: 0;
     padding: 0;
     list-style: none;
 }
-li a{
+li a {
     color: #000;
     text-decoration: none;
 }
@@ -27,21 +28,36 @@ ol::after,
     display: block;
     clear: both;
 }
+
+.gnb {
+    padding-left: 50vw;
+}
+
 nav ul li {
     padding: 0 30px;
     height: 80px;
-    line-height: 80px;
-    font-size: 18px;
+    line-height: 120px;
+    font-size: 25px;
     font-weight: bold;
     float: left;
+    text-align: center;
+    font-family: "bebas Neue";
 }
 
+.sub-menu{
+    position: absolute;
+    opacity: 0;
+    height: 40%;
+   }
+   .gnb > ul > li:hover header {
+    opacity: 1;
+    background-color: beige;
+   }
 body {
-    font-family: "bebas Neue";
     padding: 0px;
     margin: 0px;
 }
-/* beanpole 최신영상
+ /* beanpole 최신영상
 .main-video {
     width: 100%;
     height: 100%;
