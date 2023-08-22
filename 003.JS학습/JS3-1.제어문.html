@@ -25,10 +25,10 @@
                 var jexp = document.querySelector("#jexp");
 
                 // 2-3. 칭찬스티커 : .jshow
-                var jshow = document.querySelector('.jshow');
+                var jshow = document.querySelector(".jshow");
 
                 // console.log('요소확인', jumsu, jexp);
-                console.log('요소확인', jumsu, jexp, jshow);
+                console.log("요소확인", jumsu, jexp, jshow);
                 // 3. 입력값 읽어오기 /////////
                 var score = jumsu.value;
                 // value속성 - 입력된 값을 읽기/쓰기
@@ -43,8 +43,9 @@
                         3) 숫자 범위 검사(0~100) 
                 ******************************************************/
                 // 매번 검사후 메시지넣고 지우고 포커스넣고 return
-                // 같은 일을 하므로 메시지만 변경할 수 있게 함수를 만들어준다. 
-                var validateFn = function(txt){//txt-메시지
+                // 같은 일을 하므로 메시지만 변경할 수 있게 함수를 만들어준다.
+                var validateFn = function (txt) {
+                    //txt-메시지
                     // 1. 메시지 출력하기
                     jexp.innerText = txt;
                     console.log(txt);
@@ -53,53 +54,53 @@
                     // 대상 : #jumsu -> jumsu변수
                     // input요소.value = 값
                     // 빈값을 넣으므로 값이 지워짐!
-                    jumsu.value = ''; 
+                    jumsu.value = "";
 
                     // 3. 포커스 입력창에 주기! (버튼클릭할 경우)
-                     // 대상 : #jumsu -> jumsu변수
+                    // 대상 : #jumsu -> jumsu변수
                     // input요소.focus()
                     jumsu.focus();
 
-                    // 4. 글자색 초기화 
+                    // 4. 글자색 초기화
                     // 대상 : jexp
-                    jexp.style.color = '#000';
-                    
+                    jexp.style.color = "#000";
+
                     // 5. 칭찬스티커 배경위치 초기화
                     // 대상 : jshow
-                    jshow.style.backgroundPosition = '-50% 0%';
+                    jshow.style.backgroundPosition = "-50% 0%";
                 }; //////////////// valedateFn 함수 /////////////
 
                 // (1) 빈값인지 여부검사
                 // 스페이스문자도 공백문자로 취급하므로 이것을 제거하여 검사한다!
-                // 제거메서드 : 트림() -> trim() : 앞뒤 공백 제거 
-                if(score.trim()==''){
-                    // 1. 메시지 처리하기 
-                    validateFn('값을 꼭 입력하세요!');
+                // 제거메서드 : 트림() -> trim() : 앞뒤 공백 제거
+                if (score.trim() == "") {
+                    // 1. 메시지 처리하기
+                    validateFn("값을 꼭 입력하세요!");
                     // 2. 함수를 나가라 리턴
-                    // 리턴은 함수를 나가는것! 함수내에 리턴 아래쪽 코드는 실행하지 않음 
-                    // 따라서, 위치가 매우 종요하다 !!! 
-                    // return 값 -> 리턴시 뒤에 값을 쓰면 호출하는곳으로 갈때, 값을 가져갈 수 있다. 
+                    // 리턴은 함수를 나가는것! 함수내에 리턴 아래쪽 코드는 실행하지 않음
+                    // 따라서, 위치가 매우 종요하다 !!!
+                    // return 값 -> 리턴시 뒤에 값을 쓰면 호출하는곳으로 갈때, 값을 가져갈 수 있다.
                     return;
                 } //////// if ///////////
 
                 // (2) 숫자인지 여부
                 // 숫자인지 여부 검사 JS내장함수 -> isNaN()
                 // is Not a Number? -> 숫자가 아닌가? -> isNaN
-                // 결과값을 숫자가 아니면 true! 
+                // 결과값을 숫자가 아니면 true!
                 // false이면 숫자!!
-                console.log('숫자가 아닌가?',isNaN(score));
-                if(isNaN(score)){
-                    // 1. 메시지 처리하기 
-                    validateFn('숫자만 꼭 입력하세요!');
+                console.log("숫자가 아닌가?", isNaN(score));
+                if (isNaN(score)) {
+                    // 1. 메시지 처리하기
+                    validateFn("숫자만 꼭 입력하세요!");
                     // 2. 함수나가기
                     return;
                 } // if //////////////////
 
-                //  3) 숫자 범위 검사(0~100) 
-                // 조건 : 0미만 이거나 100초과 
-                if(score < 0 || score > 100){
-                    // 1. 메시지 처리하기 
-                    validateFn('0부터 100사이의 값만 입력하세요!');
+                //  3) 숫자 범위 검사(0~100)
+                // 조건 : 0미만 이거나 100초과
+                if (score < 0 || score > 100) {
+                    // 1. 메시지 처리하기
+                    validateFn("0부터 100사이의 값만 입력하세요!");
                     // 2. 함수나가기
                     return;
                 }
@@ -119,24 +120,24 @@
                 if (score >= 90) {
                     message = "매우잘함";
                     fontColor = "blue";
-                    bgPosition = '100% 50%';
+                    bgPosition = "100% 50%";
                 } /////// if ///////
                 else if (score >= 80) {
                     message = "잘함";
                     fontColor = "green";
-                    bgPosition = '0% 100%';
+                    bgPosition = "0% 100%";
                 } else if (score >= 70) {
                     message = "보통";
                     fontColor = "purple";
-                    bgPosition = '50% 50%';
+                    bgPosition = "50% 50%";
                 } else if (score >= 60) {
                     message = "노력요함";
                     fontColor = "orange";
-                    bgPosition = '100% 100%';
+                    bgPosition = "100% 100%";
                 } else {
                     message = "재시험";
                     fontColor = "red";
-                    bgPosition = '100% 0%';
+                    bgPosition = "100% 0%";
                 }
 
                 // 메시지 완성하기 : 평가결과는 어쩌구...
@@ -148,7 +149,7 @@
                 // if(score >= 80 && score < 90){
                 //     message = '';
                 // }/////// if ///////
-                    
+
                 // 5. 메시지 출력하기 ///////////////
                 // 출력대상 : #jexp -> jexp변수
                 jexp.innerText = message;
@@ -207,6 +208,136 @@
                 if(aa>10) my = "ㅎㅎㅎ";
 
        *************************************************/
+
+            /**************************************************
+      함수명 : showlocal
+      기능 : 지역명을 입력하면 지역국번을 안내한다.
+      **************************************************/
+            function showlocal() {
+                // 1. 함수호출확인
+                // console.log('지역조건이 뭐야?');
+                // 2. 대상선정 : 변경대상
+                // 2-1. 입력요소 : input#local
+                var target = document.querySelector("#local");
+
+                // 2-2. 출력요소 : h3#info
+                var info = document.querySelector("#info");
+
+                // console.log('대상:',target,info);
+
+                // 3. 입력된 값 읽어오기 -> 지역명 입력
+                // input요소.value -> 입력된 값 속성(읽기/쓰기)
+                var txt = target.value;
+
+                console.log("입력된값:", txt);
+
+                // 4. 지역명을 switch case문으로 분류하여 메시지넣기
+
+                // 메시지 변수
+                var message;
+
+                switch (txt) {
+                    case "서울":
+                        message = "02";
+                        break;
+                    case "경기":
+                        message = "031";
+                        break;
+                    case "인천":
+                        message = "032";
+                        break;
+                    case "부산":
+                        message = "051";
+                        break;
+                    case "대구":
+                        message = "053";
+                        break;
+                    case "광주":
+                        message = "062";
+                        break;
+                    case "전북":
+                        message = "063";
+                        break;
+                    case "전남":
+                        message = "061";
+                        break;
+                    case "경북":
+                        message = "054";
+                        break;
+                    case "경남":
+                        message = "055";
+                        break;
+                    case "세종":
+                        message = "044";
+                        break;
+                    case "울산":
+                        message = "052";
+                        break;
+                    case "대전":
+                        message = "042";
+                        break;
+                    case "충북":
+                        message = "043";
+                        break;
+                    case "충남":
+                        message = "041";
+                        break;
+                    case "제주":
+                        message = "064";
+                        break;
+                    case "나성":
+                        message = "나성에 가면 편지를 전해줘요♬";
+                        break;
+                    default:
+                        message = "esc";
+                } ///////// switch case /////////
+
+                console.log("메시지:", message);
+                // 5. 메시지 만들기 //////////
+                // message 변수에 최종 출력내용을 다시 담아준다!
+                if(message == 'esc'){
+                    message = '등록되지않은 지역입니다!';
+                } // if /////////////////////////
+                else{
+                    message = `${txt}의 지역번호는 ${message}입니다.`;
+                } // else //////////////////////
+
+                // 6. 화면출력
+                // 출력대상 : #info -> info
+                info.innerText = message;
+                // 선택요소.innertext - 요소의 문자데이터 넣기 
+                // -> html태그를 넣을때는 innerHTML 을 사용 
+            } /////////// showlocal 함수 ////////////////
+
+            /*************************************************************** 
+        [ switch case문 ]
+        - 단일조건을 분류하여 실행문을 만들어 줄때 사용하는 제어문
+
+        ((구문구조))
+        ________________________________________
+
+        switch(변수){
+            case 경우1: 실행코드; break;
+            case 경우2: 실행코드; break;
+            case 경우3: 실행코드; break;
+            ...
+            default: 실행문;
+        }
+        ________________________________________
+
+        ((구문해석))
+
+        1. 변수값에 해당하는 경우 그 값에 해당하는
+        case에 들어가서 실행코드를 실행함
+
+        2. 각 case 끝에 break 예약어를 반드시 써야함!
+        -> 안쓰면 다른 case에 또 들어가는 경우가 생김!
+        -> 일반적으로 break 키워드는 제어문을 빠져나갈때 씀!
+
+        3. default 는 if문의 else문과 비슷하여 해당 케이스가 
+        없으면 이 부분이 실행됨(단, 필요시 사용)
+        -> default문에는 break를 쓰지 않는다!
+      ***************************************************************/
         </script>
         <style>
             h1 {
@@ -314,8 +445,9 @@
             id="local"
             placeholder="지역명을 '도'를 빼고 쓰세요!"
             maxlength="10"
+            onkeypress="if(event.keyCode==13)showlocal()"
         />
-        <button class="sbtn">국번문의</button>
+        <button class="sbtn" onclick="showlocal()">국번문의</button>
 
         <br /><br />
         <hr />
