@@ -76,20 +76,22 @@
                 /* line-height: 80px; */
             }
             /* 가상요소로 밑줄만들기 */
-            .gnb>ul>li a::after{
+            .gnb>ul>li>a::after{
                 content: '';
                 display: block;
                 /* 변경요소 */
                 width: 0%;
                 margin-left: 100%;
+                /* 글자와의 간격 */
+                margin-top: 4px;
 
                 height: 2px;
                 background-color: #fff;
                 /* 트랜지션 */
                 transition: .3s ;
             }
-            /* 오버시 밑줄 */
-            .gnb>ul>li a:hover::after{
+            /* 상위메뉴 li에 오버시 밑줄 */
+            .gnb>ul>li:hover>a::after{
                 width: 100%;
                 margin-left: 0%;
 
@@ -113,6 +115,10 @@
                 left: 50%;
                 /* 가로방향 정중앙 이동 */
                 transform: translatex(-50%);
+
+                /* top은 현재 젠틀하다.
+                top을 주면 부모로부터 다시 수치를 크게 조정해야하므로 마진탑으로 세부 조정한다. */
+                margin-top: 30px;
                 width: min(200px, 18vw);
                 border-radius: 15px;
                 background-color: rgba(0, 0, 128, 0.7);
