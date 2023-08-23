@@ -381,13 +381,8 @@
                         // 구구단 선택박스에 change이벤트 설정하기
                         // 이벤트 대상선정 : select#sel
                         // 이벤트 종류 : change - 선택박스 옵션 변경시 발생 
-                        document.querySelector('#sel').onchange = function(){
-                    // 1.함수호출 확인
-                    console.log('보여줘!구구단',this.value);
-                    
-                  };
-
-                    }); ///////// load 구역 //////////////
+                        document.querySelector('#sel').onchange = showGugu;                                   
+                  }); ///////// load 구역 //////////////
 
                   /***********************************************************
                     함수명 : showGugu
@@ -395,7 +390,9 @@
                    ***********************************************************/
                   function showGugu(){
                     // 1.함수호출 확인
-                    console.log('보여줘!구구단');
+                    console.log('보여줘!구구단',this.value);
+                    // this 키워드는 나자신! -> 할당된 요소자신(여기서는 select 요소 자신)
+                    // this.value -> value는 option의 속성값 
                     
                   };// showGugu함수 ////////////////////////
         </script>
