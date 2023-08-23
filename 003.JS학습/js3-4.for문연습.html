@@ -30,17 +30,39 @@
                 /* 크기줄임 */
             }
         </style>
-        <!-- JS코드구역 -->
-        <script>
-</script>
+        <!-- 외부JS 불러오기 -->
+        <script src="./js/for_ex.js" defer></script>
+        <!-- 
+        외부JS 호출은 src속성에 외부JS경로를 쓴다.
+        주의 : script 사이에 데이터는 작성하지않는다. 
+        defer를 사용하면 defer(지연)된다! 즉,html body 내부 요소가 로딩후 실행한다.
+        -->
     </head>
 
     <body>
         <h1>for문 연습1 - 파란상자에 미니언즈 집어넣기</h1>
         <!-- data-cnt는 각 미니언즈를 몇개씩 넣을지에 대한 정보값임 -->
-        <img src="./images/Minions.png" alt="미니언즈" class="mini" title="나를 클릭하면 한개씩 가방에 들어갈꼬얌~!" data-cnt="1" />
-        <img src="./images/Minions.png" alt="미니언즈" class="mini" title="나를 클릭하면 다섯개씩 가방에 들어갈꼬얌~!" data-cnt="5" />
-        <img src="./images/Minions.png" alt="미니언즈" class="mini" title="나를 클릭하면 열개씩 가방에 들어갈꼬얌~!" data-cnt="10" />
+        <img
+            src="./images/Minions.png"
+            alt="미니언즈"
+            class="mini"
+            title="나를 클릭하면 한개씩 가방에 들어갈꼬얌~!"
+            data-cnt="1"
+        />
+        <img
+            src="./images/Minions.png"
+            alt="미니언즈"
+            class="mini"
+            title="나를 클릭하면 다섯개씩 가방에 들어갈꼬얌~!"
+            data-cnt="5"
+        />
+        <img
+            src="./images/Minions.png"
+            alt="미니언즈"
+            class="mini"
+            title="나를 클릭하면 열개씩 가방에 들어갈꼬얌~!"
+            data-cnt="10"
+        />
 
         <!-- 
         [ 데이터를 저장하기위한 속성사용하기 ]
