@@ -72,13 +72,18 @@ border-radius: 30px;
     border-radius: 30px;
     width: 170px;
     background-color: #fff;
+    /* 처음에 숨김 */
+    display: none;
+}
+/* 상위 li 마우스 오버시 서브보이기 */
+.dokebi-menu  ul>li:hover .dokebi-sub-menu{
+    display: block;
 }
 /* 도깨비 서브메뉴 글자 */
 .dokebi-sub-menu a{
     display: block;
     padding: 10px 15px;
     font-size: 1.8rem;
-
 }
 /************* 4. 메인영역 : .group-part *************/
 #main {
