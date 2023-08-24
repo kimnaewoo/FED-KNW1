@@ -2,7 +2,9 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
 /* font-family: 'DM Serif Display', serif; */
+/* font-family: 'Noto Sans KR', sans-serif; */
 @import url(../css/common.css);
 
 header {
@@ -62,4 +64,34 @@ video {
 .message::first-letter{
   color: red;
   font: 3em 'DM Serif Display', serif;
+}
+
+.main2{
+    position: relative;
+    width: 1185px;
+    height: 1031px;
+    margin-left: 37%;
+    background: gray url(../img/main2.jpg) no-repeat center/cover
+    ;
+}
+.main2_main>h2{
+    font-family: 'DM Serif Display', serif;
+    opacity: 0;
+}
+@keyframes fade {
+  to {
+    opacity: 1;
+  }
+}
+.main2_main{
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 2;
+    text-align: center;
+    top: 20vw;
+    left: -30vw;
+    position: absolute;
+    content: '';
+    display: block;
 }
