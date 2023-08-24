@@ -95,6 +95,7 @@ video {
 }
 
 .main2_main {
+    position: absolute;
     font-size: 40px;
     font-weight: bold;
     font-family: "Noto Sans KR", sans-serif;
@@ -102,7 +103,12 @@ video {
     text-align: center;
     top: 20vw;
     left: -30vw;
-    position: absolute;
     content: "";
     display: block;
+}
+.main3 {
+    width: 600px;
+    height: 580px;
+    margin: 50px auto;
+    background: url(../img/main3.jpg) no-repeat top/contain;
 }
