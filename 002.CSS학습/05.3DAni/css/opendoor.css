@@ -122,21 +122,16 @@ body{
     */
 }
 
-
-
 /* 문짝부모에 오버시 문짝애니작동! */
 .cont:hover .door{
     animation-play-state: running;
 }
-
 /* 문짝 처음열기 키프레임 - 1번 */
 @keyframes first-open-door-ani {
     100%{
         transform: rotateY(60deg); 
     }
 }
-
-
 /* 문짝 여닫기 키프레임 - 2번 */
 @keyframes open-door-ani {
     0%{
