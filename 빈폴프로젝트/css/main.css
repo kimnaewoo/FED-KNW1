@@ -107,8 +107,28 @@ video {
   display: block;
 }
 .main3 {
-  width: 600px;
-  height: 580px;
-  margin: 50px auto;
-  background: url(../img/main3.jpg) no-repeat top/contain;
+  width: 900px;
+  height: 800px;
+  margin: 100px; 
+  background-color: #fff;
+  background: url(../img/brand.jpg) no-repeat bottom;
+}
+.main3:hover{
+  width: 900px;
+  height: 800px;
+  margin: 100px; 
+  background: url(../img/brand2.jpg) no-repeat bottom;
+  transition: 1s;
+}
+.main3_main > a h2 {
+  font-size: 100px;
+  font-family: "DM Serif Display", serif;
+}
+.main3_main {
+  padding-left: 60%;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: "Noto Sans KR", sans-serif;
+  line-height: 1.5;
+  text-align: center;
 }
