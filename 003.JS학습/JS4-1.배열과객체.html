@@ -351,10 +351,10 @@
                     msgFn: function (txt) {
                         // txt - 팬레터내용
                         // 1. 메시지 띄우기
-                        alert("팬레터:"+txt);
-                        // alert 콤마(,)사용불가, 플러스(+)사용 
-                         // 변경대상.style
-                         let mycss = target[4].style;
+                        alert("팬레터:" + txt);
+                        // alert 콤마(,)사용불가, 플러스(+)사용
+                        // 변경대상.style
+                        let mycss = target[4].style;
                         // 2. 배경이미지 넣기
                         mycss.background =
                             "url(https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Gong_Yoo_%28Sep_2016%29.png/250px-Gong_Yoo_%28Sep_2016%29.png) repeat-x top/auto 100%";
@@ -388,17 +388,87 @@
                 제 대표작은 ${GU.work}입니다.<br>
                 제 소속사는 모르시는 분들이 많은데, ${GU.com}입니다. 빠이빠이~!
             `;
-             // title속성 넣기
-             target[4].title = `여기를 클릭하여 ${GU.name}팬레터를 확인하세요!`;
+                // title속성 넣기
+                target[4].title = `여기를 클릭하여 ${GU.name}팬레터를 확인하세요!`;
                 // 손가락 표시
                 target[4].style.cursor = "pointer";
                 // 공유박스 클릭시 GU객체 메서드 호출하기
-                target[4].onclick = function(){
+                target[4].onclick = function () {
                     // 실행코드 구역에서 객체 메서드를 호출
                     // 전달값도 여기서 보내준다!
-                    GU.msgFn("\n공유오빠, 오징어게임 싸다구 멋졌어요! \n차기작도 기대해요! 화이팅!!!");
+                    GU.msgFn(
+                        "\n공유오빠, 오징어게임 싸다구 멋졌어요! \n차기작도 기대해요! 화이팅!!!"
+                    );
                     // \n 은 alert창에서 줄바꿈해준다.
-                };
+                }; // click 이벤트 함수 //////////////
+
+                /*************************************************************************** 
+                [ 미션 : 내가 만든 객체 활용하기 ]
+                1. 주제 : 영화정보
+                2. 조건 : 객체의 변수명을 자신만의 이름으로 작성 -> 단, 속성명은 똑같이
+                3. 객체를 쌤과 모두에게 공유하기! (kakaotalk upload)
+            ***************************************************************************/
+
+                // 자신만의 오브젝트
+                const naewoo_Obj = {};
+                // 오브젝트 형만 만들고 객체내용은 아래에서!
+                // 1. 영화제목
+                naewoo_Obj.title = "클래식";
+                // 2. 감독
+                naewoo_Obj.director = "곽재용";
+                // 3. 배우
+                naewoo_Obj.actor = "조승우,손예진";
+                // 4. 장르
+                naewoo_Obj.genre = "멜로/로맨스";
+                // 5. 관람가
+                naewoo_Obj.ratings = "12세";
+                // 6. 예고편
+                naewoo_Obj.trailer = function () {
+                    console.log("예고편:", "Jb1eMxccojs");
+                    // 플레이어함수 호출!
+                    playMovie('Jb1eMxccojs');
+                }; // trailer 함수 /////////////////
+
+                // 객체확인
+                console.log("나의객체:", naewoo_Obj);
+                // 줄간격 변경
+                target[5].style.lineHeight = "34px";
+                // 손가락모양
+                target[5].style.cursor = "pointer";
+                // 글자크기
+                target[5].style.fontSize = "14px";
+                // 화면에 정보를 보여주는 함수
+                const showMovieInfo = function () {
+                    // 함수호출 확인
+                    console.log("영화정보!!!");
+
+                    // 1. 대상선정 : target[5]
+                    // 2. 내용넣기
+                    target[5].innerHTML = `
+                    ◈ 영화명 : ${naewoo_Obj.title}
+                    ◈ 감독 : ${naewoo_Obj.director} <br>
+                    ◈ 배우 : ${naewoo_Obj.actor}
+                    ◈ 장르 : ${naewoo_Obj.genre}
+                    ◈ 등급 : ${naewoo_Obj.ratings}
+                `;
+
+                    // 툴팁 보이기
+                    target[5].title = `클릭하시면 ${naewoo_Obj.title}예고편을 보실수 있습니다!`;
+                    // 예고편 메서드 호출
+                    target[5].onclick = naewoo_Obj.trailer;
+                }; // showMovieInfo 함수 ///////
+
+                // 최초호출!
+                showMovieInfo();
+
+                /************************************************ 
+                함수명 : playMovie
+                기능 : 영화예고편 화면 띄우기
+            ************************************************/
+                function playMovie(mcode) {  // mcode - 영화아이디
+                    // 함수호출 및 전달값 확인
+                    console.log('난진짜야~!',mcode);
+                } // palyMovie 함수 ////////////////
             } // loadFn 함수 //////////////////////////////////////
         </script>
     </head>
