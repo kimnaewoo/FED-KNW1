@@ -1,5 +1,7 @@
 // 영화초이스 객체 ///// object.js
 
+
+
 // 이조은님의 오브젝트!
 const zoe_obj = {};
 // 오브젝트 형만 만들고 객체내용은 아래에서!
@@ -324,4 +326,14 @@ yu_obj.trailer = function () {
     console.log("예고편:", "r7wJ6HG7aCw");
     // 플레이어 함수 호출!
     playMovie("r7wJ6HG7aCw");
+};
+const knw_Obj = {};
+knw_Obj.title = "클래식";
+knw_Obj.director = "곽재용";
+knw_Obj.actor = "조승우,손예진";
+knw_Obj.genre = "멜로/로맨스";
+knw_Obj.ratings = "12세";
+knw_Obj.trailer = function () {
+                   console.log("예고편:", "Jb1eMxccojs");
+ playMovie("Jb1eMxccojs");
 };
