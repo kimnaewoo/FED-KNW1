@@ -144,7 +144,10 @@
                 wrap.onmouseenter = () => {
                     // 포스터박스 배경이미지 셋팅하기
                     moving.style.backgroundImage = 
-                    `url(${img_src[minfo[0].innerText]})`;
+                    `url(${
+                        img_src[minfo[0].innerText==''?
+                        '기본':minfo[0].innerText]
+                    })`;
                     // 포스터박스 보이기
                     moving.style.display = 'block';
                 }; // mouseenter 이벤트함수 ////
@@ -197,6 +200,9 @@
                 border-radius: 10px;
                 font-size: 24px;
                 line-height: 2;
+                cursor: none;
+                /* 커서 none은 마우스 포인터가 없어짐! */
+                /* 참고 : https://www.w3schools.com/cssref/pr_class_cursor.php */
             }
 
             .wrap > div {
@@ -218,14 +224,15 @@
                 display: none;
 
                 pointer-events : none;
-                /* 
+                /************************************************ 
                     포인터 이벤트 속성 
                     pointer-events : auto;
-                    -> 기본값 : 아래쪽에 있는 요소 이벤트 발생 
+                    -> 기본값 : 대상 요소에 이벤트 발생함
                     pointer-events : none;
-                    -> none : 아래쪽에 있는 요소 이벤트 무시 
-                    -> 따라다니는 요소 아래쪽 요소의 이벤트가 발생 
-                */
+                    -> none : 아래쪽에 있는 요소 이벤트 무시함
+                    -> 아래쪽 요소의 이벤트가 발생 
+                ************************************************/
+              
             }
 
             h1,
