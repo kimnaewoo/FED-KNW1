@@ -34,13 +34,13 @@
                 // 호출확인
                 console.log("로딩완료!!");
 
-                // 1. 대상선정 : 
+                // 1. 대상선정 :
                 // 1.1 이벤트대상 : 버튼들 .btngo
                 const btns = qsa(".btngo");
                 // 1-2. 변경대상 : 박스 .minfo
-                const minfo = qsa('.minfo');
+                const minfo = qsa(".minfo");
 
-                console.log("대상:",btns,minfo);
+                console.log("대상:", btns, minfo);
 
                 // 2. 버튼클릭 이벤트 설정
                 for (let x of btns) {
@@ -72,7 +72,12 @@
                         } // switch case ////
 
                         // 데이터확인 ////
-                        console.log('데이터:',mv_info,'/배열인가?',Array.isArray(mv_info));
+                        console.log(
+                            "데이터:",
+                            mv_info,
+                            "/배열인가?",
+                            Array.isArray(mv_info)
+                        );
 
                         // 3. 각 데이터 매칭하여 요소에 넣기
                         // 변경대상 : .minfo -> minfo 변수
@@ -82,18 +87,64 @@
                         // 변경대상 순번
                         let seq = 0;
 
-                        for(let y of mv_info){
+                        for (let y of mv_info) {
                             // console.log('배열순회:',y);
                             // 대상에 순서대로 넣는다!
                             minfo[seq].innerText = y;
 
-                            // 변경대상 순번증가 
+                            // 변경대상 순번증가
                             seq++;
                         } // for of문 ////
-
-
                     }; // 클릭이벤트 함수 ////
                 } // for of ////
+
+                /************************************************************** 
+                    추가기능 : .wrap박스에 마우스무브시 포스터이미지 포인터 따라다니기
+                **************************************************************/
+
+                // 1. 대상선정
+               // 1-1. 이벤트대상 : .wrap
+               const wrap = qs('.wrap');
+
+               // 1-2. 변경대상 : .flying-poster
+               const moving = qs('.flying-poster');
+               
+               console.log("추가대상:",wrap,moving);
+
+               // 2. 이벤트 함수 구현하기
+               // 2-1. .wrap박스 위에 마우스무브시 따라오기 
+               // 이벤트 : mousemove 
+                wrap.onmousemove = (e) => { //  e - 이벤트전달변수
+                    // 이벤트 함수에 전달변수를 하나쓰면 그 변수명이 무엇일지라도 event객체가 내부로 전달된다. 이것으로 이벤트관련 속성,메서드 사용가능 
+                    // event라고 쓰면 오리지널 브라우저 이벤트객체가 호출되는 것임.
+                    console.log('x:',e.pageX,'/y:',e.pageY);
+                    // console.log('x:',event.pageX,'/y:',event.pageY);
+                    // x,y 좌표값 구하기 
+                    // 발생이벤트의 pageX,pageY 로 구한다 
+                    // event.pageX / event.pageY 
+                    // 전달변수를 하나쓰고 예컨데 e라고 쓰고 내부에 e.pageX / e.pageY 로 사용한다.
+                    // pageX 는 화면 왼쪽끝에서 부터 px위치값
+                    // pageY 는 화면 위쪽끝에서 부터 px위치값
+
+                    // 변경대상의 style top,left값 변경하기
+                    moving.style.top = e.pageY + 'px';
+                    moving.style.left = e.pageX + 'px';
+
+
+                }; // mousemove 이벤트함수 ////
+
+                // 마우스가 경계선 안으로 들어갈때 : mouseenter
+                wrap.onmouseenter = () => {
+                    // 포스터박스 보이기
+                    moving.style.display = 'block';
+                }; // mouseenter 이벤트함수 ////
+
+                // 마우스가 밖으로 나갈때 : mouseleave
+                wrap.onmouseleave = () => {
+                    // 포스터박스 숨기기
+                    moving.style.display = 'none';
+                }; // mouseleave 이벤트함수 ////
+
             } // loadFn 함수 ////
 
             /******************************************* 
@@ -140,6 +191,31 @@
 
             .wrap > div {
                 color: #444;
+            }
+
+            /* 따라다니는 포스터박스 */
+            .flying-poster {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 200px;
+                height: 300px;
+                transform: translate(-50%,-50%);
+                /* 마우스 포인터 중앙이동 */
+                background: url(./images/ala1.jpg) no-repeat center/cover;
+                transition: 0.4s ease-out;
+                /* 트랜지션 ease-out을 줘야 처음이동시 마우스 포인터와 같은 속도로 이동된다 */
+                display: none;
+
+                pointer-events : none;
+                /* 
+                    포인터 이벤트 속성 
+                    pointer-events : auto;
+                    -> 기본값 : 아래쪽에 있는 요소 이벤트 발생 
+                    pointer-events : none;
+                    -> none : 아래쪽에 있는 요소 이벤트 무시 
+                    -> 따라다니는 요소 아래쪽 요소의 이벤트가 발생 
+                */
             }
 
             h1,
@@ -194,6 +270,9 @@
             <!--3.영화스토리-->
             <h3>영화스토리</h3>
             <div class="minfo"></div>
+
+            <!-- 4. 따라다니는 영화포스터 박스 -->
+            <div class="flying-poster"></div>
         </div>
     </body>
 </html>
