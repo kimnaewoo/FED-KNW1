@@ -12,6 +12,11 @@ h4 {
     padding: 0;
 }
 
+/* 자동스크롤 위해 스크롤바 없애기 */
+html,body{
+    overflow: hidden;
+}
+
 /* 공통 레이아웃 클래스 */
 /* 속박스 */
 .inbox {
@@ -23,7 +28,6 @@ h4 {
 .page .inbox{
     position: relative;
     height: 100vh;
-    background-image: linear-gradient(to bottom,lightpink,lightgreen);
 }
 
 /* 배경공통클래스 */
@@ -31,6 +35,28 @@ h4 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+/* 각 페이지클래스 */
+.pg1{
+   background-image: url(../images/auto_scroll/pic1.png);
+}
+.pg2{
+   background-image: url(../images/auto_scroll/pic2.png);
+}
+.pg3{
+   background-image: url(../images/auto_scroll/pic3.png);
+}
+.pg4{
+   background-image: url(../images/auto_scroll/pic4.png);
+}
+.pg5{
+   background-image: url(../images/auto_scroll/pic5.png);
+}
+.pg6{
+   background-image: url(../images/auto_scroll/pic6.png);
+}
+.pg7{
+   background-image: url(../images/auto_scroll/pic7.png);
 }
 /* 상단영역 고정하기 */
 #header{
