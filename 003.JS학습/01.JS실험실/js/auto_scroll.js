@@ -18,7 +18,8 @@
 // 1. 전역변수 설정하기
 // 1-1. 페이지변수
 let pg_num = 0; 
-
+// 1-2. 휠상태 변수
+let sts_wheel = 0;
 
 
 // 2. 이벤트 등록하기 ////
@@ -33,11 +34,33 @@ window.addEventListener('wheel',wheelFn);
     기능 : 마우스 휠 작동시 페이지이동
 **********************************************************************************************************/
 function wheelFn(e){ // 이벤트 전달변수
+    // 함수 호출확인
     console.log('휠~~~!');
+
+    // 0. 광휠 금지 설정
+    if(sts_wheel) return; // 여기서 나감!
+    sts_wheel = 1; // 잠금!
+    setTimeout(()=>{sts_wheel=0},800); // 0.8초후 잠금해지
+
+    // 함수호출 확인
+    console.log('휠작동~~~!');
+
     // 1. 휠방향에 따른 페이지변수 변경하기
     // 휠방향은 wheelDelta 로 알아낸다!
+    
     let delta = e.wheelDelta;
     console.log('휠델타:',delta);
+    
+    // 음수(-)는 아랫방향, 양수(+)는 윗방향 
+    if(delta<0) pg_num ++;
+    else pg_num --;
+
+    // 한계수 체크 (양끝페이지 고정!)
+    if(pg_num<0) pg_num=0;
+    if(pg_num>6) pg_num=6;
+
+    // 전체 페이지 번호 확인
+    console.log('페이지번호:',pg_num);
     // 2. 페이지 이동하기
     // scrollTo (x축위치,y축위치)
     // 세로방향 이동은 두번째값만 주면된다.
@@ -45,8 +68,7 @@ function wheelFn(e){ // 이벤트 전달변수
     // 화면단위로 이동하므로 윈도우 높이값을 기본값으로 처리
     // window.innerHeight -> window 높이값 구해온다! 
 
-    if(delta<0)pg_num ++;
-    else pg_num --;
+
     window.scrollTo(0,window.innerHeight*pg_num);
 
 } // wheelFn 함수 ////
