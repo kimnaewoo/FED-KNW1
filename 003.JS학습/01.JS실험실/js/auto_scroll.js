@@ -31,7 +31,6 @@ window.scrollTo(0,0);
 // 2. 이벤트 등록하기 ////
 // 대상 : window 
     
-
 window.addEventListener('wheel',wheelFn);
 window.addEventListener('DOMContentLoaded',loadFn);
 
