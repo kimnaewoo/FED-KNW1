@@ -11,7 +11,10 @@ h4 {
     margin: 0;
     padding: 0;
 }
-
+html{
+    /* 스크롤 애니메이션 - 부드러운 스크롤 이동 */
+    scroll-behavior: smooth;
+}
 /* 자동스크롤 위해 스크롤바 없애기 */
 html,body{
     overflow: hidden;
