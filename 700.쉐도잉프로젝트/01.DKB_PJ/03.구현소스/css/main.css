@@ -38,6 +38,8 @@ body > div > * {
     flex-wrap: wrap;
     /* 진행방향정렬 */
     justify-content: center;
+    /* 사이간격 */
+    gap: 0 1.1vw;
     width: 100%;
     margin: 0 auto;
 }
@@ -53,10 +55,16 @@ body > div > * {
 .cat-content{
     position: absolute;
     bottom: 0;
-    top: -100%;
+    /* top: -100%; */
     width: 100%;
     display: flex;
     flex-direction: column;
+    height: 95%;
+    /* 트랜지션 */
+    transition: height .4s ease-in-out;
+}
+/* 개별상위 박스 오버시 컨텐트박스 설명보이기 */
+.cat-box article:hover .cat-content{
     height: 200%;
 }
 .cat-content .part{
@@ -73,6 +81,7 @@ body > div > * {
     margin-top: -20%;
     /* 싸고있는 박스 높이를 기준한 %로 마진을 설정함 
     동적인 크기변경시 마진도 변경되어야 위치가 일정함 */
+
 }
 /* 이미지설명박스 - 캐릭터이름 이미지 */
 .img-box figcaption img{
@@ -91,6 +100,32 @@ width: 40%;
 .cat-box article:hover
 .img-box figcaption img:first-child{
     display: none;
+}
+/* 캐릭터 설명박스 */
+.desc-box{
+    height: 50%;
+    /* 스크롤바 생성 */
+    overflow: auto;
+    background: url(../images/eachBG.jpg) no-repeat bottom/cover;
+    border-radius: 10px 5px 5px 10px;
+}
+/* 캐릭터 타이틀 */
+.desc-box h3{
+    font-family: 'Gugi';
+    font-size: min(2.4rem,1.7vw);
+    font-weight: normal;
+    word-spacing: nowrap;
+    padding: 15px 10px 5px;
+    letter-spacing: -1px;
+}
+/* 캐릭터 설명박스 */
+.desc-box p{
+    font-family: 'Single Day','ZCOOL KuaiLe';
+    font-size: min(1.8rem,1.3vw);
+    line-height: 1.6;
+    padding: min(1vw,15px);
+    text-align: justify; /* 텍스트 양쪽정렬 */
+    
 }
 /************* 3. 도깨비메뉴 : *************/
 
