@@ -80,7 +80,7 @@ body{
 
 /* 또 하나의 큐브 */
 .cube2{
-    top: calc(70vh - var(--box-height)/2);
+    top: calc(150vh - var(--box-height)/2);
 }
 /* 큐브 각면 공통 */
 .cube span{
