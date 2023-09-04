@@ -26,7 +26,6 @@ let total_pg;
 // 새로고침시 첫페이지로 이동하기
 // 브라우저 스크롤 위치 캐싱때문에 한다.
 setTimeout(()=>{window.scrollTo(0,0)},500)
-window.scrollTo(0,0);
 
 // 2. 이벤트 등록하기 ////
 // 대상 : window 
@@ -62,6 +61,7 @@ function wheelFn(e){ // 이벤트 전달변수
     sts_wheel = 1; // 잠금!
     setTimeout(()=>{sts_wheel=0},500); // 0.5초후 잠금해지
 
+
     // 함수호출 확인
     console.log('휠작동~~~!');
 
@@ -92,3 +92,97 @@ function wheelFn(e){ // 이벤트 전달변수
     window.scrollTo(0,window.innerHeight*pg_num);
 
 } // wheelFn 함수 ////
+
+
+/***************************************************************************************************************
+ 
+모바일 이벤트처리
+    
+    [ 모바일 터치 스크린에서 사용하는 이벤트 종류 ]
+    1. touchstart - 손가락이 화면에 닿을때 발생
+    2. touchend - 손가락이 화면에서 떨어질때 발생
+    3. touchmove - 손가락이 화면에 닿은채로 움직일때 발생
+    
+    [ 화면터치 이벤트관련 위치값 종류 ]
+    1. screenX, screenY : 디바이스 화면을 기준한 x,y 좌표
+    2. clientX, clientY : 브라우저 화면을 기준한 x,y 좌표(스크롤미포함)
+    3. pageX, pageY : 스크롤을 포함한 브라우저 화면을 기준한 x,y 좌표
+    
+***************************************************************************************************************/
+
+// 1. 모바일 이벤트 등록하기 ////
+// 대상: window
+window.addEventListener('touchstart',touchStart);
+window.addEventListener('touchend',touchEnd);
+// 2. 모바일 이벤트 함수 만들기 ////
+
+//터치 위치값 변수
+let pos_start=0, pos_end=0;
+
+// 2-1. 터치시작 이벤트 호출 함수 
+function touchStart(e){ // e - 이벤트 전달변수
+    // 모바일 이벤트 화면 위치값 구하기
+    // 모바일 오리지널 이벤트 객체 - originalEvent
+    // 하위 터치 이벤트 컬렉션 - touches[0]
+    // 변경된 터치이벤트 담는 컬렉션 - changedTouches[0]
+
+    // 스크린 위치값 구하기
+    // 제이쿼리는 originalEvent를 사용해야 나옴!
+    // let scY = e.originalEvent.touches[0].screenY; 
+    let pos_start = e.touches[0].screenY; 
+
+
+    // 함수호출 확인
+    console.log('터치시작~!',pos_start);
+} // mobileFn ////
+
+
+// 2-2. 터치끝 이벤트 호출 함수 
+function touchEnd(e){ // e - 이벤트 전달변수
+    // 모바일 이벤트 화면 위치값 구하기
+    // 모바일 오리지널 이벤트 객체 - originalEvent
+    // 하위 터치 이벤트 컬렉션 - touches[0]
+    // 변경된 터치이벤트 담는 컬렉션 - changedTouches[0]
+
+    // 1. 스크린 위치값 구하기
+    // 제이쿼리는 originalEvent를 사용해야 나옴!
+    // let scY = e.originalEvent.touches[0].screenY; 
+    // 터치가 끝날때는 changedTouches[0] 사용해야함
+    let pos_end = e.changedTouches[0].screenY; 
+
+    // 2. 터치방향 알아내기 ////
+    // 원리: 시작위치-끝위치
+    // 음수면 윗방향이동 양수면 아랫방향이동
+    let result = pos_start - pos_end;
+
+    // 함수호출 확인
+    console.log('터치끝~!',pos_end,'결과:',result);
+    
+    // return값이 차가 0이면 함수나감
+    if(result==0) return;
+
+
+    // 이벤트 처리함수 호출
+    // 양수면 1, 음수면 0을 넘겨준다
+    movePage(result<0?1:0)
+
+} // mobileFn ////
+
+// 2-3. 이벤트 처리함수 : 화면이동
+function movePage(dir){ // dir은 방향값(1-아랫쪽,0-윗쪽)
+    // 함수호출
+    console.log('이동방향은?',dir);
+
+    // 1. 페이지번호 변경 반영하기 
+    // 1은(true) 아랫방향, 0은 윗방향
+    if(dir) pg_num++;
+    else pg_num--;
+
+    // 2. 페이지 번호 한계수체크(양끝페이지고정!)
+    if(pg_num<0) pg_num=0;
+    if(pg_num==total_pg) pg_num = total_pg-1;
+
+    // 3. 페이지 이동하기 
+    window.scrollTo(0,window.innerHeight*pg_num);
+
+} // movePage 함수 ////
