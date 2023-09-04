@@ -84,9 +84,11 @@ new_span.forEach((ele,idx)=>{
     ele.style.transitionDelay = (0.2*idx)+'s';
 });
 
-// 어벤저스 박스 나올때까지 (5초) 기다린 후, span의 transform 적용하기
+// 어벤저스 박스 나올때까지 (5초) 기다린 후, span의 transform 적용하기 + .hero 오버시 설정 적용되도록 어벤저스박스에 클래스 active 넣기 
 setTimeout(() => {
-    for(let x of new_span) x.style.transform = 'translateY(0) scale(1)';
+    // for(let x of new_span) x.style.transform = 'translateY(0) scale(1)';
+    mytit.classList.add('on');
+    avengers.classList.add('active');
 }, 5000);
 /************************************************* 
     [ 객체를 위한 for in 문 ]
