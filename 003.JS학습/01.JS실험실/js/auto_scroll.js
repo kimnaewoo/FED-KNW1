@@ -129,7 +129,7 @@ function touchStart(e){ // e - 이벤트 전달변수
     // 스크린 위치값 구하기
     // 제이쿼리는 originalEvent를 사용해야 나옴!
     // let scY = e.originalEvent.touches[0].screenY; 
-    let pos_start = e.touches[0].screenY; 
+    pos_start = e.touches[0].screenY; 
 
 
     // 함수호출 확인
@@ -148,7 +148,7 @@ function touchEnd(e){ // e - 이벤트 전달변수
     // 제이쿼리는 originalEvent를 사용해야 나옴!
     // let scY = e.originalEvent.touches[0].screenY; 
     // 터치가 끝날때는 changedTouches[0] 사용해야함
-    let pos_end = e.changedTouches[0].screenY; 
+    pos_end = e.changedTouches[0].screenY; 
 
     // 2. 터치방향 알아내기 ////
     // 원리: 시작위치-끝위치
@@ -164,7 +164,7 @@ function touchEnd(e){ // e - 이벤트 전달변수
 
     // 이벤트 처리함수 호출
     // 양수면 1, 음수면 0을 넘겨준다
-    movePage(result<0?1:0)
+    movePage(result>0?1:0)
 
 } // mobileFn ////
 
