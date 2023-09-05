@@ -326,14 +326,21 @@
                     // 1. 변경대상선정
                     let eles = box2.querySelectorAll('li');
 
+                    // 2. 마지막 컬렉션 계산
+                    let seq = eles.length -1;
+
                     // 2. 맨뒤li 맨앞으로 이동
                     // insertBefore(넣을놈,넣을놈전놈)
                     // 넣을놈 : 맨뒤li -> eles[eles.length-1]
                     // 넣을놈전놈 : 맨앞li -> eles[0]
                     // 맨뒤 배열이나 컬렉션 번호는 [갯수-1]
-                    box2.insertBefore(eles[eles.length-1],eles[0])
+                    box2.insertBefore(eles[seq],eles[0])
                 };
-
+                /************************************************* 
+                    ※ appendChild() 와 insertBefore()는 대상을
+                    정하는 것에 따라 중간에 적용할 수 있다!
+                *************************************************/
+                
             }); // 로드구역 ////
         </script>
     </head>
