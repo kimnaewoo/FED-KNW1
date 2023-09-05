@@ -309,6 +309,30 @@
                     box2.appendChild(firstEle);
                 }; // moveLast 함수 
 
+                // 맨앞이동 버튼 클릭시 ////
+                // 맨뒤 li가 맨 앞으로 이동됨
+                // 이벤트 대상 : .mvf
+                // 변경대상 : #div02 ul -> box2변수
+
+                // 1. 대상선정 : .mvf
+                const btnmoveFirst = qs('.mvf');
+                // 2. 이벤트 연결하기
+                addEvt(btnmoveFirst,'click',moveFirst)
+
+                // 3. 함수만들기
+                function moveFirst (){
+                    console.log('맨앞으로');
+
+                    // 1. 변경대상선정
+                    let eles = box2.querySelectorAll('li');
+
+                    // 2. 맨뒤li 맨앞으로 이동
+                    // insertBefore(넣을놈,넣을놈전놈)
+                    // 넣을놈 : 맨뒤li -> eles[eles.length-1]
+                    // 넣을놈전놈 : 맨앞li -> eles[0]
+                    // 맨뒤 배열이나 컬렉션 번호는 [갯수-1]
+                    box2.insertBefore(eles[eles.length-1],eles[0])
+                };
 
             }); // 로드구역 ////
         </script>
