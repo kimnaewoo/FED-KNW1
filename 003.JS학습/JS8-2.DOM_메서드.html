@@ -73,7 +73,7 @@
                     // console.log(x);
 
                     // 오버시
-                    x.onmouseover = () => {
+                    x.onmouseover = () => { 
                         // console.log('오버:',x);
                         // 1. 대상 : 하위의 div
                         let target = x.querySelector("div");
@@ -284,6 +284,21 @@
                     // 툴팁넣기
                     ele.querySelector('img').title = '클릭하시면 지워집니다.';
                 })
+
+                // 맨뒤이동 버튼 클릭시
+                // 맨앞요소를 맨뒤로 이동하기
+                // 이벤트 대상 : .mvl
+                // 변경대상 : #div02 ul -> box2
+                // 1. 대상선정
+                const btnmoveLast = qs('.mvl');
+                
+                // 이벤트 연결하기
+                addEvt(btnmoveLast,'click',moveLast);
+
+                // 함수 만들기
+                function moveLast(){
+                    console.log('끝으로');
+                }; // moveLast 함수 
 
 
             }); // 로드구역 ////
