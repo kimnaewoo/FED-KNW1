@@ -100,6 +100,7 @@ function loadFn() {
             slide.style.transition = 'none';
 
             // 같은 left값을 동시에 변경하면 효과가 없다. 비동기적으로 처리해야한다. -> setTimeout으로 싸준다.
+            // 시간은 0이어도 비동기 처리이므로 효과가 있다. 
             setTimeout(() => {
                 // 4. left 값 0으로 들어오기
                 slide.style.left = '0';
