@@ -77,7 +77,7 @@ function loadFn() {
         // 광클금지
         if(clickSts) return; //나가!
         clickSts=1; // 잠금!
-        setTimeout(()=>clickSts=0,400);//해제!
+        setTimeout(()=>clickSts=0,TIME_SLIDE);//해제!
         console.log('나야나~',this,this.classList.contains('ab2'));
         // classList.contains(클래스명)
         // 선택요소에 해당클래스가 있으면 true 
@@ -92,7 +92,7 @@ function loadFn() {
             // 3-1. 대상이동하기
             slide.style.left = '-100%';
             // 3-2. 트랜지션 주기
-            slide.style.transition = '.4s ease-in-out';
+            slide.style.transition = TIME_SLIDE+'ms ease-in-out';
             // 이동시간 후 맨앞 li 잘라서 맨뒤로 이동하기
             // appendChild(요소)
             setTimeout(() => {
@@ -102,7 +102,7 @@ function loadFn() {
                 slide.style.left = '0';
                 // 3-5. transition 없애기
                 slide.style.transition = 'none';
-            }, 400);
+            }, TIME_SLIDE);
         } // if 문 
         else{ // 왼쪽버튼 
             // 1. 맨뒤 li 맨앞으로 이동
@@ -119,7 +119,7 @@ function loadFn() {
                 // 4. left 값 0으로 들어오기
                 slide.style.left = '0';
                 // 5. 트랜지션 주기
-                slide.style.transition = '.4s ease-in-out';
+                slide.style.transition = TIME_SLIDE+'ms ease-in-out';
             }, 0);
         } // else 문 
     }; // goSlide 함수 ////
