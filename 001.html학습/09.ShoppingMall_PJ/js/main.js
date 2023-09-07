@@ -59,13 +59,21 @@ function loadFn() {
     console.log("로딩완료!");
 
     // 1. 대상선정
-    // 이벤트대상 : .abtn
+    // 1-1. 이벤트대상 : .abtn
     const abtn = qsa('.abtn');
-    // 변경대상 : #slide
+    // 1-2. 변경대상 : #slide
     const slide = qs('#slide');
-
+    // 1-3. 블릿박스 대상
+    const indic = qsa('.indic li');
     // 대상확인
-    console.log('대상',abtn,slide);
+    console.log('대상',abtn,slide,indic);
+
+    // 1.5 li리스트에 순번속성 만들어 넣기
+    // 만드는 이유 : 블릿변경 등에 현재 슬라이드순번이 필요함
+    // 사용자정의 속성은 반드시 'data-'로 시작해야한다 반드시! (W3C 규칙)
+    // data-seq 로 순번 속성을 넣을것이다.
+    slide.querySelectorAll('li').forEach((ele,idx)=>ele.setAttribute('data-seq',idx));
+    // setAttribute(속성명,속성값) -> 속성셋팅 JS 내장 메서드 
 
     // 2. 이벤트설정하기 : 버튼요소들 -> forEach()
     abtn.forEach(ele=>{
@@ -122,6 +130,21 @@ function loadFn() {
                 slide.style.transition = TIME_SLIDE+'ms ease-in-out';
             }, 0);
         } // else 문 
+        // 4. 슬라이드 순번과 일치하는 블릿에 클래스 넣기
+        // 대상: .indic li -> indic 변수
+        // 맨앞 슬라이드 li의 'data-seq' 값 읽어오기
+        // isRight 값이 true이면 오른쪽버튼이고 순번은 [1]
+        // isRight 값이 false이면 왼쪽버튼이고 순번은 [0]
+        let nowSeq = slide.querySelectorAll('li')[isRight?1:0].getAttribute('data-seq');
+        console.log('현재슬라이드 순번:',nowSeq);
+
+        // 해당순번 블릿li에 클래스 on넣기
+        // 블릿 전체 순회시, 해당순번에 on넣고 나머지는 on빼기
+        indic.forEach((ele,idx)=>{
+            if(idx==nowSeq) ele.classList.add('on');
+            else ele.classList.remove('on');
+        }) // forEach ////
     }; // goSlide 함수 ////
+    
 } //////////////// loadFn 함수 ///////////////
 /////////////////////////////////////////////
