@@ -39,7 +39,18 @@ addEvt(window,"DOMContentLoaded", loadFn);
             li에 클래스 "on"주기(나머진 빼기->초기화!)
 
 *****************************************************/
+// 전역변수구역 /////
+// 1. 광클금지 상태변수
+let clickSts = 0;
+// 2. 슬라이드 이동시간 : 상수로 설정
+const TIME_SLIDE = 400;
 
+/* 
+    (참고 : JS에서 이름짓는 일반규칙)
+    1. 변수/함수 : 캐믈케이스(첫단어소문자 뒷단어 대문자시작)
+    2. 생성자함수/클래스 : 파스칼케이스(모든첫글자 대문자)
+    3. 상수 : 모든글자 대문자(연결은 언더스코어-스네이크 케이스)
+*/
 /****************************************** 
     함수명: loadFn
     기능: 로딩 후 버튼 이벤트 및 기능구현
@@ -63,6 +74,10 @@ function loadFn() {
 
     // 3. 함수만들기
     function goSlide(){
+        // 광클금지
+        if(clickSts) return; //나가!
+        clickSts=1; // 잠금!
+        setTimeout(()=>clickSts=0,400);//해제!
         console.log('나야나~',this,this.classList.contains('ab2'));
         // classList.contains(클래스명)
         // 선택요소에 해당클래스가 있으면 true 
