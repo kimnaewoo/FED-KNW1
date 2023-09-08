@@ -42,16 +42,18 @@ body{
 /**************** 2.메인영역 ****************/
 .main{
     position: relative;
-    height: 788px;
-    background: url(../images/bg.jpg)no-repeat center;
+    /* height: 788px; */
+    aspect-ratio: 1200/788;
+    background: url(../images/bg.jpg)no-repeat 0/100%;
 }
 /* 2-1. 스크린 */
 .screen{
     position: absolute;
-    top: 135px;
-    left: 257px;
-    width: 702px;
-    height: 400px;
+    /* 비율박스 부모기준 크기,위치 %설정 */
+    top: 17.3%;
+    left: 21.4%;
+    width: 58.5%;
+    height: 51%;
     background-color: #000;
 }
 .screen iframe{
@@ -63,6 +65,8 @@ border: none;
 .poster-menu{
     position: absolute;
     left: 50%;
+    /* 비율박스 부모기준 가로크기 %설정 */
+    width: 60%;
     bottom: 5%;
     transform: translateX(-50%);
 }
