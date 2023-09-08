@@ -43,12 +43,18 @@ pmenu.forEach((ele) => {
         let mtit = domFn.qsEl(ele, "li").innerText;
 
         //호출확인
-        console.log("나야나!", me, mtit, mvCode[mtit]);
+        console.log("나야나!", me, mtit, mvCode[mtit],'\n부모:',ele.parentElement);
 
         // 2. 스크린박스에 아이프레임 src재구성하여 넣기
         screen.innerHTML = `
             <iframe src="https://www.youtube.com/embed/${mvCode[mtit]}?autoplay=1"
             allow="autoplay"></iframe>
         `;
+
+        // 3. 추가구역 : 클릭된 a 요소인 부모인 li에 클래스 on 주기
+        // - on을 주면 미리 셋팅된 대로 li가 일어나있다.
+        // 부모로 올라가기는 ele.parentElement
+        ele.parentElement.classList.add('on');
+
     });
 });

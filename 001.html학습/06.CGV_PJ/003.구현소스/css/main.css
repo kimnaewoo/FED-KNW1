@@ -74,6 +74,8 @@ border: none;
     display: flex;
     /* 가로사이간격 */
     gap: 0 10px;
+    /* 원근설정 */
+    perspective: 50vh;
 }
 .poster-menu>ul>li{
     position: relative;
@@ -84,6 +86,27 @@ border: none;
 
     /* 등분할 */
     flex: 1;
+    /* X축 회전 */
+    transform: rotateX(30deg);
+    /* 회전축 하단으로 변경 */
+    transform-origin: bottom;
+    /* 트랜지션 */
+    transition: .4s;
+}
+/* 포스터 메뉴 각 li 오버시 */
+.poster-menu>ul>li.on,
+.poster-menu>ul>li:hover{
+    transform: rotateX(0deg) translateY(-30px) scale(1.5);
+    outline: 1px solid aqua;
+    z-index: 1;
+}
+/* 맨왼쪽 포스터 오버시 위치 */
+.poster-menu>ul>li:first-child:hover {
+    transform:translateX(-50px) translateY(-30px) rotateY(20deg) scale(1.5);
+}
+/* 맨오른쪽 포스터 오버시 위치 */
+.poster-menu>ul>li:last-child:hover{
+    transform:translateX(50px) translateY(-30px) rotateY(-20deg) scale(1.5);
 }
 .poster-menu img{
     /* 이미지 가로 채우기 */
@@ -98,7 +121,7 @@ border: none;
     background-color: rgb(0 0 0 / 49%);
     /* 글자 셋팅 */
     font-family: 'Cute Font', cursive;
-    font-size: 14px;
+    font-size: min(1.3vw,14px);
     /* 줄바꿈방지 */
     white-space: nowrap;
     /* 트랜지션 */
@@ -106,7 +129,7 @@ border: none;
 }
 /* 영화정보 박스 제목 */
 .mv-info li:first-child {
-    font-size: 17px;
+    font-size: min(1.5vw,17px);
     color: aqua;
 }
 .poster-menu>ul>li:hover .mv-info{
