@@ -35,8 +35,8 @@ const mvCode = {
 // 3. 이벤트 함수 만들기
 // 이벤트대상에 클릭설정하여 함수 연결하기
 pmenu.forEach(ele=>{
-    domFn.addEvt(ele,'click',()=>{
+    domFn.addEvt(ele,'click',(e)=>{
         //호출확인
-        console.log('나야나!',event.currentTarget);
+        console.log('나야나!',e.currentTarget);
     });
 });
