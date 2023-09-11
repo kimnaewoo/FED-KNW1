@@ -22,6 +22,8 @@ body{
     position: relative;
     height: 80px;
     background: url(../images/curtain.jpg) repeat-x;
+    /* 상단영역박스 가장위! */
+    z-index: 999;
 }
 /* 1-1. 로고 */
 .tit{
@@ -45,7 +47,7 @@ body{
 .gnb{
     /* .header 의 자식포지션 */
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
     right: 10px;
 }
 .gnb ul{
@@ -55,13 +57,23 @@ body{
     gap: 0 20px;
     font-family: 'Jua';
 }
+/* 상위메뉴 li */
+.gnb ul>li{
+    /* 부모자격 - .smenu */
+    position: relative;
+}
+/* 상위메뉴 a */
 .gnb ul>li>a{
     /* a는 원래 inline인데 트랜스폼이 적용안됨. 따라서, inline-block으로 변경해야 적용된다! */
     display: inline-block;
     font-size: 2rem;
+    /* 패딩으로 젠틀앱솔루트인 .smenu를 아랫쪽으로 밀려서 이동되게함 li에 연결상태 유지 */
+    padding-bottom: 10px;
+    /* 트랜지션 */
     transition: .3s;
 }
-.gnb ul>li>a:hover{
+/* 상위메뉴 li오버시 a */
+.gnb ul>li:hover>a{
     color: aquamarine;
     /* 글자 확대 */
     transform: scale(1.3);
@@ -69,6 +81,57 @@ body{
     text-shadow: 0 0 4px aquamarine;
     /* 애니메이션 */
     animation: tit-ani .5s ease-in infinite alternate;
+}
+/* .gnb 서브메뉴 .smenu */
+.smenu{
+    position: absolute;
+    width: 140px;
+    left: 50%;
+    /* 가로방향 x축이동 */
+    transform: translateX(-50%);
+    padding: 3px;
+    border-radius: 5px;
+    background: url(../images/bg_smenu.png) no-repeat center/cover;
+    /* 필터를 이용한 그림자로 글로우 효과주기 -> box-shadow를 쓰면 본박스에만 효과적용
+    가상요소 삼각형에는 적용이 안된다. 필터는 내부구성요소 모두의 외곽선에 그림자효과를 적용함 */
+    filter: drop-shadow(0 0 5px #fff);
+    /* 처음에 숨기기 */
+    display: none;
+}
+/* 상위메뉴 li 오버시 서브메뉴 보이기 */
+.gnb ul>li:hover .smenu{
+    display: block;
+}
+/* 서브메뉴 가상요소로 삼각형 만들기 */
+.smenu::before{
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 15px;
+    background-color: #373737;
+    clip-path: polygon(0 100%, 50% 0,100% 100%);
+}
+/* 서브메뉴 ol */
+.smenu ol{
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+/* 서브메뉴 a */
+.smenu a{
+    font-size: 1.6rem;
+    line-height: 1.7;
+}
+/* 서브메뉴 li오버시 a */
+.smenu li:hover a{
+    color: orangered;
+}
+/* 서브메뉴 a오버시 가상요소로 이모지 넣기 */
+.smenu li:hover a::after{
+    content: '🔥';
+    float: right;
 }
 /**************** 2.메인영역 ****************/
 .main{
