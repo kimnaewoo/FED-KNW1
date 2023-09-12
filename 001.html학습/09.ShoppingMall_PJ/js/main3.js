@@ -93,8 +93,10 @@ function loadFn() {
     // 4. 해당li빼고 전체 li 클래스 'on' 지우기
     // 같은 li요소인지 검증: 요소.isSameNode(다른요소)
     slide.forEach(ele=>{
-        console.log(ele.isSameNode(slide[snum]));
-        ele.classList.remove("on");
+        // console.log(ele.isSameNode(slide[snum]));
+        // 현재li가 아니면 클래스 'on' 지우기
+        if(!ele.isSameNode(slide[snum]))
+            ele.classList.remove("on");
     })
 
   } // goSlide
