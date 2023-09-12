@@ -3,21 +3,40 @@
 
 /************* 1370px 이하 사이즈 시작 *************/
 @media screen and (max-width: 1370px) {
-    /* GNB 메뉴 */
-    .gnb{
-        right: 80px;
-    }
+  /* GNB 메뉴 */
+  .gnb {
+    right: 80px;
+  }
 }
 /************* 1330px 이하 사이즈 종료 *************/
 
 /************* 1050px 이하 사이즈 시작 *************/
 @media screen and (max-width: 1050px) {
-    
+  /* 2-2.GNB */
+  .gnb {
+    bottom: -90px;
+  }
+  .gnb ul {
+    top: 53px;
+    left: 59px;
+    flex-direction: column;
+    align-items: flex-end;
+    /* 처음에 안보임 */
+    display: none;
+  }
+  /* .gnb 오버시 ul보이기 */
+  .gnb:hover ul{
+    display: flex;
+  }
+  /* 상위메뉴 오버시 하위메뉴 보이기 없앰 */
+  .gnb ul>li:hover .smenu {
+    display: none;
+}
 }
 /************* 1050px 이하 사이즈 종료 *************/
 
 /************* 800px 이하 사이즈 시작 *************/
 @media screen and (max-width: 800px) {
-    
+
 }
 /************* 800px 이하 사이즈 종료 *************/
