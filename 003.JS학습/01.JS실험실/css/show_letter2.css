@@ -6,14 +6,17 @@ body {
 /* 글자스테이지 */
 .stage-letters {
     position: fixed;
+    /* 플렉스박스 */
     display: flex;
+    flex-wrap: wrap;
+    width: 70vw;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     outline: 2px dashed yellow;
 
     /* 글자설정 */
-    font-size: 5vw;
+    font-size: 40px;
     color: #fff;
     white-space: nowrap;
 }
@@ -46,7 +49,7 @@ body {
     /* 투명도 0 */
     opacity: 0;
     /* 트랜지션: 속시이지 */
-    transition: 0.3s ease-in;
+    transition: 0.1s ease-in;
 }
 /* 등장클래스 .on */
 .style2.on span{
@@ -65,7 +68,7 @@ body {
     /* 투명도 0 */
     opacity: 0;
     /* 트랜지션: 속시이지 */
-    transition: 0.5s ease-out;
+    transition: 0.3s ease-in;
 }
 /* 등장클래스 .on */
 .style3.on span{
