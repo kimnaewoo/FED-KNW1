@@ -56,15 +56,34 @@ body {
 }
 /* 스크롤 등장 초기화 클래스 */
 .set-it {
-  transform: translateY(20%);
+  transform: rotate(360deg);
   opacity: 0;
   transition: 1.2s ease-in-out;
 }
 /* 스크롤 등장 클래스 .on */
 .set-it.on {
-  transform: translateY(0);
+  transform: rotate(0deg);
   opacity: 1;
 }
+.set-it2 {
+    transform: rotate(360deg);
+    opacity: 0;
+    transition: 1.2s ease-in-out;
+  }
+  /* 스크롤 등장 클래스 .on */
+  .set-it2.on {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  /* 스크롤 초기화등장 3 */
+  .set-it3 {
+    transform: translate(100%, -100%) scale(0);
+    transition: 1.2s ease-in-out;
+  }
+  /* 스크롤 등장 클래스 .on */
+  .set-it3.on {
+    transform: translate(0,0) scale(1);
+  }
 .stage {
   display: flex;
 }

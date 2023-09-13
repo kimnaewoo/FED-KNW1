@@ -13,6 +13,9 @@ const domFn = {
 
   // 바운딩 위치값 함수
   getBCR: (ele) => ele.getBoundingClientRect().top,
+
+  // 옵셋탑값 반환함수
+  getOT: (ele) => ele.offsetTop,
 }; /////// domFn 객체 /////////////
 
 startSS();
@@ -43,19 +46,28 @@ startSS();
 
 // 1. 대상선정:
 // 스크롤 등장 대상: .scact
-const scAct = domFn.qsa(".scact");
+const scAct = domFn.qsa(".hide-el");
 console.log(scAct);
 
 // 2. 전체 window 에 스크롤 이벤트 셋팅하기
-// 스크롤 등장액션 이벤트 설정
+// 2-1. 스크롤 등장액션 이벤트 설정
 domFn.addEvt(window, "scroll", showIt);
-// 스크롤시 떨어지는 여자 이벤트 설정
-domFn.addEvt(window, "scroll",  moveWoman);
-
+// 2-2. 스크롤시 떨어지는 여자 이벤트 설정
+domFn.addEvt(window, "scroll", moveWoman);
+// 2-3. 스크롤시 타이틀 이동애니 이벤트 설정
+domFn.addEvt(window, "scroll", moveTit);
 // 요소 위치값
 // let pos1 = scAct[0].offsetTop;
 // let pos2 = scAct[1].offsetTop;
 // let pos3 = scAct[2].offsetTop;
+
+// 각 요소 옵셋top값 구하기
+const posTop = [];
+
+scAct.forEach((ele,idx)=>{
+    posTop[idx] = domFn.getOT(ele);
+}); // forEach
+console.log('각위치배열:',posTop);
 
 // 3. 스크롤 등장 기준설정 : 화면의 3/4
 const CRITERIA = (window.innerHeight / 4) * 3;
@@ -79,8 +91,6 @@ function showIt() {
 
   // 요소의 바운딩 위치값 찍기
   for (let x of scAct) addOn(x);
-
-
 } // showIt 함수
 
 // 기준값을 검사후 클래스 넣는 함수
@@ -94,7 +104,6 @@ function addOn(ele) {
   // 기준값보다 크면 원상복귀(없어짐 opcity:0)
   else ele.classList.remove("on");
 } // addOn 함수
-
 
 // 구현내용: 글자를 박스에 넣고 하나씩 날아오면서 등장
 // 1.대상선정: .stage
@@ -115,8 +124,7 @@ for (let x of mytxt) {
   if (x === " ") hcode += "&nbsp";
   // 코드만들어 변수에 대입연산자로 넣기!
   else
-    hcode += `<span style="transition-delay: ${idx * 0.1}s">
-                    ${x}</span>`;
+    hcode += `<span style="transition-delay: ${idx * 0.1}s">${x}</span>`;
 
   // 순번변수증가
   idx++;
@@ -135,30 +143,67 @@ setTimeout(() => {
 // 스크롤시 떨어지는 여자 함수
 // 원리: 전체 페이지 스크롤 이동한계값을 기준으로 비례식을 세워 보이는 화면에서의 떨어지는여자의 위치를 정해줌
 
-
-// 윈도우높이값 
+// 윈도우높이값
 let winH = window.innerHeight;
 // 문서전체 높이값
-let docH = document.body.clientHeight
+let docH = document.body.clientHeight;
 // 스크롤 한계값 : 전체 document 높이 - 화면 높이
 let scLimit = docH - winH;
-console.log('스크롤한계:',scLimit);
+console.log("스크롤한계:", scLimit);
 // 비례식 => 페이지전체길이 : 윈도우높이 = 스크롤이동값 : 이미지이동값
 // 이미지이동값 = 윈도우높이*스크롤이동값 / 페이지전체길이
-const woman = domFn.qs('#woman')
-function moveWoman(){
-    // 1. 스크롤 위치값 
-    let scTop = window.scrollY;
+const woman = domFn.qs("#woman");
+function moveWoman() {
+  // 1. 스크롤 위치값
+  let scTop = window.scrollY;
 
-    // 2. 떨어지는여자 top값 
-    // 이미지이동값 = 윈도우높이*스크롤이동값 / 페이지전체길이
-    let wTop = winH*scTop / scLimit
-    console.log('난 떨어지는여자',wTop)
+  // 2. 떨어지는여자 top값
+  // 이미지이동값 = 윈도우높이*스크롤이동값 / 페이지전체길이
+  let wTop = (winH * scTop) / scLimit;
+//   console.log("난 떨어지는여자", wTop);
 
-    // 3. 떨어지는 여자에 적용하기
-    woman.style.top = wTop + 'px';
+  // 3. 떨어지는 여자에 적용하기
+  woman.style.top = wTop + "px";
 
-    // 4. 맨위일때 윗쪽으로 숨기기
-    if(scTop==0) woman.style.opacity = '0';
-    if(scTop==0) woman.style.transition = '1s';
+  // 4. 맨위일때 윗쪽으로 숨기기
+  if (scTop == 0) woman.style.opacity = "0";
+  if (scTop == 0) woman.style.transition = "1s";
 } // moveWoman 함수
+
+// 타이틀이동 애니함수
+// 대상 :.tit
+const tit = domFn.qs('.tit');
+
+
+// 타이틀 이동 애니함수 ////
+function moveTit(){
+    // 스크롤 위치값
+    let scTop = window.scrollY;
+    console.log('타이틀이야',scTop);
+
+    // 1. 맨위 위치로 이동
+    if(scTop < posTop[0]-winH/2){
+        tit.style.top = '0%';
+        tit.style.left = '50%';
+        tit.style.transition = '0s';
+    }
+    // 2. 첫번째 포스터 옆으로 이동
+    if(scTop > posTop[0]-winH/2 && scTop < posTop[0]){
+        tit.style.top = '50%';
+        tit.style.left = '25%';
+        tit.style.transition = '2s';
+    }
+    // 3. 두번째 포스터 옆으로 이동
+    if(scTop > posTop[1]-winH/2 && scTop < posTop[1]){
+        tit.style.top = '50%';
+        tit.style.left = '65%';
+        tit.style.transition = '1s';
+    }
+    // 4. 세번째 포스터 옆으로 이동
+    if(scTop > posTop[2]-winH/2 && scTop < posTop[2]){
+        tit.style.top = '50%';
+        tit.style.left = '25%';
+        tit.style.transition = '2s';
+    }
+    
+} // moveTit 함수
