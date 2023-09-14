@@ -46,9 +46,9 @@ const domFn = {
   // 이벤트 대상 : window
   // 이벤트 종류 : scroll
   // 위치대상 : .tpg -> 스티키박스를 싸고있는 부모박스 
-//   const tpg = domFn.qs('.tpg');
+  const tpg = domFn.qs('.tpg');
   // 움직일대상 : .slidePg>ul
-//   const target = domFn.qs('.slidePg>ul');
+  const target = domFn.qs('.slidePg>ul');
   domFn.addEvt(window,'scroll',moveSlide);
   
   function moveSlide(){
@@ -61,13 +61,19 @@ const domFn = {
 
     // 2. 바운딩값으로 대상 left 위치 변경하기 
     // 움직일 대상 : 스티키박스 -> .slidePg>ul 
-    // 움직이기 시작은 바운딩값이 0이하일때 부터 !!!
+
+    // (1)윗쪽 (0초과) 일때 처음위치 재설정하기
     if(bTop<=0 && bTop >= -3000){
         target.style.left = bTop + 'px';
     }
-    // 윗쪽 (0초과) 일때 처음위치 재설정하기
+    // (2)움직이기 시작은 바운딩값이 0이하일때 부터 !!!
+    // 한계는 -3000px
     else if(bTop > 0){
         target.style.left = '0px';
+    }
+    // (3) 마지막 한계 이후엔 한계값으로 셋팅!
+    else{
+        target.style.left = '-3000px';
     }
     
   } // moveSlide
