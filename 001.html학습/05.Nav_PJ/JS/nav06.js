@@ -18,14 +18,14 @@ const domFn = {
 
 // 2. 대상선정: .gnb
 const gnbBox = domFn.qs(".gnb");
-console.log("대상", gnbBox);
+// console.log("대상", gnbBox);
 
 // ul>li>a[href="#"]{1차}+.smenu>aside.smbx>h2>(.stit{1차}+a[href="#"]{전체보기})+.swrap>dl>dt{2차}+dd>a[href="#"]{3차}
 
 // 3. 객체 데이터로 html 코드 만들기
 let hcode = "";
 for (let x in mdata) { // x는 속성명
-    console.log(x);
+    // console.log(x);
     hcode += `
     <ul>
         <li>
@@ -35,23 +35,22 @@ for (let x in mdata) { // x는 속성명
                     <h2>
                         <div class="stit">${x}</div>
                         <a href="#">전체보기</a>
+                    </h2>
                         <div class="swrap">
                         <!-- 2차메뉴 dl 생성 -->
                             ${makeCode(mdata[x])}
-                        </div>
-                        
-                    </h2>
+                        </div>                        
                 </aside>
             </div>
         </li>
     </ul>
     `;
 } /////////////////forin/////////////////
-console.log("코드:", hcode);
+// console.log("코드:", hcode);
 
 // 내부 for in문 코드 생성함수 만들기 ////
 function makeCode(obj){ //obj - 객체 전달값
-    console.log("나야나",obj);
+    // console.log("나야나",obj);
     // 코드변수
     let hcode ='';
     // 객체 반복문 for in 문 사용
@@ -85,10 +84,44 @@ gnbBox.innerHTML = hcode;
     const bb = aa.map(value=>value+'씨');
     -> 결과 :  ['신숙씨','상호씨','경미씨']
 *****************************************/
-const aa = ['신숙','상호','경미'];
-const bb = aa.map(value=>value+'씨');
-console.log(bb);
-const cc = bb.map((value,idx)=>`<div>${idx+'.'+value}</div>`)
-console.log(cc,' 배열이니?',Array.isArray(cc));
+// const aa = ['신숙','상호','경미'];
+// const bb = aa.map(value=>value+'씨');
+// console.log(bb);
+// const cc = bb.map((value,idx)=>`<div>${idx+'.'+value}</div>`)
+// console.log(cc,' 배열이니?',Array.isArray(cc));
 // const ff = ['내우','용진']
 // console.log(`<div>${ff.map(val=>`<h2>${val}</h2>`).join('')}</div>`)
+
+
+
+/************************************************************************ 
+ [ 상위메뉴 li 오버시 하위메뉴 보이기 ]
+  이벤트 대상 : .gnb>ul>li 
+  변경 대상 : .smenu
+************************************************************************/
+// 1. 대상
+const gnb = domFn.qsa('.gnb>ul>li');
+
+// 2. 이벤트 설정하기
+// 이벤트 종류 : mouseover , mouseout
+gnb.forEach(ele=>{
+    domFn.addEvt(ele,'mouseover',overFn);
+    domFn.addEvt(ele,'mouseout',outFn);
+});
+
+// 3. 함수만들기
+function overFn(){
+    console.log('오버',this);
+    // 하위 .smenu 높이값 알아오기
+    let hv = domFn.qsEl(this,'.smbx').clientHeight;
+    console.log('높이:',hv);
+    // 2. 하위 서브메뉴박스 만큼 .smenu 높이값 주기
+    domFn.qsEl(this,'.smenu').style.height = hv + 'px';
+} // overFn 
+function outFn(){
+    // console.log('아웃',this);
+    // 서브메뉴 박스 높이값 0 만들기!
+    domFn.qsEl(this,'.smenu').style.height = '0px';
+} // overFn 
+
+
