@@ -69,3 +69,7 @@ function loadFn() {
 // 3. 대상박스에 html 코드 넣기 
 liveBox.innerHTML = hcode;
 } // loadFn 함수 ////
+
+
+// [ GNB 서브메뉴 셋팅하기 ]
+// 구조 : div.smenu > aside.smbx > h2{1차메뉴} + (ul>li>a{2차메뉴})
