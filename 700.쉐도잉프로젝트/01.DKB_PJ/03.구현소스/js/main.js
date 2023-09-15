@@ -123,8 +123,12 @@ const gnb = domFn.qsa('.gnb>ul>li');
 // 2. 이벤트 설정하기
 // 이벤트 종류 : mouseover , mouseout
 gnb.forEach(ele=>{
+  // 서브메뉴가 있을때만 이벤트 설정하기
+  // if문에서 undefined/null 은 false 처리된다.
+  if(domFn.qsEl(ele,'.smenu')){
     domFn.addEvt(ele,'mouseover',overFn);
     domFn.addEvt(ele,'mouseout',outFn);
+  }
 });
 
 // 3. 함수만들기
