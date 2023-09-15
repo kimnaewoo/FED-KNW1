@@ -40,7 +40,7 @@ console.log('대상',cube);
 
 // 2. 이벤트 설정하기 
 domFn.addEvt(window,'wheel',rotateMem);
-
+  
 // 3. 함수설정
 function rotateMem(){
 
