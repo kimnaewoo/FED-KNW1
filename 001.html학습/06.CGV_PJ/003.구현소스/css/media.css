@@ -63,6 +63,14 @@
   .poster-menu > ul > li {
     flex-basis: calc(100% / 3 - 10px * 2);
   }
+  /* 영화정보박스 */
+  .mv-info {
+    font-size: 3.2vw;
+  }
+  /* 영화정보박스 제목만 변경 */
+  .mv-info li:first-child {
+    font-size: 3.5vw;
+  }
   /* 하단영역 */
   .footer {
     height: auto;
@@ -70,12 +78,15 @@
     gap: 15px;
   }
   /* 회사정보박스 */
-  .co-info address{
+  .co-info address {
     text-align: center;
   }
   /* SNS박스 */
   .sns-box {
     margin-left: 0;
+  }
+  .btn-map{
+    display: none;
   }
 }
 /************* 800px 이하 사이즈 종료 *************/
