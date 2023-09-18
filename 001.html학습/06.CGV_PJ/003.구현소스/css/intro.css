@@ -11,7 +11,7 @@ body {
   width: 100vw;
   height: 100vh;
   /* 스크롤바 없음 */
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 /* 비디오 */
