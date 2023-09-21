@@ -2,10 +2,11 @@
 
 /* 도깨비 PJ : 공통 클래스 CSS - core.css */
 /* 공통 셋팅을 위한 클래스 + 웹폰트 */
+
 /* 웹폰트 CDN */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Gugi&family=Nanum+Gothic&family=Single+Day&family=ZCOOL+KuaiLe&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Gugi&family=Nanum+Gothic&family=Single+Day&family=ZCOOL+KuaiLe&display=swap');
 /* 
-    0. 메뉴 등 일반체 
+    0. 메뉴 등 일반체
     font-family: 'Noto Sans KR', sans-serif;
     1. 캐릭터 설명 제목체
     font-family: 'Gugi', cursive;
@@ -17,14 +18,18 @@
     font-family: 'Nanum Gothic', sans-serif;
 */
 
-/* 전체 글자크기 */
+/* 전체 글자크기 적용 */
 html{
-    font-size: 10px; /* rem 단위를 위한 계산편의성 셋팅과 함께 전체 글자크기를 제어한다. */
+    font-size: 10px;
+    /* rem 단위를 위한 계산편의성 셋팅 
+    + 전체글자크기 제어 */
 }
-/* 전체글자체 셋팅 */
-body {
+
+/* 전체 공통 글자체적용 */
+body{
     font-family: "Noto Sans KR", Malgun Gothic, dotum, "돋움", Arial, AppleGothic, Sans-serif;
 }
+
 
 /* 공통 레이아웃 클래스 */
 /* 속박스 */
@@ -33,23 +38,20 @@ body {
     padding: 0 20px;
     margin: 0 auto;
 }
-/* 공통 서브타이틀 */
-.stit{
-    padding-bottom: 32px;
-    font-size: 3.8rem;
-}
 /* 클리어 설정 가상요소
-    float에 의한 망가짐 방지! */
+        float에 의한 망가짐 방지! */
 .inbox::after,
 .group-part::after {
     content: "";
     display: block;
     clear: both;
 }
-/* 파트박스 */
+/* 그룹파트박스 */
 .group-part{
+    /* 상하패딩 넣기 */
     padding: 60px 0;
 }
+/* 파트박스 */
 .partbox {
     /* 옆으로 흐르게 */
     float: left;
@@ -60,12 +62,18 @@ body {
     /* 임시 보이게 보더 */
     border: 2px dotted blue;
     /* 높이값이 속박스에 있을 경우 
-        채우기셋팅 - 높이값이 파티션박스에 있으면 안씀! */
+            채우기셋팅 - 높이값이 파티션박스에 있으면 안씀! */
     height: 100%;
 }
 
+/* 공통 서브타이틀 */
+.stit{
+    padding-bottom: 32px;
+    font-size: 3.8rem;
+}
+
 /* 12 그리드 클래스 : 
-    한줄에 합이 12컬럼이 되도록 셋팅! */
+        한줄에 합이 12컬럼이 되도록 셋팅! */
 .col-1 {
     width: 8.33%;
 }
@@ -111,7 +119,8 @@ body {
     clear: both;
 }
 
-/*  IR(image replacement) - 배경이미지 숨기기 클래스 */
+/* IR(Images Replacement) 
+- 배경이미지 설명 숨기기 클래스 */
 .ir{
     display: block;
     width: 0;
@@ -123,6 +132,7 @@ body {
 .blind{
     display: none;
 }
+
 /* 스크롤바 디자인 클래스 */
 /* -webkit- 밴더사명(크롬,사파리) 접두어 */
 /* (참고: -ms-(ie), -o- (오페라), -moz-(파이어폭스) */
@@ -141,3 +151,4 @@ body {
     background-color: #ddd;
     border-radius: 5px;
 }
+
