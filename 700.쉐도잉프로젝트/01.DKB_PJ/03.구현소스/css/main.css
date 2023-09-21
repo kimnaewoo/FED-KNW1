@@ -251,12 +251,18 @@ body > div > * {
     background: url(../images/icon_play.png) no-repeat center/cover;
     cursor: pointer;
 }
-/* 하위 이미지 */
-.intro-mv-img img{
+/* 하위 이미지/동영상 */
+.intro-mv-img img,
+.intro-mv-img video{
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
+}
+/* 동영상 설명박스 */
+.intro-mv-box figcaption{
+    padding-top: 10px;
+    font-size: 2rem;
 }
 /*********** 미리보기파트 ***********/
 .main .group-part-02 .partbox {
