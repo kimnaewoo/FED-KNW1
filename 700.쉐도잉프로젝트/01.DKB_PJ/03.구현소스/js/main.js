@@ -179,12 +179,22 @@ const mvBox = dFn.qs('.intro-mv-img');
 // 2. 이벤트 설정하기
 dFn.addEvt(mvBox,'click',showMv);
 
+// 이벤트 연결 상태변수
+let stsshowMv = 0;
+
 // 3. 함수만들기
 function showMv(){
+  if(stsshowMv) return;
+  stsshowMv = 1;
   console.log('보여줘');
   // 동영상 넣기
   // 대상: 나자신 
   this.innerHTML = `
-    <video src='./images/intro_mv.mp4' controls ></video>
+    <video src='./images/intro_mv.mp4' controls autoplay ></video>
   `;
+  // 가상요소 플레이버튼 없애기 위해 .off 지우기
+  this.classList.remove('off');
+
+  // 이벤트등록 지우기하여 다음클릭시 이 함수 연결끊기
+
 } // showMv 
