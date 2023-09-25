@@ -2,6 +2,19 @@
 
 // dom 모듈 함수
 import dFn from "./dom.js";
+
+
+// 슬라이드 대상요소 : .banbx
+const banBox = dFn.qsa('.banbx');
+console.log('슬라이드대상:',banBox);
+
+
+// 슬라이드 만큼 모두 호출하기!
+banBox.forEach(ele=>{
+    // 슬라이드 함수 호출하기
+    SlideFn(ele);
+
+}) // forEach
 /***************************************************** 
     [ 슬라이드 이동 기능정의 ]
     1. 이벤트 종류: click
@@ -31,38 +44,56 @@ import dFn from "./dom.js";
 
 *****************************************************/
 
-// 전역변수구역 //////////
-// 1. 광클금지상태변수 : 0-허용,1-불허용
-let clickSts = 0;
-// 2. 슬라이드 이동시간 : 상수로 설정
-const TIME_SLIDE = 400;
 
 /* 
     (참고: JS에서 이름짓는 일반규칙)
     1. 변수/함수 : 캐믈케이스(첫단어소문자 뒷단어 대문자시작)
     2. 생성자함수/클래스 : 파스칼케이스(모든첫글자 대문자)
     3. 상수 : 모든글자 대문자(연결은 언더스코어-스네이크 케이스)
-*/
-
-/****************************************** 
+    */
+   
+   /****************************************** 
     함수명: SlideFn
     기능: 로딩 후 버튼 이벤트 및 기능구현
-******************************************/
-function SlideFn(selEl) { // selEl 선택 슬라이드 요소 
-  console.log("로딩완료!");
+    ******************************************/
+   function SlideFn(selEl) { // selEl 선택 슬라이드 부모 요소 
+    console.log("슬라이드 함수 호출확인!");
+    // 0. 슬라이드 공통변수
+    // 0-1. 광클금지상태변수 : 0-허용,1-불허용
+    let clickSts = 0;
+    // 0-2. 슬라이드 이동시간 : 상수로 설정
+    const TIME_SLIDE = 400;
 
   // 1. 대상선정
-  // 1-1.변경 대상: 전달된 선택요소 -> selEl 
-  const slide = dFn.qs(selEl);
-  // 1-2.이벤트 대상: 선택 슬라이드 하위 .abtn
-  const abtn = dFn.qsaEl(slide,'.abtn');
-  // 1-3.블릿박스 대상: 선택 슬라이드 하위 .indic li
-  const indic = dFn.qsaEl(slide,'.indic li');
+  // 1-1. 슬라이드 부모요소 : 전달된 선택요소 -> selEl 
+  const sldWrap = selEl; // DOM 요소를 직접 받음!!!
+  // 1-1. 변경대상 : 선택요소 하위.slide
+  const slide = dFn.qsEl(sldWrap,'.slide');
+  // 1-2.이벤트 대상: 선택 요소 하위 .abtn
+  const abtn = dFn.qsaEl(sldWrap,'.abtn');
+  // 1-3.블릿박스 대상: 선택 요소 하위 .indic li
+  let indic = dFn.qsEl(sldWrap,'.indic');
 
   // 대상확인
   console.log("대상", abtn, slide, indic);
 
-  // 1.5. li리스트에 순번속성 만들어 넣기
+  // 1-4. 슬라이드 개수와 동일한 블릿동적 생성
+  // 대상 : .indic -> indic변수
+  // 슬라이드 개수 
+  let sldCnt = dFn.qsaEl(slide,'li').length;
+  // for 문으로 블릿li 생성할때 0번만 클래스 on 넣기 
+  for(let i=0; i<sldCnt; i++){
+    indic.innerHTML += `
+        <li ${i==0?'class="on"':''}>
+            <img src="images/dot1.png" alt="흰색">
+            <img src="images/dot2.png" alt="회색">
+        </li>`;
+  } // for 
+ 
+  // 블릿li 재선택 할당하기
+  indic = dFn.qsaEl(sldWrap,'.indic li');
+
+  // 1-5. li리스트에 순번속성 만들어 넣기
   // 만드는이유: 블릿변경 등에 현재 슬라이드 순번 필요!
   // 사용자 정의 속성은 반드시 'data-'로시작해야함!(W3C규칙)
   // data-seq 로 순번 속성을 넣을 것임!
@@ -70,10 +101,14 @@ function SlideFn(selEl) { // selEl 선택 슬라이드 요소
   // setAttribute(속성명,속성값) -> 속성셋팅 JS내장메서드
 
   // 2. 이벤트 설정하기 : 버튼요소들 -> forEach()
-  abtn.forEach((ele) => addEvt(ele, "click", goSlide));
+  abtn.forEach((ele) => dFn.addEvt(ele, "click", goSlide));
 
   // 3. 함수만들기
   function goSlide() {
+
+    // a요소 기본이동 막기
+    event.preventDefault();
+    
     // 광클금지 //////////////
     if (clickSts) return; //나가!
     clickSts = 1; //잠금!
@@ -218,5 +253,5 @@ function SlideFn(selEl) { // selEl 선택 슬라이드 요소
     // 결과적으로 5초후 인터발 재실행은 하나만 남는다.
   } //////////// clearAuto 함수 ///////////
   
-} //////////////// loadFn 함수 ///////////////
+} //////////////// slideFn 함수 ///////////////
 /////////////////////////////////////////////
