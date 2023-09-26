@@ -4,7 +4,21 @@
 import dFn from "./dom.js"
 
 console.log(dFn);
+/******************************************** 
+    [ 여기 등장하는 배열 메서드 정리 ]
+    1. push(값) - 뒷배열추가!
+    2. pop() - 뒷배열삭제!
+    3. unshift(값) - 앞배열추가!
+    4. shift() - 앞배열삭제!
+    5. splice(순번,0,값) - 중간배열삽입!
+    6. splice(순번,개수) - 중간배열삭제!
+    _________________________________
 
+    7. join(구분자) - 배열값 구분자로 문자열변환!
+    8. map(v=>`<새값>${v}</새값>`) - 새배열!(배열리턴)
+    9. forEach(v=>{}) - 배열/유사배열 순회!
+    10. Object.keys(객체) - 객체의 키로 배열변환!
+********************************************/
 // 0. 기본정보 셋팅하기 
  // (1) 배열변수 선언과 할당
  const fruit = ["배", "사과", "용과", "딸기"];
@@ -41,6 +55,8 @@ const cont = dFn.qs('.cont');
 const sel = dFn.qs('#sel');
 // 2-4. 선택과일 콤보박스(aun=array number) : #anum
 const anum = dFn.qs('#anum');
+// 2-5. 지울개수 입력창 : #delnum
+const delNum = dFn.qs('#delnum');
 
 console.log('대상',mbtn,showit,cont,sel,anum);
 
@@ -64,7 +80,13 @@ showArray();
 // 키만가지고 배열로 변환하는 object 객체의 메서드 : key()
 // Object.key(객체) - 객체의 키를 값으로 하는 배열생성!
 ////////////////////////////////////////////////////////////////////////
-console.log(Object.keys(frObj));
+sel.innerHTML = Object.keys(frObj).map(v=>`<option>${v}</option>`).join('');
+
+// [1] 객체의 키를 배열로!
+// console.log(Object.keys(frObj));
+
+// [2] 객체의 값을 배열로! : 키스맵 객체[키] 변환! 
+console.log(Object.keys(frObj).map(v=>frObj[v]));
 
 // let opTag = '';
 // for(let x in frObj){ 
@@ -144,8 +166,27 @@ function showFruit(){
         fruit.unshift(sel.value);
     } // else if
 
+    // 중간배열 삭제 메서드 : splice()
+    // 삭제시: splice(순번) -> 순번부터 뒤를 모두 삭제
+    //         splice(순번,개수) -> 순번부터 개수만큼 삭제
+    else if(btxt == '중간배열삭제'){
+        fruit.splice(anum.value,delNum.value);
+        console.log('지울순번:',anum.value,'지울개수:',delNum.value);
+    }// else if
+
+    //중간배열삽입 메서드 : splice()
+    // 삽입시: splice(순번,0) 
+    // -> 순번뒤에 0을 쓰고 그 뒤에 값을 쓰면 선택순번 앞쪽에 배열값이 삽입됨
+    else if(btxt == '중간배열삽입'){
+        fruit.splice(anum.value,0,sel.value);
+        console.log('삽입순번:',anum.value);
+    }// else if
+
     // console.log(fruit);
     // 배열찍기 함수 호출!
     showArray();
+
+    // 선택배열 콤보박스 바인딩 함수 호출!
+    bindCombo();
 
 } // showFruit
