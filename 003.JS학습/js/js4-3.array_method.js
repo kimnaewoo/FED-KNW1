@@ -37,17 +37,64 @@ const mbtn = dFn.qsa('.mbtn');
 // 2-2. 변경대상 : .showit (배열정보출력) / .cont (과일출력박스)
 const showit = dFn.qs('.showit');
 const cont = dFn.qs('.cont');
-console.log('대상',mbtn,showit,cont);
+// 2-3. 전체 과일 콤보박스 : #sel
+const sel = dFn.qs('#sel');
+// 2-4. 선택과일 콤보박스(aun=array number) : #anum
+const anum = dFn.qs('#anum');
 
-// 3. 이벤트 설정하기 
-mbtn.forEach(ele=>{
-    dFn.addEvt(ele,'click',showFruit)
-}) // forEach
-// ->>> 처음배열 출력하기 <<<-
+console.log('대상',mbtn,showit,cont,sel,anum);
+
+// 3. 초기화 작업 : 처음배열출력 / 콤보박스 바인딩 
+
+// 3-1. ->>> 처음배열 출력하기 함수<<<-
+const showArray = ()=>
 showit.innerText = fruit.join('★');
 // join() : 전체배열을 사이구분자를 넣고 문자열출력 
 
-// 4. showFruit 만들기
+// 처음배열 출력함수 최초호출!
+showArray();
+
+// 3-2. 전체과일 콤보박스 바인딩
+// 대상 : #sel / 데이터: frObj[] 배열변수
+// option 태그 변수
+
+////////////////////////////////////////////////////////////////////////
+// [ 객체의 속성(키)을 배열로 변환하여 배열메서드 이용하기 ] 
+// 객체형식 -> {키:값}
+// 키만가지고 배열로 변환하는 object 객체의 메서드 : key()
+// Object.key(객체) - 객체의 키를 값으로 하는 배열생성!
+////////////////////////////////////////////////////////////////////////
+console.log(Object.keys(frObj));
+
+// let opTag = '';
+// for(let x in frObj){ 
+//     // x - 객체의 속성 / frObj[x] - 객체의 값  
+//     console.log(x);
+//     // 내용넣기
+//     opTag += `<option>${x}</option>`;
+// }// fon in
+// // 전체과일콤보박스 바인딩하기
+// sel.innerHTML = opTag;
+
+// 3-3. 선택과일 콤보박스 바인딩
+// 대상: #anum / 데이터: fruit[] 배열
+// 갱신시 계속 재바인딩 해야하므로 함수로 만든다!
+const bindCombo = ()=>{
+    anum.innerHTML = fruit.map((v,i)=>`<option value='${i}'>${v}</option>`).join('');
+}; // bindCombo 
+
+// 선택과일 콤보 바인딩함수 최초호출
+bindCombo();
+
+// 객체는 끕이 높아 forEach를 쓸수없다. -> for in
+// console.log(frObj,forEach(val=>{console.log(val)}))
+
+// 4. 이벤트 설정하기 
+mbtn.forEach(ele=>{
+    dFn.addEvt(ele,'click',showFruit)
+}) // forEach
+
+// 5. showFruit 만들기
 function showFruit(){
     // this - 버튼자신
     // 버튼 텍스트
@@ -70,4 +117,35 @@ function showFruit(){
         // 출력박스에 태그넣기 
         cont.innerHTML = hcode;
     } // if 
+
+    // 배열뒤에 추가하기 메서드 : push()
+    else if(btxt == '뒷배열추가요~!'){
+        // 대상: fruit 배열
+        // 읽어올곳 : #sel 박스 -> 값은 value 
+        fruit.push(sel.value);
+    } // else if
+    
+    // 뒷배열 삭제 메서드 : pop()
+    else if(btxt == '뒷배열삭제요~!'){
+        // 대상 : fruit 
+        fruit.pop();
+    }
+
+    // 앞배열 삭제 메서드 : shift()
+    else if(btxt == '앞배열삭제요~!'){
+        // 대상 : fruit 
+        fruit.shift();
+    }
+
+    // 배열앞에 추가하기 메서드 : unshift()
+    else if(btxt == '앞배열추가요~!'){
+        // 대상: fruit 배열
+        // 읽어올곳 : #sel 박스 -> 값은 value 
+        fruit.unshift(sel.value);
+    } // else if
+
+    // console.log(fruit);
+    // 배열찍기 함수 호출!
+    showArray();
+
 } // showFruit
