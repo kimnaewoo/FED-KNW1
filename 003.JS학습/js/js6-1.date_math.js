@@ -176,7 +176,7 @@ console.log('대상:',target);
 // 랜덤수 범위: 0~3 (4개의 배열이므로)
 
 // 2초간격으로 인터발 호출
-setInterval(colorImg,500);
+setInterval(colorImg,1500);
 
 // 직전 랜덤수 : 초기셋팅은 0~3 사이수가 아님수 
 let bNum = 1000;
@@ -186,11 +186,19 @@ function colorImg(){
     // 1. 난수만들기 : 0~3 -> 1~4를 만들고 내림처리
     let rdmNum = Math.floor(Math.random()*4);
     console.log('랜덤수:',rdmNum);
-
+    
     // 2. 직전 랜덤수와 같을 경우 다시 난수발생하기
     // while(조건true){코드} 사용하기
     // 항상 직전 램덤수는 전역변수로 저장하고 매번 비교한다.
+    while(rdmNum==bNum){ // 현재랜덤수가 직전랜덤수와 같은가?
+        // 다시발생
+        rdmNum = Math.floor(Math.random()*4);
+        console.log('다시랜덤수:',rdmNum);
+    } // while 
     
+    // while문을 빠져나온 경우  랜덤수가 확정이므로 이전랜덤수로 저장하여 다음번에 비교할수 있도록 한다.
+    bNum=rdmNum;
+
     // 3. 대상에 클래스 on 넣기, 나머지는 배기
     target.forEach((ele,idx)=>{
         if(idx==rdmNum)
