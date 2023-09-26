@@ -254,3 +254,6 @@ clipData.forEach(val=>{
 }); // forEach
 
 console.log(clipCode);
+
+// 코드 넣기
+clipBox.innerHTML = `<ul>${clipCode}</ul>`;
