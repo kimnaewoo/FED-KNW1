@@ -5,6 +5,9 @@
 import dFn from "./dom.js";
 // console.log(dFn);
 
+// 메시지 제이슨 불러오기
+import msgTxt from "./data_racing.json" assert{type:'json'};
+console.log(msgTxt);
 /********************************************** 
             [ 게임 기능정의 ]
     _________________________________
@@ -69,6 +72,28 @@ function goGame(){
     if(btxt=='토끼출발'){
         goR1();
     } // if
+    else if(btxt=='거북출발'){
+        // 거북버튼멈춤 상태값에 따른 조작제어
+        if(t1Stop) return;
+
+        // 거북 위치값 이동 셋팅 
+        t1pos += 16;
+        t1.style.left = t1pos + 'px';
+
+        // 거북버튼 키보드 작동 막기
+        // 포커스가 가는것을 blur처리하면 된다!
+        // this 는 클릭된 '거북출발'버튼임
+        this.blur();
+        // 초점가게 하는 메서드 -> focus()
+        // 초점빠지게 하는 메서드 -> blur()
+
+        // 토끼출발 호출 
+        goR1();
+    } // else if
+    else if(btxt=='처음으로'){
+        // 페이지 리로드
+        location.reload();
+    } // if
 } // goGame
 
 /********************************************** 
@@ -83,8 +108,11 @@ function goR1(){
         // 인터발 실행하기
         console.log('토끼실행');
         autoI = setInterval(()=>{
+            // 토끼위치
             r1.style.left = ++r1pos + 'px';
-        },10) // 인터발 함수
+            // 승자판별함수 호출!
+            whoWinner();
+        },level.value) // 인터발 함수
         // 실행시간은 #level인 선택박스값을 읽어온다. -> option의 value값은 level.value 
     } // if 
     
@@ -96,3 +124,39 @@ function goR1(){
     기능: 기준값 보다 레이서위치값이 큰경우
         승자를 판별하여 메시지를 보여준다!
 *****************************************/
+let t1Stop = 0; // 거북멈춤값(1-멈춤,0-허용)
+
+function whoWinner(){
+    // console.log('토끼위치:',r1pos,'\n거북위치:',t1pos);
+
+    // 1. 토끼/거북의 위치값이 기준값 이상일때
+    // 기준값 : 650px 
+    if(r1pos >= 650 || t1pos >= 650){
+        // (1) 토끼야 멈춰라!
+        clearInterval(autoI);
+        // (2) 거북아 멈춰라!
+        t1Stop = 1; // 거북버튼 조작제어값 업데이트
+
+        // 승자변수
+        let winner;
+        // (3) 승자 판별하기 
+        if(r1pos > t1pos) winner = "토끼";
+        else if(r1pos < t1pos) winner = "거북";
+        else winner = "비김";
+
+        // (4) 메시지 랜덤으로 커버박스에 넣기
+        // msgtxt에 제이슨으로 부터 데이터 담음!
+        
+        // 선택 메시지 객체
+        let selMsg = msgTxt[winner];
+        console.log(selMsg);
+        
+        // selMsg -> 선택된 메시지 배열 
+        // 랜덤수 만들기
+        let rdmNum = Math.floor(Math.random()*selMsg.length);
+        console.log('랜덤수:',rdmNum,'개수:',selMsg.length);
+        console.log('랜던메시지:',selMsg[rdmNum]);
+    } // if
+    // else if(r1pos >= 600)
+    // clearInterval(autoI);
+} // whowinner 
