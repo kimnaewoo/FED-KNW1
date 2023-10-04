@@ -35,7 +35,7 @@ function MyFirstReact(){
                 가능함! <br />
             </h2>
         </div>
-    );
+    ); 
 } // MyFirstReact 생성자함수
 
 // 리액트 html대상요소에 삽입하기
