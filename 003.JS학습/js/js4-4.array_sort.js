@@ -134,6 +134,7 @@ dFn.addEvt(selBox,'change',function(){
     showScreen();
 }) // 체인지 이벤트 함수 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 2. 문자로만 된 배열의 화면 뿌리기 
 // map() 메서드로 배열값을 태그로 감싸서 출력하기 
@@ -177,3 +178,105 @@ dFn.addEvt(selBox2,'change',function(){
     // 화면출력 -> 원본 배열의 정렬이 변경된 후 다시 출력 
     showScreen2();
 }) // 체인지 이벤트 함수 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 3. 객체 데이터 배열의 정렬 
+
+// (1). 데이터 
+const list1 = [
+    {
+        idx: 8,
+        tit: "나는 누구?",
+        cont: "공동구매) 슬로건 공구 (계좌와 네이버폼)",
+    },
+    {
+        idx: 4,
+        tit: "여기는 어디?",
+        cont: "총공 공지] 오늘부터 일 2회, 총공 진행합니다",
+    },
+    {
+        idx: 1,
+        tit: "나야나",
+        cont: "연합 갈라 서포트 계좌오픈",
+    },
+    {
+        idx: 15,
+        tit: "이제 얼마나 남은거니?",
+        cont: "음악프로그램에 출연 요청글도 써볼까요?",
+    },
+]; /////////////// list1 /////////////
+console.log(list1);
+
+// 출력대상 : .showList3
+const showList3 = dFn.qs('.showList3');
+
+// (2). html 코드 생성하여 출력하는 함수 만들기
+const upCode = () => {
+    // 반복코드 만들기
+    // 대상코드 : list1 배열 
+    let hcode = list1.map(val=>`
+        <tr>
+            <td>${val.idx}</td>
+            <td>${val.tit}</td>
+            <td>${val.cont}</td>
+        </tr>
+    `);
+    // console.log('새로운배열:',hcode);
+
+
+    // 테이블 생성코드 넣기
+    showList3.innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>내용</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${hcode.join('')}
+            </tbody>
+        </table>
+    `;
+    
+}; // upCode 
+
+// (3). 요소의 데이터 코드 넣기 함수호출 :기본출력
+upCode();
+
+// (4). 정렬변경 이벤트 발생시 실제 정렬 변경하기 
+// 이벤트 대상: .sel3
+const sel3 = dFn.qs('.sel3');
+// 정렬기준 대상: .cta3
+const cta3 = dFn.qs('.cta3');
+
+dFn.addEvt(sel3,'change',sortingFn);
+
+// (5). 정렬변경 함수 만들기
+function sortingFn(){
+    // 1. 선택값 담기
+    let optVal = this.value;
+    
+    // 정렬기준값 읽기
+    let cta = cta3.value;
+    console.log('바꿔! 정렬!',optVal,cta);
+    
+    // 2. 분기하기
+    // 데이터대상 : list1 배열
+    if(optVal==1){
+        list1.sort((a,b)=>{
+            // a,b 는 모두 객체 데이터. 따라서, 내부 속성을 구체적으로 비교해야함
+            // idx,tit,cont 세가지 중 하나로 비교  
+            return a[cta]==b[cta]?0:a[cta]>b[cta]?1:-1;
+        })
+    } 
+    else if(optVal==2){
+        list1.sort((a,b)=>{
+            return a[cta]==b[cta]?0:a[cta]<b[cta]?1:-1;
+        })
+    }
+    console.log(list1);
+    // 리스트 코드 반영하기
+    upCode();
+} // sortingFn 함수 
