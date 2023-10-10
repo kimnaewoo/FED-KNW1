@@ -45,10 +45,10 @@ class Gogh extends React.Component {
         return(
             <React.Fragment>
                 <h2>안녕ㅋ? 나는 고흐 그림이삼!</h2>
-                <MakeImg iname="01.png" alt="고흐1" />
-                <MakeImg iname="02.png" alt="고흐2" />
-                <MakeImg iname="03.png" alt="고흐3" />
-                <MakeImg iname="04.png" alt="고흐4" />
+                <MakeImg iname="01.png" ialt="고흐1" />
+                <MakeImg iname="02.png" ialt="고흐2" />
+                <MakeImg iname="03.png" ialt="고흐3" />
+                <MakeImg iname="04.png" ialt="고흐4" />
                 {/* 홀로태그는 반드시 스스로 닫아준다! */}
             </React.Fragment>
         );
@@ -67,8 +67,8 @@ ReactDOM.render(<Gogh />,document.querySelector('#root1'));
 function IronMan(){
     return(
         <div>
-            <h2>안녕ㅋ? 나는 아이언맨임요!</h2>
-            <MakeImg iname="ab1.jpg" alt="아이언맨"/>
+            <h2>아이언맨! 아이언맨 그대여~ 따라라따 오늘도~</h2>
+            <MakeImg iname="ab1.jpg" ialt="아이언맨"/>
         </div>
     );
 } // IronMan 컴포넌트
@@ -76,7 +76,7 @@ function IronMan(){
 // 이미지 생성 컴포넌트
 function MakeImg(props){
     return(
-        <img src={"./images/"+props.iname} alt={props.alt} />
+        <img src={"./images/"+props.iname} alt={props.ialt} />
     );
 };
 
@@ -96,7 +96,7 @@ ReactDOM.render(<IronMan />,document.querySelector('#root2'));
 function Favorite(헐){
     return(
         <h2>
-            내가 좋아하는 색은 {헐.color}이여 <br/>
+            내가 좋아하는 색은 {헐.color}이여 <br/> 
             그리고 좋아하는 음식은 {헐.food}구 <br/>
             취미는 {헐.hobby}여ㅋ 알것어??<br/>
             참고로, 손흥민은 {헐.son}이여ㅋ 수고햐~
@@ -112,7 +112,7 @@ ReactDOM.render(<Favorite color="블랙" food="피자" hobby="축구" son="짱" 
 
 // 컴포넌트 재사용하기!!
 // #root4에 다른사람의 좋아하는 색, 음식, 취미를 출력한다!
-ReactDOM.render(<Favorite color="파랑" food="파스타" hobby="피파" son="귀속" />,document.querySelector('#root4'));
+ReactDOM.render(<Favorite color="파랑" food="파스타" hobby="피파" son="감아차기" />,document.querySelector('#root4'));
 
 /******************************************************************************************************************* 
     컴포넌트 내부에서 다른 컴포넌트를 호출 할 수 있다!
@@ -131,7 +131,7 @@ function Who(){
 // 컴포넌트 내부에서 호출할 컴포넌트
 function Ans(){
     return(
-        <h2>나다 이 띰땡꺄</h2>
+        <h2>접니다만?</h2>
     );
 } // Ans 컴포넌트 
 
