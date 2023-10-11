@@ -55,7 +55,7 @@ function EventShow(){
         },3000); 
 
         // (1-5) #ala요소에 이미지 출력하기 
-        ReactDOM.render(<MakeImg isrc={lamp} ialt='램프소원빌기' />,document.querySelector('#ala'))
+        ReactDOM.render(<MakeImg isrc={lamp} ialt='램프소원빌기' info='false' />,document.querySelector('#ala'))
 
 
     }; // aladin 함수 
@@ -67,7 +67,7 @@ function EventShow(){
         let lamp = document.querySelector('.lamp');
 
         // 2. 램프에 이미지넣기 
-        ReactDOM.render(<MakeImg isrc='https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/3168457870/B.png' ialt='알라딘램프' />,lamp);
+        ReactDOM.render(<MakeImg isrc='https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/3168457870/B.png' ialt='알라딘램프' info="false"/>,lamp);
 
         // 3. 램프 이미지 초기셋팅
         let lampImg = lamp.querySelector('img');
@@ -102,7 +102,10 @@ function EventShow(){
     };
     // (3) 득점왕가져오기 함수 
     const getFerrari = () => {
-
+        console.log('득점왕 가즈아~!');
+        // 득점왕 이미지 넣기
+        // 대상: #ferrari 
+        ReactDOM.render(<MakeImg isrc="./images/son_1.jpg" ialt="득점왕" info='true' idnm='Win' tit='클릭하면 즐거워요!'/>, document.querySelector('#ferrari'));
     }; // getFerrari 함수 
 
     // 2. 컴포넌트 리턴은 가장 아랫쪽에서 함!
@@ -125,8 +128,36 @@ function EventShow(){
 
 // 이미지 생성 컴포넌트
 function MakeImg(props){ // isrc - 이미지경로 , ialt - 이미지설명 
-    return <img src={props.isrc} alt={props.ialt} />
+    // 비?집:놀이동산 - 삼항연산자 , 페라리와 구분하여 이미지를 별도로 구성하여 리턴한다.
+    // props.info -> info/false값을 보내서 처리한다. 
+    // true이면 페라리용 이미지태그로 생성한다.
+    console.log('구분속성 props.info:',props.info);
+    return( 
+        props.info?
+        <img id={props.idnm} src={props.isrc} alt={props.ialt} title={props.tit} onClick={moveWin} /> : <img src={props.isrc} alt={props.ialt} />
+    );
+    
+     
 } // MakeImg 컴포넌트 
+
+// 일반함수 로 득점왕 움직이기 구현 
+function moveWin(){
+    console.log('움직여! 득점왕!');
+    let Win = document.querySelector('#Win');
+    
+    // 번갈아서 갔다왔다함!
+    Win.style.transform = 
+    actOne?
+    "translateX(150%) scale(2)":
+    "translateX(0) scale(1)";
+
+    // 트랜지션 셋팅
+    Win.style.transition = "5s ease-in-out";
+
+    // 번갈아서 1/0전환
+    actOne?actOne=0:actOne=1;
+
+} // moveWin 함수 
 
 // 최초 컴포넌트 출력하기
 
