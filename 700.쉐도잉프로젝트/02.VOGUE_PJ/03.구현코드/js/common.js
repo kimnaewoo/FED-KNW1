@@ -4,6 +4,10 @@
 import tData from "./data/com_module.js";
 import dFn from "./dom.js";
 
+// 부드러운 스크롤 모듈
+import { startSS, setPos } from "./smoothScroll23.js";
+// 부드러운 스크롤 적용 //////////
+startSS();
 
 // 대상선정: .top-area, .footer-area
 const comArea = dFn.qsa('.common-area');
