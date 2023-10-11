@@ -140,6 +140,9 @@ function MakeImg(props){ // isrc - 이미지경로 , ialt - 이미지설명
      
 } // MakeImg 컴포넌트 
 
+// 번갈아 실행체크 변수
+let actOne=1;
+
 // 일반함수 로 득점왕 움직이기 구현 
 function moveWin(){
     console.log('움직여! 득점왕!');
@@ -148,7 +151,7 @@ function moveWin(){
     // 번갈아서 갔다왔다함!
     Win.style.transform = 
     actOne?
-    "translateX(150%) scale(2)":
+    "translateX(50%) scale(1.5)":
     "translateX(0) scale(1)";
 
     // 트랜지션 셋팅
