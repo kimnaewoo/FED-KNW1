@@ -87,8 +87,8 @@ dFn.addEvt(eBox,'mouseenter',function(){
     // 2. 커서박스 읽어와서 셋팅하기
     let cursorImg = dFn.qs('.cursor-box');
     cursorImg.style.position = 'fixed';
-    cursorImg.style.width = '50vw';
-    cursorImg.style.height = '50vh';
+    cursorImg.style.width = '2vw';
+    cursorImg.style.height = '2vh';
     cursorImg.style.border = '2px solid #000';
     cursorImg.style.background = 
     'url(./images/imgs_moving/good.jpg) no-repeat 0/100% 100%';
