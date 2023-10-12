@@ -87,10 +87,14 @@ const actMini = (ele, seq, fn)=>{
 }; // actMini 할당 함수
 
 // 4. "들어가기" 버튼 클릭시 
-btns.first().click(function(){ // 첫번째 버튼시
+btns.first().click( // 첫번째 버튼시
 
-    // 0. 메시지 숨기기
+    function(){ // 하위 이벤트함수 this의미!
+    // ()=>{
+
+    // 0. 메시지 숨기기 + 버튼 숨기기
     msg.fadeOut(300);
+    $(this).slideUp(400);
 
     // 1. 이동 
     // 원리: 이동할 li방 위치값을 읽은 후 이동
@@ -99,15 +103,25 @@ btns.first().click(function(){ // 첫번째 버튼시
     let pos = [];
     // top위치값 
     pos[0] = myRoom.offset().top;
-    // left위치값 
-    pos[1] = myRoom.offset().left;
+    // left위치값 : 방에서 중앙에 위치하도록 보정 
+    // -> left값 + 방width절반 - 미니언즈width절반
+    pos[1] = myRoom.offset().left + myRoom.width() / 2 - mi.width() / 2;
      
     console.log(pos[0],'/',pos[1]);
 
     // 2. 이동하기 
     // 대상: .mi -> mi변수
     // animate({css설정},시간,이징,콜백함수)
-    mi.animate({top:pos[0] + 'px',left:pos[1] + 'px'},1500,'easeOutElastic',()=>{msg.html('와~! 아늑하다! 옆방으로 가보자!').delay(1000).fadeIn(300)});
+    mi.animate({top:pos[0] + 'px',left:pos[1] + 'px'},1500,'easeOutElastic', 
+        //function(){ -> this가 mi임!
+        ()=>{ // this가 싸고있는 버튼요소임!
+        msg.html('와~! 아늑하다! 옆방으로 가보자!').delay(1000).fadeIn(300);
+        // console.log('미니언즈 콜백함수',this);
+        // 다음 버튼 보이기
+        $(this).next().delay(1000).slideDown(400);
+
+    }); // animate
+    
 }); // "들어가기" 버튼 끝  
 
 
