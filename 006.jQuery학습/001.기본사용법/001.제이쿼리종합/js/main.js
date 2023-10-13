@@ -291,10 +291,10 @@ btns.first().click(
               right: room.eq(7).width()*1.2+'px'
             },1000,'easeOutBounce',()=>{
               // 물린 후, 대사
-              msg.html(msgTxt[4][1]);
+              msg.html(msgTxt[4][1]).css({left:'-46%'});
               // 미니언즈 좀비 이미지 변견 (1초후)
               setTimeout(()=>{
-                mi.find('.img').attr('src','images/mz1.png').css({filter:'grayscale(100%)'}); // 흑백변경: 필터(그레이스케일)
+                mi.find('img').attr('src','images/mz1.png').css({filter:'grayscale(100%)'}); // 흑백변경: 필터(그레이스케일)
                 // 다음버튼 보이기 
                 showNextBtn(this);
               },1200); // setTimeout 
