@@ -101,7 +101,7 @@ function WishList(props){ // wlist 속성에 담아서 보내준다.
     // 코드 리턴
     return(
         <React.Fragment>
-            <Title tit='음식' />
+            <Title tit='음식' /> 
             {/* 음식 위시리스트의 길이가 0보다 클때만 출력 */}
 
             {
