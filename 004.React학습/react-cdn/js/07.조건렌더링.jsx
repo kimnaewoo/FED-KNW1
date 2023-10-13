@@ -103,6 +103,8 @@ function WishList(props){ // wlist 속성에 담아서 보내준다.
             <Title tit='음식' />
             {/* 음식 위시리스트의 길이가 0보다 클때만 출력 */}
 
+            {
+            myFood.length > 0 &&
             <div>
                 <h2>
                     개발자가 좋아하는 음식은 모두 {myFood.length}가지 입니다.    
@@ -117,6 +119,15 @@ function WishList(props){ // wlist 속성에 담아서 보내준다.
                     }
                 </ul>
             </div>
+            }
+            {/* 다른 경우의 출력은 별도의 JSX출력 중괄호 구역에 코딩한다. */}
+            {
+                myFood.length == 0 &&
+                <h2>아직 개발자음식 리스트가 업데이트가 안되었습니다.</h2>
+            }
         </React.Fragment>
     );
 } // WishList 컴포넌트
+
+// 컴포넌트 출력하기 
+ReactDOM.render(<WishList wlist={foods}/>,document.querySelector('#root3'))
