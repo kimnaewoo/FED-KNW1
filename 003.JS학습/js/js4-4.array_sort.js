@@ -475,9 +475,12 @@ function searchingFn(){
         // indexOf(검색어) -> indexOf(stxt변수값) 
         // 숫자형 데이터일 경우에 에러가 발생하므로 String(숫자데이터) -> 문자형 변경
         if(String(v[cta]).indexOf(stxt)!==-1) return true;
-    }) // filter
+    }); // filter
 
     console.log('검색결과:',res);
+
+    // 4. 출력하기 : upCode()
+    upCode(res,showList4);
 } // searchingFn 
 
 
