@@ -289,11 +289,11 @@ btns.first().click(
               // right값을 li width값 만큼 이동
               right: room.eq(7).width()*1.2+'px'
             },1000,'easeOutBounce',()=>{
-              // 물린 후, 대사
-              msg.html(msgTxt[4][1]).css({left:'-46%'});
               // 미니언즈 이미지 흑백처리 (1초후)
               setTimeout(()=>{
                 mi.find('img').css({filter:'grayscale(100%)'}); // 흑백변경: 필터(그레이스케일)
+                // 물린 후, 대사
+                msg.html(msgTxt[4][1]).css({left:'-84%'});
               },1000); // setTimeout 
               // 미니언즈 좀비 이미지 변경 (2초후)
               setTimeout(()=>{
@@ -308,4 +308,44 @@ btns.first().click(
     // 미니언즈 공통함수 호출
     actMini(this, 4, fn);
   }
-) // "무서우니 윗층으로!" 버튼 끝
+)
+// 9. "치료주사방으로!" 버튼 클릭시
+// 위의 버튼에서 이어짐 
+.next().click(
+  // 치료주사방으로! 이동버튼시
+
+  function () {
+    // 하위 이벤트함수 this의미!
+    // ()=>{
+
+    // 버튼별 콜백함수 만들기
+    let fn = 
+        //function(){ -> this가 mi임!
+        () => {
+          $('.inj') 
+            .css({zIndex:'9999'})
+            .delay(500)
+            /************************************************************************************* 
+            jquery.rotate.js 는 jQuery animate메서드에 transform rotate를 사용할 수 있도록 해주는 플러그인! -> 제이쿼리 라이브러리 아래위치
+            [ 사용법(animate css설정에 씀)-> rotate:"각도deg" ] 
+            *************************************************************************************/
+            .animate({rotate:'-150deg'},500,'easeInOutCirc',
+            ()=>{ // 주사기 회전후 콜백함수 
+              // 미니언즈 이미지 변경하기
+              // attr(속성명,값) -> 값 설정하기 / attr(속성명) -> 값 읽어오기 
+              mi.find('img')
+              .attr('src','images/m2.png') // 이미지변경
+              .css({filter:'grayscale(0)'}); // 다시 컬러
+            }) // animate 
+            // 주사기 돌리기 (animate는 트랜스폼 적용안됨!) 따라서, css로 적용
+            /* .css({
+              transform:'rotate(-150deg)', // 반시계방향
+              transition:'.5s .5s', // .5초후 .5초간 애니
+              zIndex:'9999' // 미니언즈(999)보다 위 ! 
+            }) */
+        }; // 미니언즈 콜백 함수
+
+    // 미니언즈 공통함수 호출
+    actMini(this, 2, fn);
+  }
+) // "치료주사방으로!" 버튼 끝
