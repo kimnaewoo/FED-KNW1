@@ -102,7 +102,7 @@ $(".mz").hide();
 
 // 2. 버튼 셋팅하기
 // 대상 : .btns button -> btns 변수
-btns.hide().eq(7).show(); // 버튼들.숨겨().첫번째().보여();
+btns.hide().eq(8).show(); // 버튼들.숨겨().첫번째().보여();
 
 // 3. 미니언즈 공통기능 함수
 // ele - 클릭된 버튼요소, seq - 이동할 li room 순번, fn - 이동후 실행할 코드
@@ -430,10 +430,40 @@ btns.first().click(
           msg.html(msgTxt[0]).fadeIn(300)
 
           // 1번방 단체좀비들 달겨들기
-            room.eq(1).find('.mz').fadeIn(300).animate({right:room.eq(1).width() + 'px'},3000,'easeInCirc')
+          room.eq(1).find('.mz').fadeIn(300).animate({right:room.eq(1).width() + 'px'},3000,'easeInCirc')
 
           // 헬기등장!
-          $('.heli').animate({left:'23%'},4000,'easeOutBack')
+          $('.heli').animate({left:'23%',rotate:'10deg'},3000,'easeOutQuint')
+          .animate({
+            left:'23%',
+            rotate:'0deg'
+          },500,'easeInOutSine',
+          function(){ // 헬기 이동 후, 콜백함수 
+            // 헬기 이미지 바꾸기 (this) -> function(){}사용시 
+            $(this).attr('src','images/heli2.png');
+            // 원본 미니언즈 사라지기
+            mi.hide();
+          })
+          .delay(500)
+          .animate({left:'70%',rotate:'15deg'},4000,'easeInOutCirc',
+          function(){ // 애니후 콜백함수 
+            // 끝쪽에서 조정사를 좀비를 변경하는 이미지변경
+            $(this).attr('src','images/heli3.png');
+          })
+          .delay(300)
+          .animate({left:'100%'},10000,'linear',
+          ()=>{ // 헬기나간후 
+            // 간판 떨어지기
+            let tit = $('.tit');
+            // 1단계 : 클래스 'on' 주기 
+            tit.addClass('on');
+            // 2단계 : 클래스 'on2' 주기 (3초후)
+            setTimeout(() => {
+              tit.addClass('on2');
+            }, 3000);
+            // 건물 무너지기 
+
+          })
 
         }; // 미니언즈 콜백 함수
 
