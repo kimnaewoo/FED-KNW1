@@ -102,7 +102,7 @@ $(".mz").hide();
 
 // 2. 버튼 셋팅하기
 // 대상 : .btns button -> btns 변수
-btns.hide().eq(5).show(); // 버튼들.숨겨().첫번째().보여();
+btns.hide().eq(7).show(); // 버튼들.숨겨().첫번째().보여();
 
 // 3. 미니언즈 공통기능 함수
 // ele - 클릭된 버튼요소, seq - 이동할 li room 순번, fn - 이동후 실행할 코드
@@ -309,6 +309,7 @@ btns.first().click(
     actMini(this, 4, fn);
   }
 )
+
 // 9. "치료주사방으로!" 버튼 클릭시
 // 위의 버튼에서 이어짐 
 .next().click(
@@ -411,3 +412,28 @@ btns.first().click(
     actMini(this, 1, fn);
   }
 ) // "1번방으로!" 버튼 끝
+
+// 12. "헬기를 호출!" 버튼 클릭시
+// 위의 버튼에서 이어짐 
+.next().click(
+  // 헬기를 호출! 이동버튼시
+
+  function () {
+    // 하위 이벤트함수 this의미!
+    // ()=>{
+
+    // 버튼별 콜백함수 만들기
+    let fn = 
+        //function(){ -> this가 mi임!
+        () => {
+         // 메시지 보이기
+         msg.html(msgTxt[0]).fadeIn(300)
+
+        // 1번방 단체좀비들 달겨들기
+          room.eq(1).find('.mz').fadeIn(300).animate({right:requestAnimationFrame.eq(1).width() + 'px'},3000,'easeInCirc')
+        }; // 미니언즈 콜백 함수
+
+    // 미니언즈 공통함수 호출
+    actMini(this, 0, fn);
+  }
+) // "헬기를 호출!" 버튼 끝
