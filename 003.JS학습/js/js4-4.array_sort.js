@@ -423,6 +423,16 @@ const list2 = [
       cont: "당근마켓이 정말로 싸고 좋다구~!",
   },
   {
+      idx: 16,
+      tit: "손흥민:푸스카스",
+      cont: "번리전 베르통언 0.9골",
+  },
+  {
+      idx: 11,
+      tit: "손흥민:득점왕",
+      cont: "우리는 손흥민의 시대에 살고있습니다!",
+  },
+  {
       idx: 74,
       tit: "점심에 뭐먹지? 당근이지!",
       cont: "오스틴님 생일 서포트 안내",
@@ -439,6 +449,9 @@ const list2 = [
   },
 ]; /////////////// list2 /////////////     
 
+// 검색/ 정렬용 변수 - 검색기 newList 변수 업데이트 
+let newList = list2;
+
 // (3) 리스트 초기호출!
 // 위의  upCode() 함수를 호출하여 페이지 찍기
 upCode(list2,showList4);
@@ -446,7 +459,8 @@ upCode(list2,showList4);
 // (4) sel4 이벤트 설정하기 ////
 // 데이터와 출력 타겟부터 설정후 정렬함수 호출!
 dFn.addEvt(sel4, "change", ()=>{
-  targetData = list2;
+    // 정렬용 데이터는 원본 list2 쓰지않고 newList 사용 
+  targetData = newList;
   targetEle = showList4;
 }); /////// change ///////////
 dFn.addEvt(sel4, "change", sortingFn);
@@ -481,7 +495,36 @@ function searchingFn(){
 
     // 4. 출력하기 : upCode()
     upCode(res,showList4);
+
+    // 5. 원본 데이터는 그대로 두고 새로운 변수를 선언하여 그 변수에 값은 업데이트 한다!
+    // 단, 그 변수 데이터는 정렬시에 사용하도록 한다! 
+    // -> newList변수  ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+    newList = res;
+
 } // searchingFn 
+
+// 7. 전체 리스트 돌아가기 버튼 클릭시 기능구현
+// 대상: .fbtn
+dFn.addEvt(dFn.qs('.fbtn'),'click',()=>{
+   // 1. newList 를 원본 list2로 업데이트
+   newList = list2;
+   upCode(newList,showList4);
+
+   // 2. 검색 초기화 
+   initSearch();
+   
+}); // click 
+
+// 초기화 함수 : 검색선택박스 초기화
+function initSearch(){
+    // 1. 검색어 초기화
+    dFn.qs('#stxt').value='';
+    // 2. 검색어 기준 선택 초기화 
+    dFn.qs('.cta4').value = 'idx';
+    // 3. 정렬 초기화 
+    dFn.qs('.sel4').value = '0';
+    
+} // initSearch 함수 
 
 
 // 샘플 버튼으로 데이터를 검색한 결과를 콘솔에 찍어본다.
