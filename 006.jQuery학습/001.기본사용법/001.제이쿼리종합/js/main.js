@@ -426,11 +426,15 @@ btns.first().click(
     let fn = 
         //function(){ -> this가 mi임!
         () => {
-         // 메시지 보이기
-         msg.html(msgTxt[0]).fadeIn(300)
+          // 메시지 보이기
+          msg.html(msgTxt[0]).fadeIn(300)
 
-        // 1번방 단체좀비들 달겨들기
-          room.eq(1).find('.mz').fadeIn(300).animate({right:requestAnimationFrame.eq(1).width() + 'px'},3000,'easeInCirc')
+          // 1번방 단체좀비들 달겨들기
+            room.eq(1).find('.mz').fadeIn(300).animate({right:room.eq(1).width() + 'px'},3000,'easeInCirc')
+
+          // 헬기등장!
+          $('.heli').animate({left:'23%'},4000,'easeOutBack')
+
         }; // 미니언즈 콜백 함수
 
     // 미니언즈 공통함수 호출
