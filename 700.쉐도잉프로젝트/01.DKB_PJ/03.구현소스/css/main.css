@@ -417,3 +417,45 @@ body > div > * {
 .btn-box button:last-child{
     right: -35px;
 }
+
+/* 서브 컨텐츠 박스 */
+.sub-cont{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    z-index: 999999;
+    overflow: hidden;
+    display: none;
+}
+.sub-cont a{
+    color: #fff;
+}
+/* 닫기버튼 */
+.cbtn{
+    background: none;
+    border: none;
+    font-size: 80px;
+    position: absolute;
+    top: 1%;
+    right: 3%;
+    color: #fff;
+    cursor: pointer;
+}
+/* 서브 내부박스 */
+.sub-inbox{
+    outline: 2px dashed yellow;
+    min-height: 100vh;
+}
+/* 제목박스 */
+.sub-inbox h1{
+    font-size: 5rem;
+    text-align: center;
+}
+/* 내용박스 */
+.sub-item{
+    font-size: 2rem;
+}
