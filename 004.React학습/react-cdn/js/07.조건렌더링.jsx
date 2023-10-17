@@ -199,3 +199,62 @@ ReactDOM.render(<WishList2 wlist={movs} />,document.querySelector('#root4'));
 /********************************************************** 
     4. 조건 연산자(삼항연산자)를 사용하여 조건부 랜더링하기 
 **********************************************************/
+
+// 명화 데이터
+const worksrc = {
+    "피카소":"https://m.theartin.net/web/product/big/201907/30c5a0fdd153bfdfdc8f19b2f4166fa8.jpg",
+    "모네":"https://dimg.donga.com/wps/NEWS/IMAGE/2015/12/11/75316598.3.jpg"
+};
+
+// 개발자가 좋아하는 그림(명화)찍기
+
+// 4-1. 타이틀과 그림찍기 컴포넌트 
+// 구성 : 작가이름 + 작품이미지 
+// 데이터 : 작가이름(painter), 이미지경로(작가이름의 객체 worksrc), 작품명 : wname
+
+function MakeWork(props){
+    return(
+        <div>
+            <h2>{props.painter}</h2>
+            <img
+                src={worksrc[props.painter]}
+                alt={props.wname}
+                style={{width:'400px'}}
+                title={props.wname}
+            />
+        </div>
+    )
+} // MakeWork 컴포넌트
+
+// 4-2. 전체 출력 컴포넌트
+// 구성 : 전체타이틀(Title컴포넌트사용) + 변경버튼 + 작가와 그림출력(MakeWork컴포넌트)
+// 특이사항 : 변경버튼 클릭시 MakeWork 컴포넌트의 데이터를 변경하여 다시 출력하도록 한다.(Hook 사용!)
+function ExpComp(props){
+    // 작품변경 전달변수 : props.isChange
+    // isChange의 값은 true / false 
+   let result = props.isChange;
+
+    // 변경버튼 호출 함수 
+    const againFn = () => {
+        console.log('다시변경해!',result);
+        // Not 연산자 !(느낌표 사용) true/false 를 반대로 전환 
+        result = !result;
+    }; // againFn 함수
+
+    return(
+        <React.Fragment>
+            {/* 1. 큰제목 */}
+            <Title tit='명화' />
+            {/* 2. 변경버튼: 클릭시 again함수를 호출함 */}
+            <button onClick={againFn}>작가변경!!!</button>
+            {/* 작품출력: 삼항연산자로 작품변경하기 */}
+            {
+                result ?
+                <MakeWork painter='피카소' wname='우는여인' /> : <MakeWork painter='모네' wname='양산을 쓴 여인' /> 
+            }
+        </React.Fragment>
+    )
+} // ExpComp 컴포넌트 
+
+// 4-3. 개발자가 좋아하는 명화 출력
+ReactDOM.render(<ExpComp isChange={true}/>,document.querySelector('#root5'))
