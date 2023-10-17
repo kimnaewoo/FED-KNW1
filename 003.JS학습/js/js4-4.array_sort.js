@@ -663,3 +663,8 @@ dFn.addEvt(dFn.qs('.sel5'),'change',()=>{
 
 // change 이벤트 연결설정
 dFn.addEvt(dFn.qs('.sel5'),'change',sortingFn);
+
+// 검색기준 선택박스 변경시 정렬선택 초기화하기 ///
+dFn.addEvt(dFn.qs('.cta5'),'change',()=>{
+  dFn.qs('.sel5').value = '0';
+}); ////////////// change //////////////////
