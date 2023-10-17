@@ -299,11 +299,12 @@ https://www.w3schools.com/cssref/tryit.php?filename=trycss_cursor */
 .tbtn.on {
     opacity: 1;
     bottom: 0;
+    right: 1%;
 }
 
 /* 위로가기 버튼 오버시 */
 .tbtn:hover {
-    background-color: red;
+    background-color: orangered;
 }
 
 /*************************************** 
