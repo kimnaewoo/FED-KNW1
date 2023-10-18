@@ -26,6 +26,13 @@ function  MakeDallyeok(selEl){
     // selEl - 달력넣을 요소(선택자만 보냄)
     dFn.cg('달력만들어!');
 
+    // [ 생성자함수 속성/ 메서드 공개 연습하기 ]
+    // 요일 정보 변환 배열 
+    this.week = ["일","월","화","수","목","금","토"];
+    // 한자릿수 날짜 앞에 0추가 메서드
+    this.addZero = x => x < 10 ? '0' + x : x;
+    //////////////////////////////////////////////////////////////////////////////////////////
+
     // 0.달력 컴포넌트 HTML 넣기 
     dFn.qs(selEl).innerHTML = insertHcode();
     
@@ -232,7 +239,10 @@ function  MakeDallyeok(selEl){
                 console.log(setDate+`(${week[setDay]})`);
 
                 // 히든필드에 날짜정보 넣기: 날짜정보 공개
-                dateInfo.value = setDate+`(${week[setDay]})`;
+                // 활용도를 높이기 위해 일반구분자로 정보공개
+                // 예) 년도/월/일/요일 -> 2023/10/20/5
+                dateInfo.value = `${nowY}/${nowM}/${nowD}/${setDay}`; 
+                // setDate+`(${week[setDay]})`;
 
             }); /////// click 함수 ////////
 
@@ -278,7 +288,7 @@ function insertHcode(){
     // 달력 html 코드를 리턴함
     return `
     <!-- 달력 전체박스 -->
-    <div class="calender">
+    <div class="calendar">
       <!-- 달력상단:해당년/월표시 -->
       <header class="header">
         <!-- 달력이동버튼:이전 -->
@@ -305,8 +315,8 @@ function insertHcode(){
         <!-- 해당월의 달력날짜 구성박스 -->
         <div class="dates"></div>
       </section>
-      <!-- 달력날짜 저장용 히든필드 -->
-      <input type="text" class="date-info">
+      <!-- 달력날짜 저장용 히든필드: type="hidden" -->
+      <input type="hidden" class="date-info">
     </div>
     `;
 } // insertHcode 함수 
