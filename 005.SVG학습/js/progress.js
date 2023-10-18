@@ -41,14 +41,17 @@ btnAct.one('click',function(){
             num++;
             // 2. 퍼센트 수치 반영 
             barTxt.text(num);
+
+            // 재귀호출
+            setTimeout(() => {
+                if(num<100) progBar();
+            }, 40);
         }; // progBar 함수
+        
         // 최초호출
         progBar();
+        
     } // else if 
-    
-    setTimeout(() => {
-        if(num<100) progBar();
-    }, 40);
 
 }); // click
 
