@@ -18,11 +18,16 @@ const dFn = {
 // 요일변경배열 ////
 const week = ["일","월","화","수","목","금","토"];
 
-// 달력함수 호출
-makeDallyeok();
+// 달력함수 호출 - 여기서안함
+// makeDallyeok();
 
-function makeDallyeok(){
+function makeDallyeok(selEl){
+    // selEl - 달력넣을 요소(선택자만 보냄)
     dFn.cg('달력만들어!');
+
+    // 0.달력 컴포넌트 HTML 넣기 
+    dFn.qs(selEl).innerHTML = insertHcode();
+    
 
     // 1. 변수셋팅 ////////////////////
     // (1) 변경할 현재날짜 객체
@@ -30,11 +35,11 @@ function makeDallyeok(){
     // (2) 오늘날짜 객체
     const today = new Date();
     // (3) 년도요소 : .yearTit
-    const yearTit = dFn.qs('.yearTit');
+    const yearTit = dFn.qs(selEl+' .yearTit');
     // (4) 월요소 : .monthTit
-    const monthTit = dFn.qs('.monthTit');
+    const monthTit = dFn.qs(selEl+' .monthTit');
     // (5) 날짜요소 : .dates
-    const dates = dFn.qs('.dates');
+    const dates = dFn.qs(selEl+' .dates');
     // (6) 날짜넣을 배열변수
     const dateSet = [];
     // (7) html 코드 저장변수
@@ -172,7 +177,7 @@ function makeDallyeok(){
 
         // 9. 날짜정보를 사용하도록 셋팅하기 ////
         // (1) 대상선정 : .date -> 위에서 새로 담겼으므로 새로읽음!
-        let newDate = dFn.qsa('.date');
+        let newDate = dFn.qsa(selEl+' .date');
         // console.log(newDate);
 
         // (2) 각 날짜 .date요소에 링크설정하기
@@ -245,9 +250,9 @@ function makeDallyeok(){
 
     // 3. 이벤트 설정하기 ////////////////////
     // 이전버튼에 함수연결하기 : 달을 빼기위해 -1전달
-    dFn.addEvt(dFn.qs('.btnL'),'click',()=>chgCalendar(-1));
-    // 다음버튼에 함수연결하기 : 달을 더하기위해 1전달
-    dFn.addEvt(dFn.qs('.btnR'),'click',()=>chgCalendar(1));
+    dFn.addEvt(dFn.qs(selEl+' .btnL'),'click',()=>chgCalendar(-1));
+    // 다음버튼에 함수연결하기 : 달을 더하기위해 1전달  
+    dFn.addEvt(dFn.qs(selEl+' .btnR'),'click',()=>chgCalendar(1));
 
 
 
@@ -255,3 +260,46 @@ function makeDallyeok(){
     initDallyeok();
 
 } /////////////// makeDallyeok함수 ////////////
+
+/***************************************************************************
+        함수명 : insertHcode
+        기능 : 달력의 HTML 코드 넣기 
+***************************************************************************/
+
+function insertHcode(){
+    // 달력 html 코드를 리턴함
+    return `
+    <!-- 달력 전체박스 -->
+    <div class="calender">
+      <!-- 달력상단:해당년/월표시 -->
+      <header class="header">
+        <!-- 달력이동버튼:이전 -->
+        <button class="mbtn btnL">〈</button>
+        <div class="title">
+          <div class="yearTit"></div>
+          <div class="monthTit"></div>
+        </div>
+        <!-- 달력이동버튼:다음 -->
+        <button class="mbtn btnR">〉</button>
+      </header>
+      <!-- 달력날짜표시박스 -->
+      <section class="main">
+        <!-- 주단위 구분박스 -->
+        <div class="week">
+          <div class="day">Sun</div>
+          <div class="day">Mon</div>
+          <div class="day">Tue</div>
+          <div class="day">Wed</div>
+          <div class="day">Thu</div>
+          <div class="day">Fri</div>
+          <div class="day">Sat</div>
+        </div>
+        <!-- 해당월의 달력날짜 구성박스 -->
+        <div class="dates"></div>
+      </section>
+    </div>
+    `;
+} // insertHcode 함수 
+
+// 달력 내보내기 
+export default makeDallyeok;
