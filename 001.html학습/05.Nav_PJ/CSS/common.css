@@ -17,7 +17,7 @@ body{
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
-    outline: 2px dashed yellow;
+    /* outline: 2px dashed yellow; */
 }
 
 /* 1. 상단영역 */
@@ -51,6 +51,7 @@ body{
 /* 서브메뉴 박스 : 100% 차지 서브영역 */
 .smenu{
     position: absolute;
+    z-index: 999;
     /* 부모는? - 보이는화면 */
     left: 0;
     width: 100%;
