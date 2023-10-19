@@ -6,7 +6,7 @@ import dFn from "./dom.js";
 
 // 슬라이드 대상요소 : .banbx
 const banBox = dFn.qsa('.banbx');
-console.log('슬라이드대상:',banBox);
+// console.log('슬라이드대상:',banBox);
 
 
 // 슬라이드 만큼 모두 호출하기!
@@ -57,7 +57,7 @@ banBox.forEach(ele=>{
     기능: 로딩 후 버튼 이벤트 및 기능구현
     ******************************************/
    function SlideFn(selEl) { // selEl 선택 슬라이드 부모 요소 
-    console.log("슬라이드 함수 호출확인!");
+    // console.log("슬라이드 함수 호출확인!");
     // 0. 슬라이드 공통변수
     // 0-1. 광클금지상태변수 : 0-허용,1-불허용
     let clickSts = 0;
@@ -75,7 +75,7 @@ banBox.forEach(ele=>{
   let indic = dFn.qsEl(sldWrap,'.indic');
 
   // 대상확인
-  console.log("대상", abtn, slide, indic);
+//   console.log("대상", abtn, slide, indic);
 
   // 1-4. 슬라이드 개수와 동일한 블릿동적 생성
   // 대상 : .indic -> indic변수
@@ -138,7 +138,13 @@ banBox.forEach(ele=>{
       // 놈.놈.놈 -> insertBefore(넣을놈,넣을놈전놈)
       slide.insertBefore(eachOne[eachOne.length - 1], eachOne[0]);
       // 2. left값 -330% 만들기 : 들어올 준비 위치!
-      slide.style.left = "-330%";
+    //   slide.style.left = "-330%";
+      slide.style.left = -(slide.parentElement.clientWidth*3.3-rx) + "px";
+      // rx는 드래그시 이동한 수치임 (보정해야 안튄다)
+      // 이동후에는 rx=0 으로 초기화 해야 버튼클릭시 정상작동한다.
+      console.log('rx보정값:',rx);
+
+      
       // 3. 트랜지션 없애기
       slide.style.transition = "none";
 
@@ -153,6 +159,9 @@ banBox.forEach(ele=>{
 
         // 5. 트랜지션주기
         slide.style.transition = TIME_SLIDE + "ms ease-in-out";
+
+        // 6. 드래그 보정값 rx 초기화 
+        rx = 0 ;
       }, 0);
     } /////// else //////////////
 
@@ -260,10 +269,14 @@ banBox.forEach(ele=>{
 ///// 드래그 기능 함수 파트 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 드래그 적용 이벤트 설정하기 ///////////
-// 1. 대상 선정
+// 1. 대상 선정 : .dtg 는 .slide 와 일치함!
 const dtg = dFn.qsa('.dtg');
 // 2. 드래그 설정하기
 dtg.forEach(ele=>goDrag(ele));
+
+// (5) 위치이동 차이 결과변수 : result x, result y
+let rx = 0;
+
 function goDrag(ele){ // ele - 드래그 대상 요소
 
     // 1. 변수 셋팅
@@ -272,13 +285,14 @@ function goDrag(ele){ // ele - 드래그 대상 요소
     // (2) 첫번째 위치 포인트 first x, first y
     let fx, fy;
     // (3) 마지막 위치포인트 last x, last y
-    let lx = 0, ly = 0;
+    // 처음 위치는 슬라이드 최초 left위치값으로 읽어온다
+    let lx = dFn.qs('.slide').offsetLeft, ly = 0;
     // -> 마지막 위치로 부터 처음 작동하므로 초기값 0셋팅
     // (4) 움직일 때 위치포인트 : move x, move y
     let mvx, mvy;
     // (5) 위치이동 차이 결과변수 : result x, result y
-    let rx, ry;
-
+    // let rx, ry; -> 위치이동차이값은 슬라이드 오른쪽 이동시 보정값으로 슬라이드 이동파트에서 써야하므로 함수바깥에 선언해준다. 
+    
     // 2. 함수 만들기 ///////////////
     // (1) 드래그 상태 true로 변경함수
     const dTrue = () => drag = true;
@@ -292,22 +306,26 @@ function goDrag(ele){ // ele - 드래그 대상 요소
 
         // 드래그 상태일 때만 실행
         if(drag){
+            // 0. 슬라이드의 드래그 상태일때는 트랜지션을 없앤다.
+            ele.style.transition = 'none';
+
+
             // 1. 드래그 상태에서 움직일 때 위치값 : mvx, mvy
             // pageX,pageY 는 일반브라우저 용
             // screenX,screenY 는 터치스크린 용
             mvx = event.pageX || ele.touches[0].screenX;
-            mvy = event.pageY || ele.touches[0].screenY;
+            // mvy = event.pageY || ele.touches[0].screenY;
 
             // 2. 움직일 때 위치값 - 처음위치값 : rx, ry
             // x축값은 left값, y축값은 top값 이동이다
             rx = mvx - fx;
-            ry = mvy - fy;
+            // ry = mvy - fy;
             // 순수하게 움직인 거리를 계산 -> 가장 중요한 핵심
 
             // 3. x,y 움직인 위치값을 타겟요소에 적용
             // 대상 : 전달된 드래그 요소 -> ele변수 
-            ele.style.left = (rx+lx)+'px';
-            ele.style.top = (ry+ly)+'px';
+            ele.style.left = rx + lx + 'px';
+            // ele.style.top = (ry+ly)+'px';
             // 한번 드래그 후 다시 드래그시 움직인 위치값이 필요함
             // -> 마지막 위치값 저장필요 -> lx, ly
             // -> 항상 최종위치에서 움직인 위치를 더한다.
@@ -332,7 +350,7 @@ function goDrag(ele){ // ele - 드래그 대상 요소
     // (4) 첫번째 위치포인트 셋팅함수
     const firstPoint = () => {
         fx = event.pageX;
-        fy = event.pageY;
+        // fy = event.pageY;
         //////console.log('첫포인트:',fx,' | ',fy);
     }; //////////////firstPoint 함수 /////////////////////
     
@@ -340,7 +358,7 @@ function goDrag(ele){ // ele - 드래그 대상 요소
     const lastPoint = () =>{
         // 움직일 때 위치값을 기존값에 계속 더함
         lx += rx;
-        ly += ry;
+        // ly += ry;
         ////console.log('끝포인트:',lx,' | ',ly);
     }; //////////lastPoint 함수///////////////////////
 
@@ -360,12 +378,17 @@ function goDrag(ele){ // ele - 드래그 대상 요소
     // (2) 마우스 올라갈 때 : 드래그 false + 마지막 위치값 업데이트
     dFn.addEvt(ele,'mouseup',()=>{
         dFalse();
-        lastPoint();
+        // lastPoint(); -> 슬라이드 드래그는 마지막 위치 업데이트 불필요! 
+        // 왜? 자유 드래그와 달리 슬라이드는 마지막에 항상 특정위치에 가있기 때문. 그리고 중간에 업데이트를 하면 슬라이드가 튕김
+        // 드래그이동 판별함수 호출 : ele -> 선택한 슬라이드 
+        goWhere(ele);
     });
     // 모바일 이벤트 추가
     dFn.addEvt(ele,'touchend',()=>{
         dFalse();
-        lastPoint();
+        // lastPoint(); -> 모바일도 마찬가지로 마지막 위치 업데이트 불필요! 
+        // 드래그이동 판별함수 호출 : ele -> 선택한 슬라이드 
+        goWhere(ele);
     });
     // (3) 마우스 움직일 때 : 움직일 때 처리함수 호출
     dFn.addEvt(ele,'mousemove',dMove);
@@ -374,3 +397,46 @@ function goDrag(ele){ // ele - 드래그 대상 요소
     // (4) 마우스 벗어날때 : 드래그 상태 false처리 함수 호출
     dFn.addEvt(ele,"mouseleave",dFalse);
 }////////////goDrag 함수 //////////////////////
+
+
+/************************************************************************** 
+    함수명 : goWhere
+    기능 : 드래그시 왼쪽/오른쪽 이동 판별
+    호출 : 드래그시 mouseup/touchend 이벤트에서 호출 
+**************************************************************************/
+function goWhere(target){
+    // target - 드래그 대상(슬라이드요소)
+    // 1. 현재 드래그 대상 left 위치값 
+    let tgLeft = target.offsetLeft;
+    
+    // 2. 기존위치값 : 부모박스를 기준한 -220%의 left 위치값 
+    let pointLeft = target.parentElement.clientWidth * 2.2;
+    // parentElement 상위 부모요소로 이동 
+    // clientWidth 박스의 가로 크기값 
+    // 200% 이므로 2.2 를 곱한다.
+
+    console.log('슬라이드LEFT:',tgLeft,'\n기준LEFT:',-pointLeft);
+
+    // 3. 방향판별하기 : 기준값에 특정값을 더하고 뺀다.
+    // 3-1. 왼쪽방향이동(오른쪽버튼 클릭과 동일)
+    if(tgLeft < -pointLeft - 50){
+        console.log('왼쪽방향으로~!');
+        // 오른쪽 버튼 클릭이벤트 발생하기
+        // 상대적으로, 현재위치에서 찾음 
+        dFn.qsEl(target.parentElement,'.ab2').click();
+    } // if
+    // 3-2. 오른쪽방향이동 (왼쪽버튼 클릭과 동일)
+    else if(tgLeft > -pointLeft + 50){
+        console.log('오른쪽방향으로~!');
+        // 왼쪽쪽 버튼 클릭이벤트 발생하기
+        // 상대적으로, 현재위치에서 찾음 
+        dFn.qsEl(target.parentElement,'.ab1').click();
+    } // else if
+    // 3-3. 중간영역은 제자리로 돌아옴
+    else{
+        console.log('제자리로~!');
+        target.style.left = '-220%';
+        target.style.transition = 'left .2s ease-in-out';
+    } // else
+
+} // goWhere 함수 
