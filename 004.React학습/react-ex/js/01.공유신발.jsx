@@ -17,6 +17,9 @@ function MainComponent(){
     // 데이터 구분값으로 배열순번을 생각하여 처음에 로딩될 데이터가 0번째 즉, 첫번째 배열순번 데이터를 값으로 셋팅한다!
     const [dataNum,setDataNum] = React.useState(0);
 
+    // 테스트 후크상태변수 
+    const [test,setTest] = React.useState(0);
+
     // console.log('최초값:',dataNum);
 
     // 가상돔에서 실제돔에 반영후 DOM에 구현할 JS코드는 어디에 넣어야 하는가..!
@@ -40,12 +43,29 @@ function MainComponent(){
         console.log('useEffect 빈 배열옵션');
     },[]);
     
+    // 의존성 배열옵션 useEffect 
+    // -> 페이지 로딩후 단 한번만 실행함! 
+    React.useEffect(()=>{
+        console.log('useEffect 의존성 배열옵션 test');
+    },[test]);
+    React.useEffect(()=>{
+        console.log('useEffect 의존성 배열옵션 dataNum');
+    },[dataNum]);
+    // 의존성이 다수일 경우 [] 배열형태의 옵션에 콤마로 연결하여 등록해준다!
+    
     // 랜더링 후 화면출력전 상태 
     React.useLayoutEffect(()=>{
         // 버튼을 display:none 
         // $('.btn-gong').hide();
     })
-    
+
+    // 의존성 테스트 함수
+    const testFn = ()=>{
+        setTest(test?0:1)
+        console.log('test 후크변수 변경!',test);
+    }; // testFn 함수 
+
+
     // 데이터 변경호출 함수 
     const chgData = () => {
         // 데이터 키 후크변수를 업데이트함 
@@ -72,6 +92,7 @@ function MainComponent(){
             <button onClick={chgData} className="btn-gong">
                 {dataNum?'공유초이스 바로가기':'효진초이스 바로가기'}
             </button>
+            <button onClick={testFn}>의존성테스트</button>
             {/* 4. 상품리스트박스 */}
             <div className="gwrap">
                 <GoodsCode idx={dataNum}/>
