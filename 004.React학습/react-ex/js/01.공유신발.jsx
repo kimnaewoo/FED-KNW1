@@ -1,6 +1,8 @@
 // 01.공유신발 JSX
 import myData from './data.js';
 import myData2 from './data2.js';
+// JS 기능함수
+import { initFn,firstOneFn } from './act_effect.js';
 
 // 두개의 데이터를 배열로 구성 
 const twoData = [myData,myData2];
@@ -29,6 +31,17 @@ function MainComponent(){
     console.log( // '컴포넌트그냥구역:',document.querySelector('.img-box')
     );
     
+///////////////////////////////////////////////////////////////////////////////////////////////////
+    // [ 리액트 컴포넌트 랜더링 후 실햄함수 호출하기!! ]
+
+    // [ 1. 컴포넌트가 뿌려지기 전 애니메이션 적용하기 ]
+    React.useLayoutEffect(initFn);
+
+    //[ 2. 처음 한번만 타이틀 글자 커졌다가 작아지기 ]
+    React.useEffect(firstOneFn,[]);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // [ useEffect 테스트 코드 ]
     // 순수 useEffect 
     // -> 매번 업데이트 시에도 실행함! 
     React.useEffect(()=>{
