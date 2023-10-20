@@ -17,16 +17,45 @@ function MainComponent(){
     // 데이터 구분값으로 배열순번을 생각하여 처음에 로딩될 데이터가 0번째 즉, 첫번째 배열순번 데이터를 값으로 셋팅한다!
     const [dataNum,setDataNum] = React.useState(0);
 
-    console.log('최초값:',dataNum);
+    // console.log('최초값:',dataNum);
 
+    // 가상돔에서 실제돔에 반영후 DOM에 구현할 JS코드는 어디에 넣어야 하는가..!
+    // -> useEffect() 
+    // -> useLayoutEffect()
+
+    console.log( // '컴포넌트그냥구역:',document.querySelector('.img-box')
+    );
+    
+    // 순수 useEffect 
+    // -> 매번 업데이트 시에도 실행함! 
+    React.useEffect(()=>{
+        console.log('useEffect 순수');
+        // console.log('컴포넌트순수JS:',document.querySelector('.img-box'));
+        // console.log('컴포넌트제이쿼리:',$('.img-box'));
+    });
+    
+    // 빈 배열옵션 useEffect 
+    // -> 페이지 로딩후 단 한번만 실행함! 
+    React.useEffect(()=>{
+        console.log('useEffect 빈 배열옵션');
+    },[]);
+    
+    // 랜더링 후 화면출력전 상태 
+    React.useLayoutEffect(()=>{
+        // 버튼을 display:none 
+        // $('.btn-gong').hide();
+    })
+    
     // 데이터 변경호출 함수 
     const chgData = () => {
-        console.log('바꿔~!');
         // 데이터 키 후크변수를 업데이트함 
         setDataNum(dataNum?0:1);
         console.log('업데이트값:',dataNum);
     }; // chgData 함수 
 
+
+// 최종 리턴 코드 
+// 함수, 변수, 구현소스는 모두 return 위쪽에 코딩한다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return(
         <React.Fragment>
            {/* 1. 타이틀  */}
@@ -35,7 +64,9 @@ function MainComponent(){
             <section> 
                 <h2>{dataNum?'김효진말고 공효진~':'공유발은 지네발~'} </h2>
                 {/* 이미지 */}
-                <img src={dataNum?'https://www.sisanews.kr/news/photo/201601/16647_13007_488.jpg':'./images/vans/gongyoo.jpg'} alt={dataNum?"효진":"공유"}/>
+                <div className="img-box">
+                    <img src={dataNum?'https://www.sisanews.kr/news/photo/201601/16647_13007_488.jpg':'./images/vans/gongyoo.jpg'} alt={dataNum?"효진":"공유"}/>
+                </div>
             </section>
             {/* 3. 데이터 변경 버튼 */}
             <button onClick={chgData} className="btn-gong">
@@ -43,7 +74,7 @@ function MainComponent(){
             </button>
             {/* 4. 상품리스트박스 */}
             <div className="gwrap">
-                <GoodsCode/>
+                <GoodsCode idx={dataNum}/>
             </div>
         </React.Fragment>
     );
@@ -51,12 +82,19 @@ function MainComponent(){
 
 // console.log(myData);
 
+// 서브 컴포넌트 (자식컴포넌트 -> 부모컴포넌트로 부터 데이터를 props 속성을 통하여 전달받는다.)
 // 상품 HTML 코드 구성 컴포넌트 
-function GoodsCode(){
-    return(myData.map(v=>
+function GoodsCode(props){ // idx - 데이터 배열순번 
+    // 선택데이터 
+    const selData = twoData[props.idx];
+    return(selData.map(v=>
         <ol className="glist">
             <li>
-                <img src={"./images/vans/vans_"+v.idx+".jpg"} alt="신발"/>
+                <img src={
+                    props.idx?
+                    "./images/gallery/"+v.idx+".jpg": 
+                    "./images/vans/vans_"+v.idx+".jpg" } 
+                    alt={props.idx?"드레스":"신발"}/>
             </li>
             <li>{v.gname}</li>
             <li>가격 : {v.gprice}원</li>
