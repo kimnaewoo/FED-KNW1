@@ -105,6 +105,10 @@ function localSFn(){
         // 해당 url로 관리되는 로컬쓰를 모두 지움! : clear()
         localStorage.clear();
         // 개별 로컬쓰로 지우는 방법은 removeItem(키명)
+        // 2. 리스트 바인딩 업데이트
+        bindData();
+        // 3. 수정 선택박스 업데이트
+        bindMod();
     } /////// else if : 전체삭제 ////////////
     else if(btxt == '보여줘'){
         dFn.qs('.local .nm').innerText = 
@@ -118,11 +122,14 @@ function localSFn(){
 
     // -> 객체를 생성하여 로컬 스토리지에 넣기
     else if(btxt = '처리'){
-         // 로컬쓰에 'minfo'가 없으면 makeObj()호출!
+        // 1. 로컬쓰에 'minfo'가 없으면 makeObj()호출!
         if(!localStorage.getItem('minfo')) makeObj();
 
-        // 바인딩 함수 호출!
+        // 2. 바인딩 함수 호출!
         bindData();
+        
+        // 3. 수정 선택박스 업데이트
+        bindMod();
         
     } //////// else if : 처리 ////////////////
     
@@ -288,6 +295,9 @@ function insData(){
 
     // 4. 리스트 업데이트하기 
     bindData();
+
+    // 5. 수정 선택박스 업데이트 
+    bindMod();
     
 } // insData 함수 
 
@@ -319,9 +329,59 @@ function delRec(idx){
         // 5. 리스트 업데이트하기 
         bindData();
 
+        // 6. 수정 선택박스 업데이트 
+        bindMod();
+
     } // if 
 
 } // delRec 함수 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 데이터 수정하여 반영하기 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 1. 대상선정 : #sel
+const modSel = dFn.qs('#sel');
+// 2. 데이터 바인딩하기
+// 바인딩 함수 만들어서 사용~!! 
+function bindMod(){
+    // 1. 로컬스토리지 데이터 가져오기 : minfo
+    let orgData = localStorage.getItem('minfo');
+
+    // 만약 minfo 로컬쓰가 null 이면 빈 배열로 생성하기! 
+    if(!orgData){
+        // 빈 배열로 생성하기 
+        localStorage.setItem('minfo','[]');
+        // 초기 로컬쓰 재할당! 
+        orgData = localStorage.getItem('minfo');
+    } // if
+
+    // 1-2. 제이슨 파싱!
+    orgData = JSON.parse(orgData);
+
+    // 2.선택박스 초기화 : 새로 업데이트 될때를 대비
+    modSel.innerHTML = ` <option value="show">항목선택</option>`;
+
+    // 3. idx로 value값을 만들고 제목으로 항목명을 만들기
+    orgData.forEach(v=>{
+        modSel.innerHTML += `
+            <option value="${v.idx}">${v.tit}</option>
+        `;
+    })
+} // bindMod 함수 
+
+// 최초호출!
+bindMod();
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ***********************************************
