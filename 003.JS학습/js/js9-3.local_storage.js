@@ -271,7 +271,7 @@ function insData(){
     // 배열값이 있을때만 정렬적용!
     if(orgData.length != 0){
         orgData.sort((a,b)=>{
-            return a.idx == b.idx ? 0 : a.idx > b.idx ? -1 : 1
+            return a.idx == b.idx ? 0 : a.idx > b.idx ? 1 : -1
         }); // sort 
     }
 
@@ -459,6 +459,16 @@ function modifyData(){
     }); // find() 메서드
 
     console.log('변경후배열:',orgData);
+
+    // 4. 배열/객체 데이터를 문자화하여 로컬쓰에 넣기
+        // JSON.stringify()
+        localStorage.setItem("minfo", JSON.stringify(orgData));
+
+        // 5. 리스트 업데이트하기
+        bindData();
+
+        // 6.수정 선택박스 업데이트
+        bindMod();
 
 } // modifyData 함수 
 
