@@ -33,7 +33,7 @@ hideBox.each((idx,ele)=>{
 // 등장액션 대상
 // 기준값: 윈도우 높이값의 2/3 지점
 let winH = $(window).height()/3*2;
-console.log('윈도우높이값:',winH); 
+// console.log('윈도우높이값:',winH); 
 
 // 스크롤 메뉴 적용대상 : .top-area
 const topArea = $('#top-area');
@@ -44,7 +44,7 @@ const tbtn = $('.tbtn');
 
 $(window).scroll(()=>{
     let scTop = $(window).scrollTop();
-    console.log('스크롤~~!!',scTop);
+    // console.log('스크롤~~!!',scTop);
 
     // 1. 스크롤위치값이 100을 초과하면 슬림 상단 클래스 넣기 
     if(scTop>100) topArea.addClass('on');
@@ -75,6 +75,6 @@ tbtn.click((e)=>{
     // 부드러운 스크롤 위치값 변경(0으로)
     setPos(0);
     
-    console.log('올라가');
+    // console.log('올라가');
 }) // click 
 

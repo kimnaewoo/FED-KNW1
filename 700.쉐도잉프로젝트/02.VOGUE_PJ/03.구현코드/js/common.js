@@ -13,7 +13,7 @@ import dFn from "./dom.js";
 // 대상선정: .top-area, .footer-area
 const comArea = dFn.qsa('.common-area');
 
-console.log(tData,comArea);
+// console.log(tData,comArea);
 
 // 상단영역 HTML 넣기
 comArea[0].innerHTML = tData.topArea;

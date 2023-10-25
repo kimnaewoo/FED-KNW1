@@ -15,7 +15,6 @@
     text-align: center;
     padding: 40px 0 20px;
 }
-
 /* 2-1-2.서브메뉴(LNB:Local Navigation Bar) */
 .lnb{
     padding: 5px 0 50px;
@@ -50,7 +49,6 @@
 .fashion .bg2-1{background-image: url(../images/fashion/cont2-1a.jpg);}
 .fashion .bg2-2{background-image: url(../images/fashion/cont2-2a.jpg);}
 .fashion .bg2-3{background-image: url(../images/fashion/cont2-3a.jpg);}
-
 /************************** beauty **************************/
 .beauty .bg1-1{background-image: url(../images/beauty/cont1-1a.jpg);}
 .beauty .bg1-2{background-image: url(../images/beauty/cont1-2a.jpg);}
@@ -58,7 +56,6 @@
 .beauty .bg2-1{background-image: url(../images/beauty/cont2-1a.jpg);}
 .beauty .bg2-2{background-image: url(../images/beauty/cont2-2a.jpg);}
 .beauty .bg2-3{background-image: url(../images/beauty/cont2-3a.jpg);}
-
 /************************** living **************************/
 .living .bg1-1{background-image: url(../images/living/cont1-1a.jpg);}
 .living .bg1-2{background-image: url(../images/living/cont1-2a.jpg);}
@@ -66,7 +63,6 @@
 .living .bg2-1{background-image: url(../images/living/cont2-1a.jpg);}
 .living .bg2-2{background-image: url(../images/living/cont2-2a.jpg);}
 .living .bg2-3{background-image: url(../images/living/cont2-3a.jpg);}
-
 /************************** people **************************/
 .people .bg1-1{background-image: url(../images/people/cont1-1a.jpg);}
 .people .bg1-2{background-image: url(../images/people/cont1-2a.jpg);}
@@ -74,7 +70,6 @@
 .people .bg2-1{background-image: url(../images/people/cont2-1a.jpg);}
 .people .bg2-2{background-image: url(../images/people/cont2-2a.jpg);}
 .people .bg2-3{background-image: url(../images/people/cont2-3a.jpg);}
-
 /************************** video **************************/
 .video .bg1-1{background-image: url(../images/video/cont1-1a.jpg);}
 .video .bg1-2{background-image: url(../images/video/cont1-2a.jpg);}
@@ -82,7 +77,6 @@
 .video .bg2-1{background-image: url(../images/video/cont2-1a.jpg);}
 .video .bg2-2{background-image: url(../images/video/cont2-2a.jpg);}
 .video .bg2-3{background-image: url(../images/video/cont2-3a.jpg);}
-
 /************************** runway **************************/
 .runway .bg1-1{background-image: url(../images/runway/cont1-1a.jpg);}
 .runway .bg1-2{background-image: url(../images/runway/cont1-2a.jpg);}
@@ -90,7 +84,6 @@
 .runway .bg2-1{background-image: url(../images/runway/cont2-1a.jpg);}
 .runway .bg2-2{background-image: url(../images/runway/cont2-2a.jpg);}
 .runway .bg2-3{background-image: url(../images/runway/cont2-3a.jpg);}
-
 /************************** shopping **************************/
 .shopping .bg1-1{background-image: url(../images/shopping/cont1-1a.jpg);}
 .shopping .bg1-2{background-image: url(../images/shopping/cont1-2a.jpg);}
