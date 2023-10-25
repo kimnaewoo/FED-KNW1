@@ -53,12 +53,37 @@ function setValue(){
     
     
     // 5. 데이터 바인딩 하기 
+
     // 5-1. 배경이미지 셋팅을 위한 main요소에 클래스 넣기 
     // pm에 담아놓은 이름으로 넣어준다!
     // 대상 : .main-area
     // ' & ' -> '-' 로 변경하기 : time-gem 로 변경 
     $('.main-area').addClass(pm.replace(' & ','-'));
-    console.log('최종키값:',pm); 
 
+    // 5-2. 카테고리 타이틀 변경하기 
+    $('.cat-tit').text(selData.제목);
+
+    // 5-3. 메뉴 변경하기 
+    // 5-3-1. 대상: .lnb
+    let lnb = $('.lnb');
+    // 5-3-2. 메뉴 데이터 : selData.메뉴
+    let Mdata = selData.메뉴;
+    // 5-3-3. 메뉴리턴함수
+    const retMenu = () => Mdata.map(v=>`<li><a href="">${v}</a></li>`).join('')
+
+
+
+    // 5-3-4. 메뉴 없음에 따라 분기하기 
+    if(Mdata=='없음'){ // lnb 없애기
+        lnb.remove();
+    } // Mdata가 없음일때
+    else{
+        lnb.html(`<ul>${retMenu()}</ul>`);
+    } // Mdata가 없음이 아닐때 
+
+    // 5-4. 서브섹션 타이틀 넣기 
+    $('.cat-cont-area h2').each((idx,ele)=>{
+        $(ele).html(selData.타이틀[idx]);
+    }); // each 
 
 } // setValue 함수 
