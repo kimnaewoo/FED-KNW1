@@ -45,15 +45,20 @@ function setValue(){
     // 특수문자 변환하기 : time & gem 때문
     pm = decodeURIComponent(pm);
 
-    // ' & ' -> '-' 로 변경하기 : time-gem 로 변경 
-    pm = pm.replace(' & ','-')
-    console.log('최종키값:',pm); 
-
-    // 4. 데이터 바인딩 하기 
-    // 4-1. 배경이미지 셋팅을 위한 main요소에 클래스 넣기 
+    
+    // 4. 카테고리 데이터 매칭하기
+    // 제이슨 파일 객체 데이터에서 속성으로 선택함 
+    const selData = catData[pm]
+    console.log('선택데이터:',selData);
+    
+    
+    // 5. 데이터 바인딩 하기 
+    // 5-1. 배경이미지 셋팅을 위한 main요소에 클래스 넣기 
     // pm에 담아놓은 이름으로 넣어준다!
     // 대상 : .main-area
-    $('.main-area').addClass(pm);
+    // ' & ' -> '-' 로 변경하기 : time-gem 로 변경 
+    $('.main-area').addClass(pm.replace(' & ','-'));
+    console.log('최종키값:',pm); 
 
 
 } // setValue 함수 
