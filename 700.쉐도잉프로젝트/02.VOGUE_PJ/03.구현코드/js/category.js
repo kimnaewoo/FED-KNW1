@@ -1,80 +1,59 @@
 // 보그 PJ 메인 페이지 JS - main.js 
 
-import dFn from "./dom.js";
+// 카테고리 데이터 불러오기 : 어서써 타입 제이슨
+import catData from "./data/category_data.json" assert {type:'json'};
+console.log(catData);
+
 // 부드러운 스크롤 모듈
 import { startSS, setPos } from "./smoothScroll23.js";
-// [1] 부드러운 스크롤 적용 //////////
+
+// 부드러운 스크롤 적용 //////////
 startSS();
 
-// [1] 메인 페이지 등장액션 클래스 넣기
-// 대상: .main-area section
-const hideBox = $('.main-area section');
-// const hideBox = dFn.qsa('.main-area section');
+// 카테고리 페이지 기능구현하기 
+// 요구사항 : url로 전달된 키값을 읽어서 페이지에 데이터를 셋팅한다. 
 
-// 첫번째 박스 빼고 모두 숨김클래스 넣기
-// 제이쿼리 사용코드 : each((idx,ele)=>{코드})
-hideBox.each((idx,ele)=>{
-    if(idx!=0) $(ele).addClass('scAct');
-}); // each
+// 1. 전체 url 읽기 
+let pm = location.href;
+console.log('대상:',pm);
 
-// JS용 오리지널 코드 
-// hideBox.forEach((ele,idx)=>{
-//     if(idx!=0) ele.classList.add('scAct');
-// }); // forEach 
-
-//////////////////////////////////////////////////////////
-// 제이쿼리 라이브러리 사용하여 구현해보자!
-
-// 1. 스크롤 등장액션 구현하기 
-// 대상 : window
-// 이벤트 : scroll
-// 기준값 사용: getBoundingClientRect() -> dFn.getBCR()
-// console.log(dFn);
-// 등장액션 대상
-// 기준값: 윈도우 높이값의 2/3 지점
-let winH = $(window).height()/3*2;
-// console.log('윈도우높이값:',winH); 
-
-// 스크롤 메뉴 적용대상 : .top-area
-const topArea = $('#top-area');
-
-// 탑버튼 : .tbtn
-const tbtn = $('.tbtn');
+// 값처리함수 호출하기
+setValue();
 
 
-$(window).scroll(()=>{
-    let scTop = $(window).scrollTop();
-    // console.log('스크롤~~!!',scTop);
 
-    // 1. 스크롤위치값이 100을 초과하면 슬림 상단 클래스 넣기 
-    if(scTop>100) topArea.addClass('on');
-    else topArea.removeClass('on');
+// 값셋팅하기 함수 
+function setValue(){
+    // 2. url에서 키값 분리하기 
+    // ?물음표가 Get방식의 시그널이므로 이것의 존재여부로 문자자르기를 실행한다.  
+    // =(이퀄)기호도 같이 확인한다.
+    try{
+        if(pm.indexOf('?')==-1||pm.indexOf('=')==-1){
+            throw '잘못된 접근이에유~';
+        }
+    }
+    catch(err){ // err 메시지 받기 
+        // 에러메시지 띄우기
+        alert(err);
+        // 보내기
+        location.href='index.html';
+    }
 
-    // 2. 맨 위로 이동버튼 (300초과 시, 보이고 300미만일 시, 숨기기)
-    // .tbtn
-    if(scTop>300) tbtn.addClass('on');
-    else tbtn.removeClass('on');
-    
+    // 3. url 키값 수출하기 
+    pm = pm.split('?')[1].split('=')[1];
 
-    // 3.등장액션 클래스 적용하기 
-    // hideBox.each((idx,ele)=>{if(idx!=0 && dFn.getBCR(ele)<winH) $(ele).addClass('on')})
-    hideBox.each((idx,ele)=>{
-        if(idx!=0){
-            let val = dFn.getBCR(ele)
-            // console.log(`대상요소 getBCR top값[${idx}]:`,dFn.getBCR(ele));
-            if(val<winH) $(ele).addClass('on');
-        } // if
-    }) // each
-}); // scroll
+    // 특수문자 변환하기 : time & gem 때문
+    pm = decodeURIComponent(pm);
 
-// 맨위로 버튼 클릭시 맨위로 가기 
-// 부드러운 스크롤 사용하므로 그쪽함수를 이용한다. 
-tbtn.click((e)=>{
-    // a요소 기본이동막기
-    e.preventDefault();
-    // 부드러운 스크롤 위치값 변경(0으로)
-    setPos(0);
-    
-    // console.log('올라가');
-}) // click 
+    // ' & ' -> '-' 로 변경하기 : time-gem 로 변경 
+    pm = pm.replace(' & ','-')
+    console.log('최종키값:',pm); 
 
+    // 4. 데이터 바인딩 하기 
+    // 4-1. 배경이미지 셋팅을 위한 main요소에 클래스 넣기 
+    // pm에 담아놓은 이름으로 넣어준다!
+    // 대상 : .main-area
+    $('.main-area').addClass(pm);
+
+
+} // setValue 함수 
