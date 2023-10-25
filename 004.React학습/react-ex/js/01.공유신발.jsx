@@ -210,6 +210,8 @@ function SubViewCode(props){
     // 선택 전체 데이터 
     const selData = twoData[props.idx]
     // 선택 데이터 
+    // 배열.find(v=>{if(조건)return true})
+    // -> 전달된 고유 idx와 같은 배열 데이터 하나를 리턴한다.
     const selItem = selData.find(v=>{
         if(v.idx == props.itemNum) return true;
     })
