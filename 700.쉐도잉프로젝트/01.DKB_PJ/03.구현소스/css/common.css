@@ -138,7 +138,7 @@ aside.smbx {
     border-top: 1px solid #ccc;
     padding-top: 20px;
     padding-bottom: 80px;
-    background: url(../images/footer_bg_tvn-pc.png) no-repeat center/cover;
+    background: url(../images/footer_bg.png) no-repeat center/cover;
 }
 
 /* 하단링크박스 */
@@ -188,4 +188,5 @@ aside.smbx {
     text-align: center;
     border-radius: 50%;
     border: 1px solid gray;
+    flex-shrink: 0;
 }
