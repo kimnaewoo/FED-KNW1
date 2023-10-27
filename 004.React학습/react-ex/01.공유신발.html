@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>01.공유신발</title>
-    <!-- CSS -->
+    <!-- 메인 CSS -->
     <link rel="stylesheet" href="./css/gong.css">
 
     <!-- 제이쿼리 라이브러리 CDN -->
@@ -33,21 +33,30 @@
       data-plugins="transform-es2015-modules-umd"
       type="text/babel"
     ></script>
-    
     <!-- 데이터 JSX 호출 -->
     <script
       src="./js/data2.js"
       data-plugins="transform-es2015-modules-umd"
       type="text/babel"
     ></script>
-
-    <!-- 데이터 기능 JS 호출 -->
+    <!-- DOM 기능JS 호출 -->
     <script
       src="./js/act_effect.js"
       data-plugins="transform-es2015-modules-umd"
       type="text/babel"
     ></script>
-
+    <!-- 서브컴포넌트1 등록 -->
+    <script
+      src="./js/01.sub_com/goods_code.jsx"
+      data-plugins="transform-es2015-modules-umd"
+      type="text/babel"
+    ></script>
+    <!-- 서브컴포넌트2 등록 -->
+    <script
+      src="./js/01.sub_com/sub_view_code.jsx"
+      data-plugins="transform-es2015-modules-umd"
+      type="text/babel"
+    ></script>
     <!-- 메인 JSX 호출 -->
     <script
       src="./js/01.공유신발.jsx"

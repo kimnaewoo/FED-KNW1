@@ -168,11 +168,11 @@ https://www.w3schools.com/cssref/tryit.php?filename=trycss_cursor */
     /* 트랜지션 */
     transition: color .2s linear;
 }
-/* 오버시 a요소 */
-.gnb a:hover, .gnb i:hover{
+/* 오버시 a요소 + i요소 */
+.gnb a:hover,.gnb i:hover{
     color: red;
 }
-/* 돋보기는 i 요소 */
+/* 돋보기는 i요소 */
 .gnb i{
     font-weight: bold;
     cursor: pointer;
@@ -304,13 +304,15 @@ https://www.w3schools.com/cssref/tryit.php?filename=trycss_cursor */
 .tbtn.on {
     opacity: 1;
     bottom: 0;
-    right: 1%;
 }
 
 /* 위로가기 버튼 오버시 */
 .tbtn:hover {
-    background-color: orangered;
+    background-color: red;
 }
+
+
+
 
 /*************************************** 
     모바일 공통 스타일 코드
@@ -386,13 +388,18 @@ https://www.w3schools.com/cssref/tryit.php?filename=trycss_cursor */
     font-weight: bold;
 }
 
-/* 1.5. 모바일 전체메뉴박스 (#top-area의 하위자식으로 편성) */
+/* 1.5. 모바일 전체메뉴박스 
+(#top-area의 하위자식으로 편성) */
 #mobx{
     padding-left: 15px;
     padding-top: 6px;
     padding-bottom: 30px;
     background-color: #fff;
     display: none;/* 처음에 안보임 */
+    
+    /* 넘치는 컨텐츠 스크롤 설정하기 */
+    height: calc(100vh - 57px);
+    overflow-y: auto;
 }
 /* 1.5-1.모바일 GNb */
 .mognb{
