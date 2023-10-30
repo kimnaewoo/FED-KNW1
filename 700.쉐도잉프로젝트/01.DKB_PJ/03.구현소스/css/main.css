@@ -144,6 +144,7 @@
     /* 플렉스박스 */
     display: flex;
     padding: 12px 0;
+    transition: .4s ease-out;
 }
 /* 도깨비메뉴 상위메뉴a */
 .dokebi-menu ul>li>a{
@@ -210,8 +211,8 @@
 /* 하위제목+아이콘 박스 */
 .intro-desc{
     display: flex;
-    font-size: 2.5rem;
     flex-wrap: wrap;
+    font-size: 2.5rem;
 }
 .intro-desc h3{
     margin-right: 10px;

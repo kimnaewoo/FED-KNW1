@@ -4,15 +4,20 @@
 
 /********* 최대사이즈 1024px 이하 시작 *********/
 @media screen and (max-width: 1024px) {
-  /* x축 스크롤없앰 */
-  html,
-  body {
+  /* x축 스크롤없앰 -> html,body에 줄때
+  하위 박스중 sticky박스가 작동하지 않음!
+  따라서 body>* 박스에 이것을 준다! */
+  body>* {
     overflow-x: hidden;
+  }
+  /* 스티키 박스 메뉴 아래쪽에 걸리게 top값 조정 */
+  #dokebi-menu{
+    top: 58px;
+    z-index: 999;
   }
 
   /* 화면에서 사라짐 */
-  .top-menu,
-  .gnb {
+  .top-menu {
     display: none;
   }
   /* 상단영역 높이값 auto */
@@ -39,6 +44,63 @@
   }
   .header.on .ham::before {
     content: "×";
+  }
+  /* 상단영역고정으로 가려지는 공간밀기 */
+  body {
+    padding-top: 59px;
+  }
+  /* 상단영역 고정 */
+  #header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    background-color: #fff;
+  }
+  /* 전체메뉴박스 */
+  .gnb {
+    position: fixed;
+    top: 59px;
+    left: 100%;
+    height: calc(100% - 59px);
+    /* 내용많아지면 스크롤바 자동생성(y축) */
+    overflow: auto;
+    z-index: 9999999;
+    width: 100%;
+    background-color: #fff;
+    /* 트랜지션 */
+    transition: left 0.4s ease-in-out;
+  }
+  /* 메뉴박스 등장 */
+  .header.on .gnb {
+    left: 0;
+  }
+
+  .gnb ul {
+    flex-direction: column;
+  }
+
+  .gnb ul > li > a {
+    font-size: min(4vw, 20px);
+    padding: min(3vw, 11px) min(6vw, 20px);
+  }
+
+  /* 하위메뉴 자리차지하기 */
+  .smenu {
+    position: static;
+    overflow: visible;
+    height: auto;
+    display: none;
+  }
+
+  .smbx ol {
+    flex-direction: column;
+    text-indent: 40px;
+  }
+
+  .smbx h2 {
+    display: none;
   }
 
   /* 현장포토 */
@@ -86,7 +148,7 @@
     text-align: center;
   }
   .combo-area select {
-    width: 47%;
+    width: 45%;
   }
 
   /* 레이아웃 col- 파트 */
@@ -136,28 +198,43 @@
     padding-bottom: 9vw;
     font-size: 8vw;
   }
-  /* 인트로 파트 : 높이값 자동 */
-  .main .intro-part .partbox {
-    height: auto;
-  }
   /* 그룹파트 공통 */
   .group-part {
     padding: 10vw 0;
   }
-  /* 동영상이동버튼 */
-  .btn-box button:first-child {
-    left: -18px;
+
+  /* 인트로 파트 : 높이값 자동 */
+  .main .intro-part .partbox {
+    height: auto;
   }
-  .btn-box button:last-child {
-    right: -18px;
+
+  /* 인트로 설명박스 */
+  .intro-txt {
+    padding: 2vw;
+    font-size: 4.5vw;
+    line-height: 1.7;
   }
-  .btn-box button {
-    top: 40%;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-    font-size: 15px;
+  /* 인트로 설명박스 제목 */
+  .intro-desc h3 {
+    margin-right: 0;
+    font-size: 5vw;
   }
+
+  /* 인트로버튼 */
+  .intro-btn {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 5vw;
+    padding: 8px 15px;
+  }
+
+  /* 동영상 설명박스 */
+  .intro-mv-box figcaption {
+    font-size: 4vw;
+    padding-top: 2vw;
+  }
+
+  /* 미리보기파트 */
   .main .preview-part .partbox {
     height: auto;
   }
@@ -172,63 +249,19 @@
     line-height: 1.7;
     -webkit-line-clamp: 3;
   }
-  /* 설명박스 */
-  .intro-txt {
-    padding: 2vw;
-    font-size: 4.5vw;
-    line-height: 1.7;
+  /* 동영상이동버튼 */
+  .btn-box button:first-child {
+    left: -18px;
   }
-  .intro-desc h3 {
-    margin-right: 0;
-    font-size: 5vw;
+  .btn-box button:last-child {
+    right: -18px;
   }
-  /* 인트로버튼 */
-  .intro-btn {
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 5vw;
-    padding: 8px 15px;
-  }
-  /* 동영상 설명박스 */
-  .intro-mv-box figcaption {
-    font-size: 4vw;
-    padding-top: 2vw;
-  }
-  /* 상단영역고정으로 가려지는 공간밀기 */
-  body {
-    padding-top: 59px;
-  }
-  /* 상단영역 고정 */
-  #header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 99999;
-    background-color: #fff;
-  }
-  /* 전체메뉴박스 */
-  .gnb {
-    display: block;
-    position: fixed;
-    top: 59px;
-    left: 0;
-    height: calc(100% - 59px);
-    z-index: 9999999;
-    width: 100%;
-    background-color: #fff;
-    transition: left .4s ease-in-out;
-  }
-  /* 메뉴박스 등장 */
-  .header.on .gnb{
-    left: 0;
-  }
-  .gnb ul {
-    flex-direction: column;
-  }
-  .gnb ul > li > a {
-    font-size: 4vw;
-    padding: 3vw 6vw;
+  .btn-box button {
+    top: 40%;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 15px;
   }
 }
 /********* 최대사이즈 500px 이하 끝 *********/
