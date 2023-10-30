@@ -50,7 +50,10 @@ cbx.on('mousemove touchmove',e=>{
 
     // 1. x축 위치값
     let pos = e.pageX || e.changedTouches[0].pageX;
-    // e.changedTouches[0].pageX - 모바일용 x축위치값;
+    // 마우스다운이 아닌 마우스무브에서 처음위치값을 업데이트하면 드래그 상태일때
+    // 그대로 방향을 다시 설정하여 원하는 방향으로 이미지를 변경할수 있다.
+
+
     // 2. 방향 알아내기 
     // 계산방법 : 처음클릭위치 - 현재위치 
     // point 변수 - pos변수 
@@ -77,7 +80,7 @@ cbx.on('mousedown touchstart',e=>{
     drag = 1;
 
     // 2. x축 처음 위치값 업데이트
-    point = e.pageX;
+    point = e.pageX 
 
     // 3. 커서 움켜쥔 모양
     cbx.css({cursor:'grabbing'});
