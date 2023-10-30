@@ -194,5 +194,41 @@
     font-size: 4vw;
     padding-top: 2vw;
   }
+  /* 상단영역고정으로 가려지는 공간밀기 */
+  body {
+    padding-top: 59px;
+  }
+  /* 상단영역 고정 */
+  #header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    background-color: #fff;
+  }
+  /* 전체메뉴박스 */
+  .gnb {
+    display: block;
+    position: fixed;
+    top: 59px;
+    left: 0;
+    height: calc(100% - 59px);
+    z-index: 9999999;
+    width: 100%;
+    background-color: #fff;
+    transition: left .4s ease-in-out;
+  }
+  /* 메뉴박스 등장 */
+  .header.on .gnb{
+    left: 0;
+  }
+  .gnb ul {
+    flex-direction: column;
+  }
+  .gnb ul > li > a {
+    font-size: 4vw;
+    padding: 3vw 6vw;
+  }
 }
 /********* 최대사이즈 500px 이하 끝 *********/
