@@ -99,7 +99,8 @@ form.logF input[type=password]`)
   ****************************************************************************/
     let eyeNum = 1;
     $(".eye")
-    .css({textDecoration:'line-through', opcity: eyeNum ? 1 : 0.5 ,cursor:'pointer'}).click((e) => {
+    .css({textDecoration:'line-through', opcity: eyeNum ? 1 : 0.5 ,cursor:'pointer'})
+    .click((e) => {
         // 1. 글자보이기 타입전환 : type='text|password'
         $("#mpw").attr("type", eyeNum ? "text" : "password");
         // 2. css 디자인 전환
