@@ -35,7 +35,7 @@ form.logF input[type=password]`)
     // 입력창 공백처리후 재입력하기!
     $(this).val(cv);
 
-    console.log("id는?", cid, "/값은?", cv);
+    // console.log("id는?", cid, "/값은?", cv);
 
     /************************************* 
         3. 빈값 여부 검사하기 (필수입력항목)
@@ -51,7 +51,7 @@ form.logF input[type=password]`)
         영문자로 시작하는 6~20글자 영문자/숫자
     ****************************************/
     else if (cid == "mid") {
-      // console.log('아이디 검사결과:',vReg(cv,cid));
+      // // console.log('아이디 검사결과:',vReg(cv,cid));
       if (!vReg(cv, cid)) {
         // 아이디검사 불통과시 들어감(!NOT)
         $(this).siblings(".msg").text("영문자로 시작하는 6~20글자 영문자/숫자").removeClass("on");
@@ -146,7 +146,7 @@ seleml.change(function(){
 
   // 1. 선택박스 변경된 값 읽어오기 
   let cv = $(this).val();
-  console.log('선택값:',cv);
+  // console.log('선택값:',cv);
 
   // 2. 선택옵션별 분기 
   // 2-1. '선택해주세요 일 경우 
@@ -162,51 +162,132 @@ seleml.change(function(){
     // 1. 직접입력창 보이기 
     eml2.fadeIn(300).val('').focus();
     // 숨긴입력창.나타나(300).값('').포커스()
+    // 2. 기존 메시지 지우기
+    eml1.siblings('.msg').empty();
   } // 직업입력 else if 
 
   // 2-3. 기타 이메일 주소 선택일 경우 
   else{
     // 1. 직접입력창 숨기기 
     eml2.fadeOut(300);
+    // 2. 이메일 전체주소 조합하기
+    let comp = eml1.val() + '@' + cv;
+    // cv 는 select의 option의 value값 
+    // 3. 이메일 유효성 검사함수 호출 
+    resEml(comp);
   } //  나머지 else
-  
+
 }); // change 메서드 
 
 
+/*************************************************************** 
+  키보드 입력시 이메일 체크하기
+  ___________________________
+  - 키보드 관련 이벤트 : keypress, keyup, keydown
+  1. keypress : 키가 눌려졌을때
+  2. keyup : 키가 눌렸다가 올라올때
+  3. keydown : 키가 눌려져서 내려가 있을때 
+  -> 과연 글자가 입력되는 순간은 어떤 키보드 이벤트를 사용할까 
 
-  /*********************************************************************************** 
-    함수명 : resEml (result email)
-    기능 : 이메일 검사결과 처리
-  ***********************************************************************************/
- const resEml = comp => { // comp - 이메일주소
-  // console.log('이메일주소:',comp);
-  // console.log('이메일검사결과:',vReg(comp,'eml'));
-  
-  // 이메일 정규식 검사에 따른 메시지 보이기
-  if(vReg(comp,'eml')){
-    eml1.siblings('.msg').text('적합한 이메일 형식입니다.').addClass('on')
-  } // 이메일 적합여부 통과시
-  else{
-    eml1.siblings('.msg').text('부적합한 이메일 형식입니다.').removeClass('on')
-  } // 이메일 적합여부 불통과시 
+  - 이벤트 대상 : #email1, #email2
+  -> 모든 이벤트 함수와 연결하는 제이쿼리 메서드는?
+  on('이벤트명',함수)
+***************************************************************/
+$('#email1','#email2')
+.on('keyup',function(){
+  // 1. 현재 이벤트 대상 아이디 읽어오기 
+  let cid = $(this).attr('id');
+  // 2. 현재 입력된 값 읽어오기 
+  let cv = $(this).val();
 
- }; // resEml
+  // console.log('입력아이디:',cid,'\n입력값:',cv);
+
+  // 3. 이메일 뒷주소 셋팅하기
+  let backEml = cid == 'email1' ? seleml.val() : eml2.val();
+  // 현재 입력아이디가 'email1'이면 선택박스값 아니면 두번째 이메일창에 입력하는 것이므로
+  // 두번째 이메일 입력값을 뒷주소로 설정함
+
+  // 4. 만약 선택박스값이 'free'(직접입력)이면 이메일 뒷주소로 변경함! 
+  if(seleml.val() == 'free') backEml = eml2.val();
+
+  // 5. 이메일 전체주소 조합하기
+  let comp = eml1.val() + '@' + backEml;
+
+  // 6. 이메일 유효성 검사함수 호출 
+  resEml(comp);
+}); // keyup 
 
 
-  /**************************************************************************** 
-            [ 비밀번호 글자 보이기 / 숨기기 셋팅 ]
-  ****************************************************************************/
-    let eyeNum = 1;
-    $(".eye")
-    .css({textDecoration:'line-through', opcity: eyeNum ? 1 : 0.5 ,cursor:'pointer'})
-    .click((e) => {
-        // 1. 글자보이기 타입전환 : type='text|password'
-        $("#mpw").attr("type", eyeNum ? "text" : "password");
-        // 2. css 디자인 전환
-        $(e.target).css({textDecoration: eyeNum ? 'none' : 'line-through', opcity: eyeNum ? 1 : 0.5})
-        // 상태값 전환 (eyeNum이 1이면 0, 0이면 1넣기)
-        eyeNum = eyeNum ? 0 : 1;
-    }); // click 
+/*********************************************************************************** 
+  함수명 : resEml (result email)
+  기능 : 이메일 검사결과 처리
+***********************************************************************************/
+const resEml = comp => { // comp - 이메일주소
+// console.log('이메일주소:',comp);
+// console.log('이메일검사결과:',vReg(comp,'eml'));
+
+// 이메일 정규식 검사에 따른 메시지 보이기
+if(vReg(comp,'eml')){
+  eml1.siblings('.msg').text('적합한 이메일 형식입니다.').addClass('on')
+} // 이메일 적합여부 통과시
+else{
+  eml1.siblings('.msg').text('부적합한 이메일 형식입니다.').removeClass('on')
+} // 이메일 적합여부 불통과시 
+
+}; // resEml
+
+
+/**************************************************************************** 
+        [ 비밀번호 글자 보이기 / 숨기기 셋팅 ]
+****************************************************************************/
+let eyeNum = 1;
+$(".eye")
+.css({textDecoration:'line-through', opcity: eyeNum ? 1 : 0.5 ,cursor:'pointer'})
+.click((e) => {
+    // 1. 글자보이기 타입전환 : type='text|password'
+    $("#mpw").attr("type", eyeNum ? "text" : "password");
+    // 2. css 디자인 전환
+    $(e.target).css({textDecoration: eyeNum ? 'none' : 'line-through', opcity: eyeNum ? 1 : 0.5})
+    // 상태값 전환 (eyeNum이 1이면 0, 0이면 1넣기)
+    eyeNum = eyeNum ? 0 : 1;
+}); // click 
+
+/****************************************************************************************************************************************************** 
+        가입하기(submit) 버튼 클릭시 처리하기 
+        ___________________________________
+
+        - form요소 내부의 submit버튼을 클릭하면 기본적으로 form요소에 설정된 action속성값인 페이지로 전송된다! 전체검사를 위해 이를 중지해야함 
+        -> 중지방법은 ? event.preventDefault()
+
+        전체검사의 원리 : 
+        전역변수 pass를 설정하여 true를 할당하고 검사중간에 불통과 사유발생시 false로 변경 
+        유효성검사 통과여부를 판단한다.
+
+        검사방법 : 기존 이벤트 blur 이벤트를 강제로 발생시킨다!
+        이벤트를 강제로 발생시키는 제이쿼리 메서드는? -> trigger(이벤트명)
+******************************************************************************************************************************************************/
+
+// 검사용 변수
+let pass = true;
+
+// 이벤트대상 : #btnj
+$('#btnj').click(e=>{
+  // 호출확인 
+  console.log('가입해~!');
+
+  // 1. 기본이동막기
+  e.preventDefault();
+
+  // 2. pass 통과여부 변수에 true를 할당! 
+  pass = true;
+
+  // 3. 입력창 blur이벤트 강제발생 시키기 
+  $(`form.logF input[type=text][id!=email2],form.logF input[type=password]`).trigger('blur');
+
+  // 최종통과 여부 
+  console.log('통과여부:',pass);
+}) // click 
+
 
 /*////////////////////////////////////////////////////////
     함수명: vReg (validation with Regular Expression)
@@ -244,7 +325,7 @@ function vReg(val, cid) {
       break;
   } //////////// switch case문 //////////////////
 
-  // //console.log("정규식:"+reg);
+  // console.log("정규식:"+reg);
 
   // 정규식 검사를 위한 JS메서드
   // -> 정규식.test(검사할값) : 결과 true/false
