@@ -141,7 +141,7 @@ select:focus {
 #email2 {
     width: 136px;
     float: right;
-    margin-right: 36px;
+    margin-right: 31px;
     margin-top: 4px;
     /* 처음에 안보임 */
     display: none;

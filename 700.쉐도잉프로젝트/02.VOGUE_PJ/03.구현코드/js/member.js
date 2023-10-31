@@ -143,9 +143,33 @@ form.logF input[type=password]`)
   이벤트 대상 : #seleml - seleml 변수 
 *******************************************************************/
 seleml.change(function(){
+
   // 1. 선택박스 변경된 값 읽어오기 
   let cv = $(this).val();
   console.log('선택값:',cv);
+
+  // 2. 선택옵션별 분기 
+  // 2-1. '선택해주세요 일 경우 
+  if(cv == 'init'){
+    // 1. 메시지출력 
+    eml1.siblings('.msg').text('이메일을 선택하세요!').removeClass('on');
+    // 2. 직접입력창 숨기기
+    eml2.fadeOut(300);
+  } // 선택해주세요 if 
+
+  // 2-2. 직접입력일 경우 
+  else if(cv == 'free'){
+    // 1. 직접입력창 보이기 
+    eml2.fadeIn(300).val('').focus();
+    // 숨긴입력창.나타나(300).값('').포커스()
+  } // 직업입력 else if 
+
+  // 2-3. 기타 이메일 주소 선택일 경우 
+  else{
+    // 1. 직접입력창 숨기기 
+    eml2.fadeOut(300);
+  } //  나머지 else
+  
 }); // change 메서드 
 
 
