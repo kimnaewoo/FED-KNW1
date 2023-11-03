@@ -158,7 +158,7 @@ ReactDOM.render(<MainCategory />, document.querySelector(".main-area"));
     기능 : 서브타이틀 요소구성 
 *************************************************************/
 
-function SubTitle() {
+function SubTitle(props) { // tit - 서브타이틀 
   return (
     //  2-1. 카테고리 페이지 상단영역
     <header className="cat-top-area">

@@ -12,7 +12,7 @@ export function makeLink(){
     // 1-1. 로고링크 : .logo a
     const logo = $('.logo a');
     // 1-2. GNB 메뉴 : .gnb a + 모바일메뉴추가 .mognb a
-    // -> 주석!!!const gnb = $('.gnb a, .mognb a');
+    // -> 주석!!! const gnb = $('.gnb a, .mognb a');
     // console.log('대상:',logo,gnb);
 
     // 2. 이벤트 설정 및 이동기능 구현하기
