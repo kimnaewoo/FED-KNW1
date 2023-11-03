@@ -143,7 +143,7 @@ function MainCategory() {
 
 
   return(<React.Fragment>
-    <SubTitle/>
+    <SubTitle tit={selData['제목']} menu={selData['메뉴']}/>
     <ItemList/>
   </React.Fragment>) 
   ;
@@ -158,14 +158,36 @@ ReactDOM.render(<MainCategory />, document.querySelector(".main-area"));
     기능 : 서브타이틀 요소구성 
 *************************************************************/
 
-function SubTitle(props) { // tit - 서브타이틀 
+function SubTitle(props) { 
+  // tit - 서브타이틀 / menu - 서브메뉴  
+
+  // 서브메뉴 있을경우 li데이터 생성하기 
+  // 전달변수 data에 들어오는 값은 메뉴 배열임!
+  // 배열.map(v=>코드) -> html코드 생성후 리턴됨!
+  const makeList = (data) => data.map(v=>
+      <li>
+        <a href="#">{v}</a>
+      </li>
+    ); // makeList 
+    // -> 오리지널 JS map()문법은 배열을 다시 리턴함 
+    // JS에서는 배열.map().join('')
+    // -> 리액트에서는 리액트용 map()을 다시 구성하여 바로 html코드를 리턴한다. join() 불필요함!!
+
   return (
     //  2-1. 카테고리 페이지 상단영역
     <header className="cat-top-area">
       {/* 2-1-1. 서브타이틀 */}
-      <h2 className="cat-tit">Fashion</h2>
-      {/* 2-1-2. 서브메뉴(LNB:Local Navigation Bar) */}
-      <nav className="lnb"></nav>
+      <h2 className="cat-tit">{props.tit}</h2>
+      {/* 2-1-2. 서브메뉴(LNB:Local Navigation Bar) 
+      -> 메뉴 데이터 값이 '없음'이 아닐때만 생성됨 */}
+      {
+        props.menu!='없음' &&
+        <nav className="lnb">
+          <ul>
+            {makeList(props.menu)}
+          </ul>
+        </nav>
+      }
     </header>
   );
 } // SubTitle 컴포넌트
