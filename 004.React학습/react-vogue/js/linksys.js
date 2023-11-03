@@ -18,11 +18,12 @@ $(()=>{
     // 2-1. 로고클릭시 홈이동
     logo.click(()=>location.href='index.html');
 
-    // 2-2. gnb 메뉴 클릭시 카테고리 서브 이동
+    // 'time & gem' 특수문자 변환해서 보내기 
+    // encodeURIComponent(보낼문자)
+    // 그래야 받는곳에서 decodeURIComponent() 잘됨
     gnb.click(e=>
         location.href='category.html?cat='+
-        $(e.target).text().toLowerCase());
-        // console.log($(e.target).text().toLowerCase()))
+        encodeURIComponent($(e.target).text().toLowerCase()));
 
     // e.target -> 이벤트발생요소(a요소)
     // text() -> a요소 텍스트읽기
