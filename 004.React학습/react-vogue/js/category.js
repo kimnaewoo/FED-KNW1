@@ -22,6 +22,11 @@ function TopArea() {
   // GNB용 메뉴 배열변수
   const gnbText = ["FASHION","BEAUTY","LIVING","PEOPLE","VIDEO","RUNWAY","TIME & GEM","SHOPPING"];
 
+  // 메뉴 클릭시 변수 변경함수
+  const chgCat = data => {
+    console.log('나야나!',data);
+  }; // chgCat 함수 
+
   return (
     <React.Fragment>
       {/* 1-1.상단메뉴 */}
@@ -123,17 +128,24 @@ function MainCategory() {
     '\n파라미터:',params,
     '\n키값:',catName);
 
+  // 카테고리 데이터 상태관리변수 만들기!
+  const [nowCat,setNowCat] = React.useState(catName);  
+
   // 카테고리 해당 데이터 선택하기
   // 카테고리 전체 객체 데이터 중 해당항목 선택
-  const selData = catData[catName];
+  const selData = catData[nowCat];
 
   console.log(selData);
+
+  const chgMenu = () => setNowCat('living');
 
   return(
     <React.Fragment>
       <SubTitle 
         tit={selData['제목']} 
-        menu={selData['메뉴']} />
+        menu={selData['메뉴']}
+         />
+        <button onClick={chgMenu}>변경해!</button>
       <ItemList 
         cname={selData['경로']} 
         tit={selData['타이틀']} />
