@@ -3,9 +3,15 @@
 // 상단영역 컴포넌트 불러오기
 import TopArea from "./components/top_area.jsx";
 
+// 메인영역 컴포넌트 불러오기
+import MainCategory from "./components/main_area.jsx";
+
 // 하단영역 컴포넌트 불러오기
 import FooterArea from "./components/footer_area.jsx";
-import MainCategory from "./components/main_area.jsx";
+
+// 제이쿼리 기능구현 함수 불러오기 
+import setJSTop from "./common2.js";
+
 
 ////// 카테고리 페이지 메인 컴포넌트 ///////
 /******************************************* 
@@ -13,6 +19,9 @@ import MainCategory from "./components/main_area.jsx";
   기능 : 상단, 메인, 하단영역 종합출력 
 *******************************************/
 function MainComponent() {
+  // 페이지 랜더링 후 한번만 실행 
+  React.useEffect(setJSTop,[]);
+  
   // 우선 URL로 넘어온 키값을 가져옴!
   // 파라미터 전달값 받기 : 파라미터JS전담객체는?
   // -> URLSearchParams(전체URL)
