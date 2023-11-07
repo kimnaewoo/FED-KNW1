@@ -1,5 +1,8 @@
 // 보그 PJ 카테고리 페이지 JS - category.js
 
+// 카테고리 컨텍스트 API 파일 불러오기 
+import { catContext } from "./components/cat_context.jsx";
+
 // 상단영역 컴포넌트 불러오기
 import TopArea from "./components/top_area.jsx";
 
@@ -48,14 +51,29 @@ function MainComponent() {
   }; // chgCat
 
   return(
-    <React.Fragment>
+    // 최상위 컴포넌트에서 관리되는 변수/함수를 하위컴포넌트에 공유하기 위해 Context API를 사용한다
+    // 순서 : 
+    // 1. createContext() 를 생성하여 사용할 곳에 import 한다
+    // 2. 최상위 컴포넌트에서 컨텍스트 프로바이더를 셋팅한다
+    // 3. value 속성에 공유한 변수/함수를 넣어준다
+    // -> 여러개일 경우 중괄호를 사용하여 셋팅한다
+    // -> value={변수} / value={{변수,변수,함수,변수,함수}}
+    // 4. 이것을 하위컴포넌트에서는 useContext(생성컨텍스트명)으로 생성하여 셋팅된 변수/함수를 호출하여 사용한다.
+    /* 
+      <생성컨텍스트명.Provider value={}>
+        하위 컴포넌트들...
+      </생성컨텍스트명.Provider> 
+    */
+   
+    <catContext.Provider vlaue={chgCat}>
       {/* 1. 상단영역 */}
-      <TopArea chgItem={chgCat} />
+      <TopArea />
+      {/* <TopArea chgItem={chgCat} /> 프롭스 펑션 다운 */}
       {/* 2. 메인영역 */}
-      <MainCategory category={nowCat}  />
+      <MainCategory category={nowCat} />
       {/* 3. 하단영역 */}
       <FooterArea />
-    </React.Fragment>
+    </catContext.Provider>
   );
 
 } // MainComponent
