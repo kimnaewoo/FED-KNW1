@@ -48,6 +48,15 @@ function MainComponent() {
     console.log('바꿔~!',val);
     // 상태관리 변수 nowCat 업데이트 
     setNowCat(val);
+    // 처음 들어온 Get 파라미터가 셋팅된 후 다른 서브 카테고리 페이지로 변경하다가 
+    // 새로고침 등 페이지 리로드시 처음 들어온 파라미터로 변경되며 새로고쳐짐 
+    // 이유는 처음들어온 cat=카테고리명 때문이다. 
+    // 그래서, 리액트 컴포넌트 업데이트시 상단 url 마지막 cat 키값을 실제 카테고리명으로 업데이트 해준다.
+    // -> history객체는 window하위 객체임 
+    // 이전페이지로 이동하기 history.back() 등 유명함!
+    // history.pushState(null,null,'?키=값') -> 현재 url 강제 업데이트 매서드임! 
+    history.pushState(null,null,'?cat='+encodeURIComponent(val));
+    // 'time & gem'의 특수문자 & 때문에 인코딩처리함!
   }; // chgCat
 
   return(
@@ -56,8 +65,8 @@ function MainComponent() {
     // 1. createContext() 를 생성하여 사용할 곳에 import 한다
     // 2. 최상위 컴포넌트에서 컨텍스트 프로바이더를 셋팅한다
     // 3. value 속성에 공유한 변수/함수를 넣어준다
-    // -> 여러개일 경우 중괄호를 사용하여 셋팅한다
-    // -> value={변수} / value={{변수,변수,함수,변수,함수}}
+    // -> 여러개일 경우 중괄호를 콤마(,)를 사용하여 셋팅한다
+    // -> value={{변수}} / value={{변수,변수,함수,변수,함수}}
     // 4. 이것을 하위컴포넌트에서는 useContext(생성컨텍스트명)으로 생성하여 셋팅된 변수/함수를 호출하여 사용한다.
     /* 
       <생성컨텍스트명.Provider value={}>
@@ -65,7 +74,7 @@ function MainComponent() {
       </생성컨텍스트명.Provider> 
     */
    
-    <catContext.Provider vlaue={chgCat}>
+    <catContext.Provider value={{chgCat}}>
       {/* 1. 상단영역 */}
       <TopArea />
       {/* <TopArea chgItem={chgCat} /> 프롭스 펑션 다운 */}
