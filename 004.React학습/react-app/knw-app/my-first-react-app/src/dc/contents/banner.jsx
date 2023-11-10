@@ -101,7 +101,15 @@ export function Banner(props) {
     console.log(data);
     return data.map((v, i) => (
       <li key={i}>
+        {/* 배너이미지 */}
         <img src={v.src} alt="ㅎㅎ" />
+        {/* 배너 정보 */}
+        <section className="bantit">
+            <h3>{v.tit1}</h3>
+            <h2>{v.tit2}</h2>
+            <p>{v.cont}</p>
+            <button>{v.btn}</button>
+        </section>
       </li>
     ));
   };
