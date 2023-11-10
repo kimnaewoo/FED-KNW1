@@ -21,7 +21,7 @@ function App (){
   }; // chgMenu 함수
 
   return(
-    <>
+    <> 
     <TopArea chgFn={chgMenu} />
     <MainArea cat={menu} />
     <FooterArea/>
