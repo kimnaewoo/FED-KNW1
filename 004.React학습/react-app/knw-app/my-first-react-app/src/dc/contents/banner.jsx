@@ -15,14 +15,21 @@ function SlideFn(){
 
     // 1. 대상선정
     const sldBox = $('.slider');
-
+    
     // 2. 변수설정
-    // 애니시간 
+    // (1) 애니시간 
     const A_TM = 600;
-    // 애니이징
+    // (2) 애니이징
     const A_ES = "easeInOutQuint";
-    // 광클상태변수(1-불허용,0-허용) 
+    // (3) 광클상태변수(1-불허용,0-허용) 
     let cSts = 0;
+    // (4) 슬라이드순번
+    let sNum = 0;
+    // (5) 슬라이드개수 
+    const sCnt = sldBox.find('li').length;
+    // (6) 슬라이드 블릿
+    const indic = $('.indic li');
+    // console.log(sCnt);
 
     // 2. 이벤트설정 및 기능구현 
     // 이동버튼 클릭시
@@ -48,6 +55,9 @@ function SlideFn(){
                 // 동시에 left값은 0으로 초기화함! 
                 .css({left:'0'});
             })
+            // 슬라이드 순번 증가(끝번호보다 크면 0)
+            sNum++;
+            if(sNum>=sCnt) sNum=0;
         } // if 
 
         // 2-2. 왼쪽버튼 
@@ -58,8 +68,16 @@ function SlideFn(){
             .css({left:'-100%'})
             // left값을 0으로 애니메이션
             .animate({left:'0'},A_TM,A_ES);
+
+            // 슬라이드 순번 감소(0보다 작으면 끝번호)
+            sNum--;
+            if(sNum<0) sNum= sCnt-1;
             
         } // else
+        // console.log('슬순번:',sNum);
+
+        // 블릿해당순번 클래스'on' 넣기 
+        indic.eq(sNum).addClass('on').siblings().removeClass('on');
 
     })
 } // SlideFn 함수 
@@ -67,12 +85,15 @@ function SlideFn(){
 // 배너 컴포넌트
 export function Banner(props) {
   // category - 카테고리 분류명(배너 데이터선택)
+  
+  // 선택데이터
+  const selData = banData[props.category];
 
   // 페이저 랜더링 후 실행구역
   useEffect(() => {
     console.log("랜더링후~!");
-    // 슬라이드 기능구현 함수 호출
-    SlideFn();
+    // 슬라이드 기능구현 함수 호출 : 선택데이터가 1초과 일때
+    if(selData.length>1)SlideFn();
   });
 
   // 리스트 만들기 함수
@@ -85,8 +106,6 @@ export function Banner(props) {
     ));
   };
 
-  // 선택데이터
-  const selData = banData[props.category];
 
   // 코드 리턴
   return (
