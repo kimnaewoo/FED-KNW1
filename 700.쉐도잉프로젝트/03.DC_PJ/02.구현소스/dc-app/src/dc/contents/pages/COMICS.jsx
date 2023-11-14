@@ -1,6 +1,6 @@
 // 코믹스페이지 메인컨텐츠 
 
-import { Banner } from "./banner";
+import { Banner } from "../modules/banner";
 
 export function Comics(){
     return(
