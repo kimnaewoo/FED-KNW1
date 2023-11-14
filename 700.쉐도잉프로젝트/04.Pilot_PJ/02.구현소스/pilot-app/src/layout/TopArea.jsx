@@ -94,7 +94,6 @@ export function TopArea(props) {
           </div>
         </header>
       </div>
-      <h1>상단영역</h1>
     </>
   );
 } // TopArea 컴포넌트
