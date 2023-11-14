@@ -1,6 +1,6 @@
 // 비디오페이지 
 
-import { isrc } from "../../data/imgSrc";
+import { isrc } from "../data/imgSrc";
 
 
 export function Video(){

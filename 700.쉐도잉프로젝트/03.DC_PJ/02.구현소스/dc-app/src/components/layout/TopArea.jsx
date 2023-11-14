@@ -1,8 +1,8 @@
 // 상단영역 컴포넌트
 // GNB 데이터
+import { Link } from "react-router-dom";
+import { Logo } from "../modules/Logo";
 import { menu } from "../data/gnb";
-import { Logo } from "../contents/modules/Logo";
-import { Link, Outlet } from "react-router-dom";
 
 /******************************************************* 
     [ 리액트 라우터와 연결하여 사용되는 라우터 컴포넌트 ]
