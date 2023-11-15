@@ -46,9 +46,9 @@ export function Banner() {
         배열로 태그를 받았지만 그 데이터가 JSX문법의 데이터이고, JSX문법의 태그 내부에 호출하여 태그가 그대로 출력된다.
         map() 으로 순회하여 태그를 만들때도 동일한 원리가 작동된다. 
         */}
-      <ul class="slide">{makeList(1)}</ul>
-      <ol class="bindic">{makeList(0)}</ol>
-      <div class="cover"></div>
+      <ul className="slide">{makeList(1)}</ul>
+      <ol className="bindic">{makeList(0)}</ol>
+      <div className="cover"></div>
     </>
   );
 } // Banner 컴포넌트
