@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { Logo } from "../modules/Logo";
 import { menu } from "../data/gnb";
 
+// 폰트어썸 불러오기 
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 /******************************************************* 
     [ 리액트 라우터와 연결하여 사용되는 라우터 컴포넌트 ]
     1. <Link to="/경로명"></Link>
@@ -21,9 +25,11 @@ export function TopArea() {
         {/* 네비게이션 GNB 파트 */}
         <nav className="gnb">
           <ul>
+            {/* 1. 로고 컴포넌트 */}
             <li>
               <Logo logoStyle="top" />
             </li>
+            {/* 2. GNB메뉴 데이터기반으로 li태그 생성하기 */}
             {menu.map(
               (v, i) => (
                 <li key={i}>
@@ -45,15 +51,35 @@ export function TopArea() {
                   }
                 </li>
               )
-              // map()을 사용하여 태그를 생성할 때
-              // 데이터의 유일키를 key 속성으로 만들지 않으면
-              // 아래와 같은 에러가 발생함
-              // (이유: 구별되는 항목으로 나중에 업데이트시 이용할 수 있도록 리액트에서 강제하고 있음)
-              // Warning: Each child in a list should have a unique "key" prop.
-            )}
+              )}
+            {/* 3. 검색,회원가입,로그인 링크 */}
+            <li style={{marginLeft:'auto'}}>
+              {/* 검색기능링크 - 클릭시 검색창보이기 */}
+              <a hreft="#" onClick="">
+                  <FontAwesomeIcon icon={faSearch} />
+                  {/* <FontAwesomeIcon icon={faCamera} */}
+              </a>
+            </li>
+            {/* 회원가입, 로그인은 로그인 아닌 상태일때 나옴 */}
+            <li>
+              <Link to="/member">JOIN US</Link>
+            </li>
+            <li>
+              <Link to="/login">LOGIN</Link>
+            </li>
           </ul>
+          {/* 모바일용 햄버거 버튼 */}
+          <button className="hambtn" onClick=""></button>
         </nav>
       </header>
     </>
   );
 }
+
+ /* 
+ map()을 사용하여 태그를 생성할 때
+ 데이터의 유일키를 key 속성으로 만들지 않으면
+ 아래와 같은 에러가 발생함
+ (이유: 구별되는 항목으로 나중에 업데이트시 이용할 수 있도록 리액트에서 강제하고 있음)
+ Warning: Each child in a list should have a unique "key" prop. 
+ */
