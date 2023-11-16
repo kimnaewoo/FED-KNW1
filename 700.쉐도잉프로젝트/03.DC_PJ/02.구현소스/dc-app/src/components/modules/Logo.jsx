@@ -38,12 +38,12 @@ export const Logo = (props) => {
     const nayaLogo = (txt) => {
         // console.log(txt);
         // 라우터 이동하기
-        goNav('/');
+        goNav(txt);
     } // nayaLogo 
 
     // 코드 리턴
     return(
-        <h1 style={myStyle[props.logoStyle]} onClick={()=>nayaLogo('나,로고야!')}>
+        <h1 style={myStyle[props.logoStyle]} onClick={()=>nayaLogo('/')}>
             <img src={isrc.logo} alt="DC로고" style={{width: myStyleImg[props.logoStyle]}}/>
         </h1>
     )
