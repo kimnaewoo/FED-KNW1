@@ -145,4 +145,6 @@ export function dragBanner() {
     },1000,'easeInOutQuart')
   }; // showTit 함수
 
+  // 첫 배너 글자등장 호출
+  setTimeout(showTit,1000);
 } // dragBanner 함수
