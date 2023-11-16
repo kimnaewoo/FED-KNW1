@@ -10,8 +10,8 @@ require('jquery-ui-touch-punch/jquery.ui.touch-punch');
 // 로딩구역없이 함수로 구현함! /////
 
 export function autoScroll() {
-  /****************************************** 
-    대상 변수할당하기
+/****************************************** 
+  대상 변수할당하기
 ******************************************/
   // 전체 페이지번호
   let pno = 0;
@@ -33,14 +33,26 @@ export function autoScroll() {
 
   /****************************************** 
     이벤트 등록하기
+    -> 
+    리액트에서 제이쿼리로 이벤트설정시 리액트와 충돌되는 문제가 생길수 있다
+    예컨데 현재 휠이벤트는 설정되지만 휠델타값이 안찍힘 -> 해결은?
+    순수한 JS로 이벤트를 설정한다. 
+    왜? 제이쿼리로 이벤트를 설정하면 제이쿼리 나름의 객체가 생성되어 처리되므로 
+    이것을 단순화하여 이벤트를 걸면 휠델타값이 처리된다!
+    -> 방향키 이벤트도 순수JS로 걸면된다~
 ******************************************/
   // 윈도우 휠이벤트 발생시
-  $(window).on("wheel", wheelFn);
+
+  // $(window).on('wheel','wheelFn') -> 제이쿼리 이벤트라서 안됨 
+  window.addEventListener("wheel", wheelFn);
 
   // 키보드 이벤트발생시 업데이트
   // 1. Page Up(33) / Up Arrow (38)
   // 2. Page Down(34) / Down Arrow (40)
-  $(document).keydown((e) => {
+  // $(document).keydown((e) -> 제이쿼리 이벤트라서 안됨 
+ document.addEventListener('keydown',((e) => {
+   if (prot[0]) return;
+   chkCrazy(0);
     // 이전페이지이동
     if (e.keyCode === 33 || e.keyCode === 38) {
       pno--;
@@ -53,7 +65,7 @@ export function autoScroll() {
       if (pno === pgcnt) pno = pgcnt - 1;
       movePg();
     }
-  }); ///////////// keydown ////////////////
+  })); ///////////// keydown ////////////////
 
   // 새로고침시 스크롤위치 캐싱 변경하기(맨위로!)
   $("html,body").animate({ scrollTop: "0px" });
