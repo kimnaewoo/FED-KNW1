@@ -1,6 +1,7 @@
 // 메인페이지 메인컨텐츠 
 
 import { SecIntro } from "../modules/SecIntro";
+import { VidIntro } from "../modules/VidIntro";
 import { Banner } from "../modules/banner";
 
 export function Main(){
@@ -14,6 +15,8 @@ export function Main(){
 
             {/* 2. 섹션소개 컴포넌트 */}
             <SecIntro />
+            {/* 3. 비디오소개 컴포넌트 */}
+            <VidIntro />
         </>
     );
 } // Main 컴포넌트 
