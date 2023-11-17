@@ -28,11 +28,12 @@ export function MainCont() {
       <section id="ban" className="page" style={{ background: "lightblue" }}>
         <Banner />
       </section>
-      <section className="page">
-        <FashionIntro cat='men'/>
-      </section>
-      <section className="page" style={{ background: "lightgreen" }}></section>
-      <section className="page" style={{ background: "lightcoral" }}></section>
+      {/* 2. 남성패션 페이지 */}
+      <section className="page"><FashionIntro cat='men'/></section>
+      {/* 3. 여성패션 페이지 */}
+      <section className="page"><FashionIntro cat='women'/></section>
+      {/* 4. 스타일패션 페이지 */}
+      <section className="page"><FashionIntro cat='style'/></section>
       <section className="page" style={{ background: "lightpink" }}></section>
     </>
   );
