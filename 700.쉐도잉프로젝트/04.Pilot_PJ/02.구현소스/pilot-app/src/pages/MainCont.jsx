@@ -8,6 +8,7 @@ import { autoScroll } from "../func/jquery-autoScroll";
 
 // 드래그배너 JS 불러오기
 import { dragBanner } from "../func/drag_banner";
+import { FashionIntro } from "../modules/FashionIntro";
 
 export function MainCont() {
   // 메인페이지 일때만 자동스크롤 기능 적용함
@@ -27,7 +28,9 @@ export function MainCont() {
       <section id="ban" className="page" style={{ background: "lightblue" }}>
         <Banner />
       </section>
-      <section className="page" style={{ background: "lightsalmon" }}></section>
+      <section className="page">
+        <FashionIntro cat='men'/>
+      </section>
       <section className="page" style={{ background: "lightgreen" }}></section>
       <section className="page" style={{ background: "lightcoral" }}></section>
       <section className="page" style={{ background: "lightpink" }}></section>
