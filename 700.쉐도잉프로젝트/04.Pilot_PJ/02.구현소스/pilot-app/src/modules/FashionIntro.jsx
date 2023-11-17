@@ -20,7 +20,10 @@ export function FashionIntro(props) {
             </li>
             <li className="txtc">
               <h2>
-                <a href="#">{selData.tit}</a>
+                <a href="#">
+                    {selData.tit.split('^')[0]} <br/>
+                    {selData.tit.split('^')[1]}
+                </a>
               </h2>
             </li>
           </ul>
