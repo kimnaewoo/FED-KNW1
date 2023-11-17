@@ -1,25 +1,26 @@
 // Pilot PJ - 패션인트로 컴포넌트
 
+// 패션데이터 불러오기
+import { fsData } from "../data/fashion_intro";
+
+// 패션 인트로 CSS 불러오기
 import "../css/fashion_intro.css";
 
 export function FashionIntro(props) {
   // props.cat - 카테고리 분류명
+
+  // 선택데이터 
+  const selData= fsData[props.cat];
   return (
     <>
       <div id={props.cat} className="fs-page">
           <ul className="pgc">
             <li className="imgc">
-              <img src="./images/men02.png" 
-              alt="공유다!" />
+              <img src={selData.isrc} alt={selData.ialt} />
             </li>
             <li className="txtc">
               <h2>
-                <a href="sub.html?cat=남성">
-                  {" "}
-                  MEN'S
-                  <br />
-                  ESSENTIALS{" "}
-                </a>
+                <a href="#">{selData.tit}</a>
               </h2>
             </li>
           </ul>
