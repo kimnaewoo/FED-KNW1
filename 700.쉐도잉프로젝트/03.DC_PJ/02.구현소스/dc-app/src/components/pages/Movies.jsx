@@ -6,8 +6,8 @@ import { Banner } from "../modules/banner";
 export function Movies(){
     return(
         <>
-            <VidIntro cat='MOVIES' cls='on'/>
             <Banner category='MOVIES' />
+            <VidIntro cat='MOVIES' cls='on'/>
         </>
     );
 } // Movies 컴포넌트 
