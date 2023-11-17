@@ -6,8 +6,8 @@ import { Banner } from "../modules/banner";
 export function Games(){
     return(
         <>
-            <VidIntro cat='GAMES' cls='on'/>
             <Banner category='GAMES' />
+            <VidIntro cat='GAMES' cls='on'/>
         </>
     );
 } // Games 컴포넌트 
