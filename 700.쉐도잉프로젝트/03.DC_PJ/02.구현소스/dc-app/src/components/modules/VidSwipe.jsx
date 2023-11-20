@@ -20,7 +20,7 @@ export function VidSwipe() {
         {/* 1. 모듈타이틀 */}
         <h2 className="tit"></h2>
         {/* 2. 스와이퍼 컴포넌트 */}
-        {/* <SwiperVid/> */}
+        
         {/* 3. 비디오 재생창 */}
         <section className="vidbx">
           {/* 비디오 중앙박스 */}
@@ -30,7 +30,7 @@ export function VidSwipe() {
             {/* 아이프레임 */}
             <iframe src="" allow="autoplay"></iframe>
             {/* 닫기버튼 */}
-            <button className="cbtn">○</button>
+            <button className="cbtn"></button>
           </div>
         </section>
       </section>
