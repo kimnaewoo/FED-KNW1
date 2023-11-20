@@ -1,46 +1,121 @@
-// 스와이퍼 플러그인 컴포넌트
+// 비디오스와이프 하위 스와이퍼 플러그인 컴포넌트
 
-import React, { useRef, useState } from "react";
+import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+/* 제이쿼리 넣기 */
+import $ from 'jquery';
+// SwiperVid 사용 데이터 가져오기
+import { swVidData } from "../data/swiper_vid";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
+// 양쪽 이동버튼만 필요함!
 import "swiper/css/navigation";
 
-import "./css/swiper.css";
+/* 폰트어썸 임포트 */
+import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// 스와이퍼 CSS 
+import "./css/swiper_vid.css";
 
 // import required modules
 // 사용할 스와이퍼 모듈을 불러온다(여기서는 페이지네이션,네비게이션,자동넘김)
-import { Pagination,Navigation,Autoplay } from "swiper/modules";
+import { Autoplay, Navigation} from "swiper/modules";
 
-export function SwiperApp() {
+export function SwiperVid() {
 
-  // 불러올 이미지 리스트
-  const imgArr = ["dcm28", "dcm29", "dcm30", "dcm31", "dcm32", "dcm10", "dcm11", "dcm12"];
+  // 선택 데이터 : 여기서는 그대로 가져옴!
+  const selData = swVidData;
 
+  // 비디오 보이기 함수 
+  const showVid = (src,tit) =>{
+
+    // src 는 비디오경로, tit 는 비디오제목
+    console.log(src,tit);
+
+    // 1. 대상선정
+    // 1-1. 아이프레임 : .play-vid iframe
+    const ifr = $('.play-vid iframe');
+    // 1-2. 전체박스 : .vid-bx 
+    const vbx = $('.vid-bx');
+    // 1-3. 타이틀박스 : .ifr-tit
+    const itit = $('.ifr-tit')
+    // 1-4. 닫기 버튼 : .cbtn
+    const cbtn = $('.cbtn');
+
+    // 2. 변경하기 
+    // 2-1. 아이프레임 src 경로넣기 
+    ifr.attr('src',src+"?autoplay=1");
+    // 2-2. 비디오 타이틀 넣기 
+    itit.text(tit);
+    // 2-3. 전체박스 나타나기 
+    vbx.fadeIn(300);
+    // 2-4. 닫기버튼 셋팅
+    cbtn.click(()=>{
+      // 전체박스 사라지기
+      vbx.fadeOut(300);
+      // 기존동영상 플레이 멈추기(src삭제)
+      ifr.attr('src','');
+    }) // click 
+
+  }; // showVid 함수
+
+
+  // 리턴코드
   return (
     <>
       <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-        loop={true}
+        // slidesPerView={4}
+        spaceBetween={20}
         navigation={true}
         // 사용할 모듈을 여기에 적용시킨다
-        modules={[Pagination,Navigation,Autoplay]}   
+        modules={[Navigation]}   
+        // 스와이퍼 사이즈별 슬라이드수 변경!
+        breakpoints={{
+          200: {
+              slidesPerView: 1,
+          },
+          500: {
+              slidesPerView: 2,
+          },
+          1000: {
+              slidesPerView: 3,
+          },
+          1200: {
+              slidesPerView: 4,
+          },
+      }}
         className="mySwiper"
       >
         {
-            imgArr.map((v,i)=>
-            <SwiperSlide key={i}><img src={"./images/"+v+".jpg"} alt="list image" /></SwiperSlide>)
+            selData.map((v,i)=>
+            <SwiperSlide key={i}>
+              <section className="sw-inbox"
+              /* 비디오 보이기 함수호출 (비디오경로,제목) */
+              onClick={()=>showVid(v.vsrc,v.tit)}>
+                {/* 동영상이미지박스 */}
+                <div className="vid-img">
+                  <img src={v.isrc} alt={v.tit} />
+                  {/* 폰트어썸 아이콘 */}
+                  <FontAwesomeIcon
+                    icon={faCirclePlay}
+                    style={{
+                      position:'absolute',
+                      bottom:'55%',
+                      left:'10%',
+                      color:'#fff',
+                      fontSize:'50px'
+                    }} />
+                </div>
+                {/* 동영상 타이틀 박스 */}
+                <div className="vid-tit">
+                  <h4>{v.cat}</h4>
+                  <h3>{v.tit}</h3>
+                </div>
+              </section>
+            </SwiperSlide>)
         }
       </Swiper>
     </>

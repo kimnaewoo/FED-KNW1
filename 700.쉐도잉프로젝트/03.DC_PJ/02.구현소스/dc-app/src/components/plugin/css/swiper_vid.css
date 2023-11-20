@@ -35,7 +35,7 @@
 }
 
 /* 컨텐츠 박스 */
-.swinbx {
+.sw-inbox {
   width: 100%;
   aspect-ratio: 1 / 1.1;
   cursor: pointer;
@@ -94,11 +94,33 @@
 .swiper-button-prev.swiper-button-disabled {
   display: none;
 }
+.swiper-button-next::after,
+.swiper-button-prev::after{
+    font-size: 25px;
+}
+.swiper-button-next:hover::after,
+.swiper-button-prev:hover::after{
+    color: #000;
+}
 
 @media screen and (max-width: 1200px) {
   /* 동영상타이틀 */
   .vid-tit h3 {
     font-size: 14px;
     margin-top: 10px;
+  }
+}
+@media screen and (max-width: 800px) {
+  /* 동영상크기 */
+  .play-vid {
+    width: 90vw;
+  }
+  /* 버튼위치 */
+  .play-vid button.cbtn{
+    top: -150px;
+    right: 0;
+  }
+  .ifr-tit{
+    font-size: 30px;
   }
 }
