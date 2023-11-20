@@ -37,7 +37,7 @@ function App() {
         "easeInOutQuint"
       );
       $('.gnb a').addClass("on").eq(idx).siblings().removeClass("on");
-      $('indic li').addClass("on").eq(idx).siblings().removeClass("on");
+      $('.indic li').addClass("on").eq(idx).siblings().removeClass("on");
     });
   }); // useEffect
 
