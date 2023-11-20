@@ -20,7 +20,7 @@ export function Main(){
             cat - 페이지분류명 / cls - 클래스명('on'/'off') */}
             <VidIntro cat='main' cls='off' />
             {/* 4. 비디오스와이프 컴포넌트 */}
-            <VidSwipe />
+            <VidSwipe tit="LATEST TRAILERS, CLIPS & MORE"/>
         </>
     );
 } // Main 컴포넌트 
