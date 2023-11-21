@@ -1,16 +1,15 @@
 // 제이쿼리로 구현한 자동페이지 휠 JS : jquery-autoScroll.js
 
 // 제이쿼리 호출
-import $ from 'jquery';
+import $ from "jquery";
 window.jQuery = $;
-require('jquery-ui-dist/jquery-ui');
-require('jquery-ui-touch-punch/jquery.ui.touch-punch');
-
+require("jquery-ui-dist/jquery-ui");
+require("jquery-ui-touch-punch/jquery.ui.touch-punch");
 
 // 로딩구역없이 함수로 구현함! /////
 
 export function autoScroll() {
-/****************************************** 
+  /****************************************** 
   대상 변수할당하기
 ******************************************/
   // 전체 페이지번호
@@ -43,16 +42,16 @@ export function autoScroll() {
 ******************************************/
   // 윈도우 휠이벤트 발생시
 
-  // $(window).on('wheel','wheelFn') -> 제이쿼리 이벤트라서 안됨 
+  // $(window).on('wheel','wheelFn') -> 제이쿼리 이벤트라서 안됨
   window.addEventListener("wheel", wheelFn);
 
   // 키보드 이벤트발생시 업데이트
   // 1. Page Up(33) / Up Arrow (38)
   // 2. Page Down(34) / Down Arrow (40)
-  // $(document).keydown((e) -> 제이쿼리 이벤트라서 안됨 
- document.addEventListener('keydown',((e) => {
-   if (prot[0]) return;
-   chkCrazy(0);
+  // $(document).keydown((e) -> 제이쿼리 이벤트라서 안됨
+  document.addEventListener("keydown", (e) => {
+    if (prot[0]) return;
+    chkCrazy(0);
     // 이전페이지이동
     if (e.keyCode === 33 || e.keyCode === 38) {
       pno--;
@@ -65,7 +64,7 @@ export function autoScroll() {
       if (pno === pgcnt) pno = pgcnt - 1;
       movePg();
     }
-  })); ///////////// keydown ////////////////
+  }); ///////////// keydown ////////////////
 
   // 새로고침시 스크롤위치 캐싱 변경하기(맨위로!)
   $("html,body").animate({ scrollTop: "0px" });
@@ -128,6 +127,33 @@ export function autoScroll() {
         },
         700,
         "easeInOutQuint"
-        );
+      );
+
+      // 해당 선택메뉴에 'on'넣기 
+      addOn();
+
   } ///////////////// movePg ////////////////
+
+  // GNB 메뉴 + 사이드 인디케이터 클릭 이동기능
+  $(".gnb li, .indic li").click(function () {
+    // 1. 순번변수
+    let idx = $(this).index();
+    // console.log("나야나~!", idx);
+
+    // 2. 순번을 페이지번호에 할당 (일치시킴!)
+    pno = idx;
+
+    // 3. 페이지 이동
+    movePg();
+
+  }); // click
+
+  // GNB + 사이드 인디케이터 해당 페이지에 'on' 넣기 함수
+  // 메뉴클릭시 + 마우스휠 이동시에도 모두 이 함수 호출 
+  const addOn = () => {
+    // 클릭된 메뉴에 class 'on'넣기
+    gnb.addClass("on").eq(pno).siblings().removeClass("on");
+    indic.addClass("on").eq(pno).siblings().removeClass("on");
+  }; //addOn 함수
+
 } // autoScroll 함수
