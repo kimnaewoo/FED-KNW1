@@ -9,7 +9,7 @@ export function Movies(){
         <>
             <Banner category='MOVIES' />
             <VidIntro cat='MOVIES' cls='on'/>
-            <VidSwipe tit="LATEST TRAILERS, CLIPS & MORE"/>
+            <VidSwipe cat="movies"/>
         </>
     );
 } // Movies 컴포넌트 
