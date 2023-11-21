@@ -24,7 +24,25 @@ function App() {
 
   // 랜더링 후 실행구역
   useEffect(() => {
-    
+    // 햄버거 버튼 클릭시 전체메뉴 보이기/숨기기
+    $(".ham").click((e) => {
+      // 1. 전체메뉴 박스 : .mbox
+      $(".mbox").fadeToggle(400);
+
+      // 2. 햄버거 버튼에 클래스 'on' 넣기/빼기
+      $(e.currentTarget).toggleClass("on");
+      // e.target 과 e.currentTarget 은 다르다. *후자는 버튼 자신!!
+      // console.log(e.currentTarget);
+
+      // 3. 비디오 재성/멈춤 : 대상 - .bgm
+      // get(0)은 비디오 컬렉션임! -> 제이쿼리용
+      const vid = $(".bgm").get(0);
+      vid.paused ? vid.play() : vid.pause();
+      console.log(vid.paused);
+      // paused 속성 : 동영상 멈춤일때 true 리턴
+      // play() 메서드 : 동영상 재생 메서드 
+      // pause() 메서드 : 동영상 재생 메서드 
+    });
   }); // useEffect
 
   // 리턴 코드
