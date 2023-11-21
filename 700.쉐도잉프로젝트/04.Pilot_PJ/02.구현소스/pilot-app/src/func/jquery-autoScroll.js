@@ -195,5 +195,12 @@ export function autoScroll() {
   if(pno==0) initSet(); 
   
  } // actPage 함수 
+ 
+ // 메인페이지 상단로고 클릭시 맨위로 이동하기 
+ $('#logo a').click(e=>{
+  e.preventDefault();
+  pno=0;
+  movePg();
+ }) // click 
 } // autoScroll 함수
 
