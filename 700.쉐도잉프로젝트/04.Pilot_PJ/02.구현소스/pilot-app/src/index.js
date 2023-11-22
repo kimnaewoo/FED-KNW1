@@ -46,7 +46,8 @@ function App() {
       // play() 메서드 : 동영상 재생 메서드 
       // pause() 메서드 : 동영상 재생 메서드 
     });
-  }); // useEffect
+    // 랜더링구역 함번만 실행 : 옵션 []
+  },[]); // useEffect
 
   // 리턴 코드
   return (
