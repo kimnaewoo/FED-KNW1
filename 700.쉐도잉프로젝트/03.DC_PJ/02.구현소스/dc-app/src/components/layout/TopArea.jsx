@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Logo } from "../modules/Logo";
 import { menu } from "../data/gnb";
 
-// 폰트어썸 불러오기 
+// 폰트어썸 불러오기
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -30,34 +30,35 @@ export function TopArea() {
               <Logo logoStyle="top" />
             </li>
             {/* 2. GNB메뉴 데이터기반으로 li태그 생성하기 */}
-            {menu.map(
-              (v, i) => (
-                <li key={i}>
-                  <Link to={v.link}>{v.txt}</Link>
-                  {
-                    // 서브메뉴 데이터가 있으면 하위 그리기 
-                    v.sub && (
-                      <div className="smenu">
-                        <ol>
-                          {
-                            v.sub.map((v,i)=>
-                            <li key={i}>
-                              <Link to={v.link}>{v.txt}</Link>
-                            </li>)
-                          }
-                        </ol>
-                      </div>
-                    )
-                  }
-                </li>
-              )
-              )}
+            {menu.map((v, i) => (
+              <li key={i}>
+                {
+                  // 하위메뉴가 있으면 일반a요소에 출력
+                  //  없으면 Link 라우팅 출력
+                  v.sub ? <a href="#">{v.txt}</a> : <Link to={v.link}>{v.txt}</Link>
+                }
+                {
+                  // 서브메뉴 데이터가 있으면 하위 그리기
+                  v.sub && (
+                    <div className="smenu">
+                      <ol>
+                        {v.sub.map((v, i) => (
+                          <li key={i}>
+                            <Link to={v.link}>{v.txt}</Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  )
+                }
+              </li>
+            ))}
             {/* 3. 검색,회원가입,로그인 링크 */}
-            <li style={{marginLeft:'auto'}}>
+            <li style={{ marginLeft: "auto" }}>
               {/* 검색기능링크 - 클릭시 검색창보이기 */}
               <a hreft="#">
-                  <FontAwesomeIcon icon={faSearch} />
-                  {/* <FontAwesomeIcon icon={faCamera} */}
+                <FontAwesomeIcon icon={faSearch} />
+                {/* <FontAwesomeIcon icon={faCamera} */}
               </a>
             </li>
             {/* 회원가입, 로그인은 로그인 아닌 상태일때 나옴 */}
@@ -76,7 +77,7 @@ export function TopArea() {
   );
 }
 
- /* 
+/* 
  map()을 사용하여 태그를 생성할 때
  데이터의 유일키를 key 속성으로 만들지 않으면
  아래와 같은 에러가 발생함

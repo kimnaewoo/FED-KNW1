@@ -5,6 +5,7 @@ import { SecIntro } from "../modules/SecIntro";
 import { VidIntro } from "../modules/VidIntro";
 import { VidSwipe } from "../modules/VidSwipe";
 import { Banner } from "../modules/banner";
+import { CatDetail } from "./CatDetail";
 
 export function Main(){
     // cat 속성으로 메뉴분류 전달 
