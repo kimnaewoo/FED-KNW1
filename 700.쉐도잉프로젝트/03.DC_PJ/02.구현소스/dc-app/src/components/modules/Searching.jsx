@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { SchCatList} from "./SearchCatList";
 
+// CSS 불러오기
+import "../../css/searching.css";
+
 
 export function Searching(props) {
   // props.kword - 검색어 전달
@@ -32,7 +35,7 @@ export function Searching(props) {
             {/* 검색버튼 돋보기 아이콘 */}
             <FontAwesomeIcon icon={faSearch} className="schbtn" title="Open search" onClick={schList} />
             {/* 입력창 */}
-            <input id="schin" type="text" placeholder="Filter by Keyword" onKeyUp={enterKey} />
+            <input id="schin" type="text" placeholder="Filter by Keyword" onKeyUp={enterKey} value={props.kword} />
           </div>
           {/* 1-2. 체크박스 구역 */}
           <div className="chkbx">
@@ -76,14 +79,14 @@ export function Searching(props) {
             {/* 2-1. 결과 타이틀 */}
             <h2 className="restit">BROWSE CHARACTERS (total)</h2>
             {/* 2-2. 정렬선택박스 */}
-            <aside className="sortby">
+            <aside className="sortbx">
                 <select name="sel" id="sel" className="sel" onChange={sortList}>
                     <option value="0">A-Z</option>
                     <option value="1">Z-A</option>
                 </select>
             </aside>
             {/* 2-3. 캐릭터 리스트 컴포넌트 */}
-            <SchCatList/>
+            <SchCatList word={props.kword}/>
         </div>
       </section>
     </>
