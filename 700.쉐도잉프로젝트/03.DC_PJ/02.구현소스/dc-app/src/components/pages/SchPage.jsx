@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { Searching } from "../modules/Searching";
 
 export function SchPage(){
+    
 
     // 라우터 전달값 받기 
     const loc = useLocation();
