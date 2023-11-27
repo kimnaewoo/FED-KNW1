@@ -36,7 +36,11 @@ export function Searching(props) {
   }; ///////// showCnt 함수 ///////
 
   // 검색리스트 만들기 함수
-  const schList = () => {};
+  const schList = (e) => {
+    console.log(e.currentTarget);
+    chgKword($(e.currentTarget).next().val())
+  }
+  };
 
   // 엔터키 반응 함수
   const enterKey = (e) => {
