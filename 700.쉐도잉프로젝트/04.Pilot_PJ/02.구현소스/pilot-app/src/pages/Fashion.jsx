@@ -21,7 +21,7 @@ export function Fashion(props){
 
     useEffect(()=>{
         // 스크롤바 생성하기
-        $('html,body').css({overflow:'visible'});
+        $('html,body').css({overflow:'visible',overflowX:'hidden'});
 
         // 로고클릭시 페이지이동 : pgName 변경 -> chgPgName()
         $("#logo a").click(()=>myCon.chgPgName('main'));
