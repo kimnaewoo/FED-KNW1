@@ -4,13 +4,15 @@ import { useEffect, useLayoutEffect } from "react";
 
 import $ from "jquery";
 
+// 신상품 데이터 가져오기 
 import { sinsangData } from "../data/sinsang";
 
-export function SinSang(props) {
+export function SinSang({cat,chgItemFn}) {
   // props.cat - 카테고리 분류명
+  // props.chgItemFn - 선택상품정보변경 부모함수
 
   // 선택데이터 : 해당카테고리 상품데이터만 가져온다!
-  const selData = sinsangData[props.cat];
+  const selData = sinsangData[cat];
   // console.log(selData);
 
   const makeList = () => {
@@ -20,8 +22,8 @@ export function SinSang(props) {
     for (let x = 0; x < 9; x++) {
       temp[x] = (
         <li className={"m" + (x + 1)} key={x} onMouseEnter={showInfo} onMouseLeave={removeInfo}>
-          <a href="#">
-            <img src={"./images/goods/" + props.cat + "/m" + (x + 1) + ".png"} alt="신상품" />
+          <a href="#" onClick={(e)=>{e.preventDefault();chgItemFn('m'+(x+1))}}>
+            <img src={"./images/goods/" + cat + "/m" + (x + 1) + ".png"} alt="신상품" />
           </a>
         </li>
       ); 
