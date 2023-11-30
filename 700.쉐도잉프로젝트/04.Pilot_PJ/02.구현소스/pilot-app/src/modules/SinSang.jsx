@@ -98,13 +98,13 @@ export function SinSang({cat,chgItemFn}) {
 
   } // flowOut 함수 
 
-  // 랜더링 후 실행구역
+  // 랜더링 후 한번만 실행구역
   useEffect(() => {
     // 대상선정 : .flist
 
     // 신상품리스트 호출!
     flowList($(".flist"));
-  }); // useEffect
+  },[]); // useEffect
 
   // 리턴코드
   return (
