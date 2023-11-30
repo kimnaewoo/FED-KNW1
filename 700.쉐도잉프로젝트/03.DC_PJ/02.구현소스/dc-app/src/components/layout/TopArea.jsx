@@ -61,7 +61,7 @@ export const TopArea = memo(({chgPageFn}) => {
     if (e.key === "Enter") {
       // 입력창의 입력값 읽어오기 : val() 사용!
       let txt = $(e.target).val().trim();
-      console.log(txt);
+      // console.log(txt);
       // 빈값이 아니면 검색함수 호출(검색어전달)
       if (txt != "") {
         // 입력창 비우기 + 부모박스 닫기
