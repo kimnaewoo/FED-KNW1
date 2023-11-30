@@ -1,24 +1,58 @@
 // 상품상세보기 컴포넌트
 
-// 신상품 데이터 가져오기 
+// 신상품 데이터 가져오기
+import { useEffect } from "react";
 import { sinsangData } from "../data/sinsang";
 
-import $ from "jquery"
+import $ from "jquery";
 
-export function ItemDetail({cat,goods}) {
-  // cat - 카테고리명(men/women/style) 
+export function ItemDetail({ cat, goods }) {
+  // cat - 카테고리명(men/women/style)
   // goods - 상품 아이템정보 (속성코드:m1,m2...)
 
   // 선택데이터 : 전체데이터[분류명][상품코드].split('^')
-  // -> 개별상품 배열이 된다! 
+  // -> 개별상품 배열이 된다!
   // [상품명,상품코드,가격]
-  const selData = sinsangData[cat][goods].split('^');
-  console.log('선택데이터:',selData);
+  const selData = sinsangData[cat][goods].split("^");
+  console.log("선택데이터:", selData);
 
   // 닫기함수
-  const closebx = (e)=>{
+  const closebx = (e) => {
     e.preventDefault();
-    $('.bgbx').slideUp(400);}
+    $(".bgbx").slideUp(400);
+  };
+
+  // 랜더링구역
+  useEffect(() => {
+    // 숫자출력 input
+    const sum = $("#sum");
+    // 수량증가 이미지버튼
+    const numBtn = $(".chg_num img");
+
+    numBtn.click((e) => {
+      // 이미지순번
+      let seq = $(e.currentTarget).index();
+      // 기존값 읽기
+      let num = Number(sum.val());
+      // 윗버튼은 ++, 아랫버튼 --
+      seq ? num-- : num++;
+      // 한계값
+      if (num < 1) num = 1;
+      console.log("순번:", seq, num);
+      // 증가,감소 반영
+      sum.val(num);
+      // 총합계 반영
+      // 기본값 : selData[2] / 출력 : #total
+      $("#total").text(selData[2] * num);
+    }); // click
+  }, []); // useEffect
+
+  useEffect(() => {
+    // 처음에 초기화
+    $('#sum').val("1");
+  }); // 리랜더링 실행구역
+
+  // 수량 증가,감소 함수
 
   // 리턴코드
   return (
@@ -29,7 +63,7 @@ export function ItemDetail({cat,goods}) {
       <div id="imbx">
         <div className="inx">
           <section className="gimg">
-            <img src={"./images/goods/"+cat+"/"+goods+".png"} alt="큰 이미지" />
+            <img src={"./images/goods/" + cat + "/" + goods + ".png"} alt="큰 이미지" />
             <div className="small">
               <a href="#">
                 <img src="./images/goods/men/m1.png" alt="썸네일 이미지" />
@@ -88,16 +122,16 @@ export function ItemDetail({cat,goods}) {
                   </span>
                 </li>
                 <li>
-                  <span>컬러</span> 
+                  <span>컬러</span>
                   <span></span>
                 </li>
                 <li>
-                  <span>권장계절</span> 
+                  <span>권장계절</span>
                   <span>여름</span>
                 </li>
                 <li className="tot">
-                  <span>총합계</span> 
-                  <span id="total">13,000</span>
+                  <span>총합계</span>
+                  <span id="total">{selData[2]}</span>
                 </li>
               </ol>
             </div>
