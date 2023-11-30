@@ -3,6 +3,8 @@
 // 신상품 데이터 가져오기 
 import { sinsangData } from "../data/sinsang";
 
+import $ from "jquery"
+
 export function ItemDetail({cat,goods}) {
   // cat - 카테고리명(men/women/style) 
   // goods - 상품 아이템정보 (속성코드:m1,m2...)
@@ -13,11 +15,15 @@ export function ItemDetail({cat,goods}) {
   const selData = sinsangData[cat][goods].split('^');
   console.log('선택데이터:',selData);
 
+  // 닫기함수
+  const closebx = (e)=>{
+    e.preventDefault();
+    $('.bgbx').slideUp(400);}
 
   // 리턴코드
   return (
     <>
-      <a href="#" className="cbtn">
+      <a href="#" className="cbtn" onClick={closebx}>
         <span className="ir">닫기버튼</span>
       </a>
       <div id="imbx">

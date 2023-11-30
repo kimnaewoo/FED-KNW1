@@ -27,9 +27,7 @@ export function Fashion(props) {
     // 로고클릭시 페이지이동 : pgName 변경 -> chgPgName()
     $("#logo a").click(() => myCon.chgPgName("main"));
 
-    // 상품상세보기 박스 처음에 숨기기 
-    $('.bgbx').hide()
-
+    
   }, []); // useEffect
 
   // 후크상태 변수
@@ -43,6 +41,7 @@ export function Fashion(props) {
     setItem(v);
     // 상태박스 보이기 
     $('.bgbx').slideDown(400);
+    
   };
   // 리턴코드
   return (
