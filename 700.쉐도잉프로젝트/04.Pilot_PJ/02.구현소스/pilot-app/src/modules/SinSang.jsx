@@ -45,12 +45,19 @@ export function SinSang({cat,chgItemFn}) {
     tg.append(`<div class="ibox"></div>`);
 
     // 3. 현재 li에 만든 .ibox에 데이터 넣기 
+    // 3. 현재 li에 만든 .ibox에 데이터 넣기 + 등장
     tg.find('.ibox').html(
       selData[gKey].split('^')
-      .map((v)=>`<div key={i}>${v}</div>`)
-    ).animate({top:'110%',opacity:1},300)
+      .map((v,i)=>`<div>${i==2?addComma(v)+"원":v}</div>`)
+  )
+    .animate({top:'110%',opacity:1},300)
     
   } // showInfo 함수 
+
+  //정규식함수(숫자 세자리마다 콤마해주는 기능)
+  function addComma(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   // 정보박스 지우기 함수
   const removeInfo = (e) => {
