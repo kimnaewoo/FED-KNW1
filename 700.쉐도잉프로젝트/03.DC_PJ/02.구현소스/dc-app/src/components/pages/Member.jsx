@@ -210,6 +210,10 @@ export function Member() {
       // 5. 로컬스토리지에 반영하기 
       localStorage.setItem("mem-data",JSON.stringify(memData));
 
+      // 6. 로그인 페이지로 이동(라우터 이동)
+      document.querySelector('.sbtn').innerText = '님은 이제 회원입니다.';
+      
+
 
     } // if
     // 3. 불통과시
