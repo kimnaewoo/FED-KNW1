@@ -72,10 +72,39 @@ export function Member() {
     // 결과 : true이면 에러상태값 false (false이면 에러상태값 true)
     // 에러상태가 아닐때
     if (valid.test(e.target.value)) {
-      // 1. 사용중 아이디인지 검사(로컬쓰 셋팅후 추가!)
+      // 1. 사용중 아이디인지 검사(로컬스토리지 셋팅후 추가!)
+      // 로컬스토리지 체크함수호출(없으면 생성함!)
+      initData();
 
-      // 2. 결과 반영하기
-      setUserIdError(false);
+      // 1. 로컬스토리지 변수할당
+      let memData = localStorage.getItem("mem-data");
+
+      // 2. 로컬스토리지 객체로 변환하기
+      memData = JSON.parse(memData);
+
+      // 3. 기존 아이디가 있으면 상태값 false로 업데이트
+      let isOK = true;
+
+      // 4. 검사 진행하기
+      memData.forEach((v) => {
+        // 기존아이디와 같은경우
+        if (v.uid === e.target.value) {
+          // 메세지변경
+          setIdMsg(msgId[1]);
+          // 아이디에러상태값 업데이트
+          setUserIdError(true);
+          // 존재여부 업데이트
+          isOK = false;
+        } // if
+      }); // forEach
+
+      // 5. 기존아이디 없으면 들어감 : 최종통과시 결과
+      if (isOK) {
+        // 메세지변경
+        setIdMsg(msgId[0]);
+        // 아이디에러상태값 업데이트
+        setUserIdError(false);
+      } // if
     } // if
     // 에러상태
     else {
@@ -192,29 +221,26 @@ export function Member() {
       // 1. 로컬스토리지 변수할당
       let memData = localStorage.getItem("mem-data");
 
-      // 2. 새로운 데이터 구성하기
+      // 2. 로컬스토리지 객체로 변환하기
+      memData = JSON.parse(memData);
+
+      // 3. 새로운 데이터 구성하기
       let newData = {
-        idx: memData.length+1,
+        idx: memData.length + 1,
         uid: userId,
         pwd: pwd,
         unm: userName,
         eml: email,
       };
 
-      // 3. 로컬스토리지 객체로 변환하기 
-      memData = JSON.parse(memData); 
-
       // 4. 데이터 추가하기 : 배열에 데이터 추가 push()
       memData.push(newData);
 
-      // 5. 로컬스토리지에 반영하기 
-      localStorage.setItem("mem-data",JSON.stringify(memData));
+      // 5. 로컬스토리지에 반영하기
+      localStorage.setItem("mem-data", JSON.stringify(memData));
 
-      // 6. 로그인 페이지로 이동(라우터 이동) - 보류! 
-      document.querySelector('.sbtn').innerText = '님은 이제 회원입니다.';
-      
-
-
+      // 6. 로그인 페이지로 이동(라우터 이동) - 보류!
+      document.querySelector(".sbtn").innerText = "님은 이제 회원입니다.";
     } // if
     // 3. 불통과시
     else {
