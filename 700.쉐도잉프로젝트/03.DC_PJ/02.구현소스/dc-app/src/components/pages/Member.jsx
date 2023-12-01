@@ -92,7 +92,7 @@ export function Member() {
     const valid = /^.*(?=^.{5,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 
     // 2. 입력값 확인 : e.target -> 이벤트가 발생한 요소
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
     // 3. 에러에 따른 상태값 변경
     if (valid.test(e.target.value)) setPwdError(false);
@@ -145,6 +145,33 @@ const changeEmail = (e) => {
   }; // changeUseId 함수
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // [ 전체유효성 검사 체크함수 ]
+  const totalValid = () => {
+    // 1. 모든 상태변수에 빈값일때 에러상태값 업데이트
+    if(!userId) setUserIdError(true);
+    if(!pwd) setPwdError(true);
+    if(!chkpwd) setChkPwdError(true);
+    if(!userName) setUserNameError(true);
+    if(!email) setEmailError(true);
+
+    // 2. 통과시 true, 불통과시 false 리턴처리
+    // 통과조건 : 빈값아님 + 에러후크변수가 모두 false
+    if(userId && pwd && chkpwd && userName && email && !userIdError && !pwdError && !chkpwdError && !userNameError && !emailError) return true;
+    // 하나라도 false이면 false를 리턴함 
+    else return false;
+
+  }; // totalValid 함수
+
+  // [ 서브밋 기능함수 ]
+  const onSubmit = e => {
+    // 1. 서브밋 기본이동 막기
+    e.preventDefault();
+    // 2. 유효성 검사 전체통과시 
+    if(totalValid){
+
+    } // if 
+  }; //  onSubmit 함수
 
   // 리턴코드
   return (
@@ -245,7 +272,7 @@ const changeEmail = (e) => {
             </li>
             <li style={{ overflow: "hidden" }}>
               {/* 6. 버튼 */}
-              <button className="sbtn">Submit</button>
+              <button className="sbtn" onClick={onSubmit}>Submit</button>
             </li>
             <li>
               {/* 7. 로그인페이지 링크 */}
