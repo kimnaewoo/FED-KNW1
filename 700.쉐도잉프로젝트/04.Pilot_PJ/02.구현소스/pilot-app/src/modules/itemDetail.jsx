@@ -2,7 +2,9 @@
 
 // 신상품 데이터 가져오기
 import { useEffect } from "react";
-import { sinsangData } from "../data/sinsang";
+// 신상품 데이터 가져오기 
+import gdata from "../data/glist-items";
+// import { sinsangData } from "../data/sinsang";
 
 import $ from "jquery";
 
