@@ -25,7 +25,7 @@ export function TopArea(props) {
         <header className="top ibx">
           <h1 id="logo">
             <a href="#">
-              <img src="../images/main_logo.png" alt="파일럿로고" />
+              <img src="./images/main_logo.png" alt="파일럿로고" />
             </a>
           </h1>
           <nav className="gnb">
