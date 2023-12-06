@@ -12,52 +12,56 @@ export function ItemDetail({ cat, goods }) {
   // cat - 카테고리명(men/women/style)
   // goods - 상품 아이템정보(속성코드: m1,m2,...)
 
-  // 카트사용여부 상태변수 
-  const [csts,setCsts] = useState(0);
+  // 카트사용여부 상태변수 /////////
+  const [csts, setCsts] = useState(0);
 
-  // 카트에 담기 버튼 클릭시 호출함수 
+  // 카트에 담기 버튼 클릭시 호출함수 ////
   const useCart = () => {
-    
-    // 1. 해당 선택된 상품을 로컬스토리지에 담기! 
-    /* 데이터 구성 : 
+    // 1.선택된 상품을 로컬스토리지에 담기!
+    /* 데이터 구성:
     {
       idx: 상품유일키,
       cat: 상품분류,
       ginfo: 상품정보,
       num: 선택상품수
     }
-    -> 기존 선택객체는 selData에 담김 
+    -> 기존 선택객체는 selData에 담김
     -> 여기에 num항목을 추가한다!
     */
-   // num항목 추가하기 : 값은 #sum의 value값 
-   selData.num = $('#sum').val()
-   console.log('카트쓸꺼야~!',selData);
-    // 1-2. 로컬스토리지에 문자형변환하여 담는다
-    // 기존 카트로컬스토리지가 없는 경우 
-    if(!localStorage.getItem('cart')){
-      localStorage.setItem('cart',JSON.stringify(selData))
-    } 
-    // 기존 카트 로컬스토리지가 있는 경우 기존값에 더하기
-    else{
-      let localD = localStorage.getItem('cart');
-      // 객체변환 
+    // 1-1.num항목 추가하기 : 값은 #sum의 value값
+    selData.num = $("#sum").val();
+
+    console.log("카트쓸꼬얌~!", selData);
+
+    // 1-2.로컬스에 문자형변환하여 담는다
+    // (1) 기존 카트 로컬스가 없는 경우
+    if (!localStorage.getItem("cart")) {
+      // 아무것도 없으면 배열을 만들고 여기에 push함!
+      let localD = [];
+      localD.push(selData);
+      localStorage.setItem("cart", JSON.stringify(localD));
+    } ///// if ///
+    // (2) 기존 카트 로컬스가 있는 경우 기존값에 더하기
+    else {
+      let localD = localStorage.getItem("cart");
+      // 객체변환
       localD = JSON.parse(localD);
       // 객체변환 데이터에 push로 추가!
       localD.push(selData);
-      // 다시 문자형변환하여 넣기 
-      localStorage.setItem('cart',JSON.stringify(localD));
+      // // 다시 문자형변환하여 넣기
+      localStorage.setItem("cart", JSON.stringify(localD));
     }
 
     setCsts(1);
-  }; // useCart 함수
+  }; /////////// useCart함수 ////////////
 
   // 선택데이터 : 전체데이터[분류명][상품코드].split('^')
   // -> 개별상품 배열이 된다!
   // [상품명,상품코드,가격]
-  const selData = sinsangData[cat][goods].split("^");
+  // const selData = sinsangData[cat][goods].split('^');
   // console.log('선택데이터:',selData);
 
-  const selD = gdata.find((v) => {
+  const selData = gdata.find((v) => {
     // 조건: 분류와 상품분류코드가 일치하는 하나
     if (v.cat === cat && v.ginfo[0] === goods) return true;
   });
@@ -65,15 +69,13 @@ export function ItemDetail({ cat, goods }) {
   // find는 배열의 결과값만 가져옴
   // 하나의 값을 가져올때는 find가 좋다!
 
+  console.log("새로선택:", selData);
 
-  console.log("새로선택:", selD);
+  // selData에 담긴 기존 객체데이터와 상품개수항목이 추가된
+  // 객체를 만들고 이것을 로컬스에 저장한다!!!
 
-  // selData에 담긴 기존 객체데이터와 상품개수항목이 추가된 
-  // 객체를 만들고 이것을 로컬스토리지에 저장한다!
-
-  // 전체 데이터를 셋업하기위한 항목은 ginfo임
+  // 전체 데이터를 셋업하기위한 항목은 ginfo임!
   const ginfo = selData.ginfo;
-
 
   // 닫기 함수 ////
   const closeBox = (e) => {
@@ -130,7 +132,10 @@ export function ItemDetail({ cat, goods }) {
       <div id="imbx">
         <div className="inx">
           <section className="gimg">
-            <img src={"./images/goods/" + cat + "/" + goods + ".png"} alt="큰 이미지" />
+            <img
+              src={"./images/goods/" + cat + "/" + goods + ".png"}
+              alt="큰 이미지"
+            />
             <div className="small">
               <a href="#">
                 <img src="./images/goods/men/m1.png" alt="썸네일 이미지" />
@@ -171,7 +176,10 @@ export function ItemDetail({ cat, goods }) {
                   <span>무이자할부</span>
                   <span>
                     부분 무이자 할부 혜택
-                    <img src="./images/view_btn_nointerest_card.gif" alt="무이자카드보기" />
+                    <img
+                      src="./images/view_btn_nointerest_card.gif"
+                      alt="무이자카드보기"
+                    />
                   </span>
                 </li>
                 <li>
@@ -204,7 +212,9 @@ export function ItemDetail({ cat, goods }) {
             </div>
             <div>
               <button className="btn btn1">BUY NOW</button>
-              <button className="btn" onClick={useCart}>SHOPPING CART</button>
+              <button className="btn" onClick={useCart}>
+                SHOPPING CART
+              </button>
               <button className="btn">WISH LIST</button>
             </div>
           </section>
@@ -212,10 +222,7 @@ export function ItemDetail({ cat, goods }) {
       </div>
 
       {/* 카트리스트 */}
-      {
-        csts && 
-       <CartList />
-      }
+      {csts && <CartList />}
     </>
   );
 } /////////// ItemDetail 컴포넌트 ///////////
