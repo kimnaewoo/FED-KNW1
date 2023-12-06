@@ -92,7 +92,7 @@ export function CartList() {
             </tr>
 
             <tr>
-              <td colspan="6">총합계 :</td>
+              <td colSpan="6">총합계 :</td>
               <td>999,000원</td>
               <td></td>
             </tr>
