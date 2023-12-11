@@ -46,7 +46,7 @@ export function Login() {
     else {
       // 빈값일 경우
       // 메시지 띄우기
-      setIdMsg(msgPwd.req);
+      setIdMsg(msgId[0]);
       // 에러상태값 변경하기
       setUserIdError(true);
     } // else
@@ -61,7 +61,7 @@ export function Login() {
     else {
       // 빈값일 경우
       // 메시지 띄우기
-      setIdMsg(msgPwd.req);
+      setPwdMsg(msgPwd[0]);
       // 에러상태값 변경하기
       setPwdError(true);
     } // else
