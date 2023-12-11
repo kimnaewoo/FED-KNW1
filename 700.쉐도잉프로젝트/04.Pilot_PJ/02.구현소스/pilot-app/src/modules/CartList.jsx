@@ -1,7 +1,13 @@
 // Pilot PJ 장바구니 리스트 컴포넌트
 
+// 리액트 불러오기
+import { useEffect } from "react";
+
 // 장바구니 리스트 CSS 불러오기
 import "../css/cartlist.css";
+
+// 제이쿼리
+import $ from "jquery";
 
 export function CartList() {
   // 선택 데이터 : 로컬스토리지 데이터를 객체변환!
@@ -13,6 +19,16 @@ export function CartList() {
   function addComma(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
+  // 랜더링 후 실행구역
+  useEffect(() => {
+    // 카트버튼 나타나기
+    $("#mycart").fadeIn(300, function () {
+      // 페이드 애니후
+      $(this).addClass('on');
+    }); // fadeIn
+    console.log("나야나~!");
+  }, []); // useEffect
 
   return (
     <>
@@ -40,10 +56,7 @@ export function CartList() {
               <tr key={i}>
                 {/* 상품이미지 */}
                 <td>
-                  <img
-                    src={"images/goods/" + v.cat + "/" + v.ginfo[0] + ".png"}
-                    alt="item"
-                  />
+                  <img src={"images/goods/" + v.cat + "/" + v.ginfo[0] + ".png"} alt="item" />
                 </td>
                 {/* 리스트순번 */}
                 <td>{i + 1}</td>
@@ -74,6 +87,13 @@ export function CartList() {
           </tbody>
         </table>
       </section>
+      {/* 카트버튼이미지 박스*/}
+      <div id="mycart">
+        {/* 카트이미지 */}
+        <img src="./images/mycart.gif" title="개의 상품이 있습니다!" />
+        {/* 카트상품개수 출력박스 */}
+        <div className="cntBx">8</div>
+      </div>
     </>
   );
 } ////////////// CartList 컴포넌트 /////////
