@@ -59,18 +59,25 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 99999999;
+  z-index: 9999999;
   cursor: pointer;
   display: none;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: hotpink;
 }
 
 /* 카트박스 사이드 이동상태 */
 #mycart.on{
   position: fixed;
   top: 50%;
-  left: calc(100% - 50px);
+  left: calc(100% - 70px);
   transform: translate(0, -50%);
   transition: .4s ease-in 2s;
+  background-color: lightblue;
+  border-radius: 10px 0 0 10px;
+  padding: 10px;
 }
 /* 원본 이미지 크기 */
 #mycart img{
