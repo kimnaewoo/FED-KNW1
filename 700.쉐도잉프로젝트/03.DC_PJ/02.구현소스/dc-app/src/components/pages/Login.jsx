@@ -27,16 +27,16 @@ export function Login() {
   const msgId = [
     "This is a required entry", //필수입력
     "ID does not exist", //아이디가 존재하지 않습니다
-    "Password doesn't match", //비밀번호가 일치하지 않습니다
   ];
-  // [ 기타 메시지 프리셋 ]
-  const msgEtc = {
-    // 필수입력
-    req: "This is a required entry",
-  }; // msgEtc
+  // [ 비번 메시지 프리셋 ]
+  const msgPwd = [
+    "This is a required entry", // 필수입력
+    "Password doesn't match", //비밀번호가 일치하지 않습니다
+  ]; // msgPwd
 
   // [3] 에러메시지 상태변수
   const [idMsg, setIdMsg] = useState(msgId[0]);
+  const [pwdMsg, setPwdMsg] = useState(msgPwd[0]);
 
   // [ 유효성 검사 함수]
   // 1. 아이디 유효성 검사
@@ -46,7 +46,7 @@ export function Login() {
     else {
       // 빈값일 경우
       // 메시지 띄우기
-      setIdMsg(msgEtc.req);
+      setIdMsg(msgPwd.req);
       // 에러상태값 변경하기
       setUserIdError(true);
     } // else
@@ -61,7 +61,7 @@ export function Login() {
     else {
       // 빈값일 경우
       // 메시지 띄우기
-      setIdMsg(msgEtc.req);
+      setIdMsg(msgPwd.req);
       // 에러상태값 변경하기
       setPwdError(true);
     } // else
@@ -111,18 +111,33 @@ export function Login() {
           setUserIdError(false);
           // 같은 아이디 상태 업데이트
           isNot = false;
-        }
+          // 비밀번호가 일치하는가?
+          if (v["pwd"] === pwd) {
+            console.log("비밀번호가같아요");
+            // 비밀번호에러 상태 업데이트
+            setPwdError(false);
+          } // if
+          else {
+            // 비밀번호 불일치
+            console.log("비밀번호가달라요");
+            // 비밀번호 다를때 메세지
+            setPwdMsg(msgPwd[1]);
+            // 비밀번호 에러상태 업데이트
+            setPwdError(true);
+          } // else
+        } // if
       }); // forEach
 
       // 아이디가 불일치할 경우
       if (isNot) {
-        console.log('아이디 달라요~!');
+        console.log("아이디 달라요~!");
         // 아이디가 다를때 메시지 보이기
         setIdMsg(msgId[1]);
-        // 아이디 에러상태 업데이트 
+        // 아이디 에러상태 업데이트
         setUserIdError(true);
       } // if
     } // if
+
     // 4-3. 유효성검사 불통과시
     else {
       console.log("실패");
@@ -167,6 +182,14 @@ export function Login() {
                 value={pwd}
                 onChange={changePwd}
               />
+              {
+                // 에러시 메시지 출력
+                pwdError && (
+                  <div className="msg">
+                    <small style={{ color: "red", fontSize: "10px" }}>{pwdMsg}</small>
+                  </div>
+                )
+              }
             </li>
             <li>
               {/* 3. 서브밋 버튼 */}
