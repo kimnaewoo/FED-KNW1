@@ -32,7 +32,7 @@ export const menu = [
       },
       {
         txt: "DC SERIES",
-        link: "/series",
+        link: "/movies/series",
       },
       {
         txt: "DC ON HBO MAX",

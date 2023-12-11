@@ -105,6 +105,7 @@ export function Banner(props) {
   // 리스트만들기 함수 ///////////
   const makeList = (data) => {
     // console.log(data);
+    console.log(process.env.PUBLIC_URL);
     return data.map((v, i) => (
       <li key={i}>
         {/* 배너이미지 */}
