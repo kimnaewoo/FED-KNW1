@@ -34,7 +34,7 @@ import { memo, useContext } from "react";
 // -> 전달되는 함수가 반드시 useCallback() 처리가 되어야 한다!
 
 // export function TopArea() {
-export const TopArea = memo(({chgPageFn}) => {
+export const TopArea = memo(({ chgPageFn }) => {
   // 보통 props 등 전달변수만 쓰면 하위 속성명으로 값을 전달하지만, 중괄호{}를 사용하면 속성명을 직접 사용할수 있다.
 
   // 컴포넌트 호출확인

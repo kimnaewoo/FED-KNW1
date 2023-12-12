@@ -99,43 +99,75 @@ export function Login() {
 
       // 같은 아이디 검사 상태변수
       // -> true면 아이디 불일치할 경우
-      let isNot = true;
+      // let isNot = true; -> find() 사용시 불필요!
 
+      // ***********************************************************************************
       // 입력데이터 중 아이디값 비교하기
       // 배열데이터 순회하며 값비교하기
-      memData.forEach((v) => {
-        // 같은 아이디가 있는가?
-        if (v["uid"] === userId) {
-          console.log("아이디같아요");
+      // 배열.find()로 검색순회하면 해당 데이터 만나는 순간
+      // 끝내고 나옴! -> 효율성을 높이자!!
+      let findD = memData.find((v) => {
+        if (v["uid"] === userId) return true;
+      });
+      console.log("find결과:", findD);
+
+      // 만약 검색결과가 있으면 true 처리됨!
+      // 결과가 리턴이 없는 경우 undefined이므로 false!
+
+      if (findD) {
+        // 같은 아이디가 있는 경우
+        console.log("아이디같아요");
+        // 아이디 에러상태 업데이트
+        setUserIdError(false);
+        // 비밀번호가 일치하는가?
+        if (findD["pwd"] === pwd) {
+          console.log("비밀번호가같아요");
+          // 비밀번호에러 상태 업데이트
+          setPwdError(false);
+        } else {
+          // 같은 아이디가 없는 경우
+          console.log("아이디 달라요~!");
+          // 아이디가 다를때 메시지 보이기
+          setIdMsg(msgId[1]);
           // 아이디 에러상태 업데이트
-          setUserIdError(false);
-          // 같은 아이디 상태 업데이트
-          isNot = false;
-          // 비밀번호가 일치하는가?
-          if (v["pwd"] === pwd) {
-            console.log("비밀번호가같아요");
-            // 비밀번호에러 상태 업데이트
-            setPwdError(false);
-          } // if
-          else {
-            // 비밀번호 불일치
-            console.log("비밀번호가달라요");
-            // 비밀번호 다를때 메세지
-            setPwdMsg(msgPwd[1]);
-            // 비밀번호 에러상태 업데이트
-            setPwdError(true);
-          } // else
-        } // if
-      }); // forEach
+          setUserIdError(true);
+        }
+      }
+
+      // -> forEach를 사용하면 비효율적이다 (모두 순회하므로)
+      // memData.forEach((v) => {
+      //   // 같은 아이디가 있는가?
+      //   if (v["uid"] === userId) {
+      //     console.log("아이디같아요");
+      //     // 아이디 에러상태 업데이트
+      //     setUserIdError(false);
+      //     // 같은 아이디 상태 업데이트
+      //     isNot = false;
+      //     // 비밀번호가 일치하는가?
+      //     if (v["pwd"] === pwd) {
+      //       console.log("비밀번호가같아요");
+      //       // 비밀번호에러 상태 업데이트
+      //       setPwdError(false);
+      //     } // if
+      //     else {
+      //       // 비밀번호 불일치
+      //       console.log("비밀번호가달라요");
+      //       // 비밀번호 다를때 메세지
+      //       setPwdMsg(msgPwd[1]);
+      //       // 비밀번호 에러상태 업데이트
+      //       setPwdError(true);
+      //     } // else
+      //   } // if
+      // }); // forEach
 
       // 아이디가 불일치할 경우
-      if (isNot) {
-        console.log("아이디 달라요~!");
-        // 아이디가 다를때 메시지 보이기
-        setIdMsg(msgId[1]);
-        // 아이디 에러상태 업데이트
-        setUserIdError(true);
-      } // if
+      //   if (isNot) {
+      //     console.log("아이디 달라요~!");
+      //     // 아이디가 다를때 메시지 보이기
+      //     setIdMsg(msgId[1]);
+      //     // 아이디 에러상태 업데이트
+      //     setUserIdError(true);
+      //   } // if
     } // if
 
     // 4-3. 유효성검사 불통과시
@@ -149,7 +181,7 @@ export function Login() {
     <div className="outbx">
       {/* 모듈코드 */}
       <section className="membx" style={{ minHeight: "350px" }}>
-        <h2>Log In</h2>
+        <h2>LOG IN</h2>
         <form method="post" action="process.php">
           <ul>
             <li>
@@ -191,7 +223,7 @@ export function Login() {
                 )
               }
             </li>
-            <li>
+            <li style={{ overfliw: "hidden" }}>
               {/* 3. 서브밋 버튼 */}
               <button className="sbtn" onClick={onSubmit}>
                 Submit

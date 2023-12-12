@@ -2,7 +2,7 @@
 export const menu = [
   {
     txt: "CHARACTERS",
-    link: "/characters",
+    link: "/character",
   },
   {
     txt: "COMICS",
