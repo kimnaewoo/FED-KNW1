@@ -38,6 +38,8 @@ export function ItemDetail({ cat, goods }) {
 
     // 로컬스 변환값 담을 변수
     let localD;
+    // 카트 입력데이터 담을 변수
+    let temp; // find() 에서 undefined로 처리될 경우 false
 
     // 1-2.로컬스에 문자형변환하여 담는다
     // (1) 기존 카트 로컬스가 없는 경우
@@ -46,6 +48,20 @@ export function ItemDetail({ cat, goods }) {
       localD = [];
       localD.push(selData);
       localStorage.setItem("cart", JSON.stringify(localD));
+
+      // localD변수에 담긴 로컬스 변환값을 transData에 담아
+      // CartList 컴포넌트에 전달한다!
+      setTransData(localD);
+
+      setCsts(1);
+      // 쇼핑카트 버튼 초기화
+      $("#mycart")
+        .removeClass("on")
+        .delay(1000)
+        .fadeIn(300, function () {
+          // 페이드 애니후
+          $(this).addClass("on");
+        }); ////// fadeIn ////////
     } ///// if ///
     // (2) 기존 카트 로컬스가 있는 경우 기존값에 더하기
     else {
@@ -64,30 +80,32 @@ export function ItemDetail({ cat, goods }) {
       if (temp) {
         alert("이미 선택하신 아이템입니다");
       } // if
-      
-      // 새로운 아이템만 등록
+
+      // 새로운 아이템만 등록! **************************************************
       else {
         // 객체변환 데이터에 push로 추가!
         localD.push(selData);
         // // 다시 문자형변환하여 넣기
         localStorage.setItem("cart", JSON.stringify(localD));
+
+        // localD변수에 담긴 로컬스 변환값을 transData에 담아
+        // CartList 컴포넌트에 전달한다!
+        setTransData(localD);
+
+        setCsts(1);
+        // 쇼핑카트 버튼 초기화
+        $("#mycart")
+          .removeClass("on")
+          .delay(1000)
+          .fadeIn(300, function () {
+            // 페이드 애니후
+            $(this).addClass("on");
+          }); ////// fadeIn ////////
       } // else
     } ///// else ///////
 
-    // localD변수에 담긴 로컬스 변환값을 transData에 담아
-    // CartList 컴포넌트에 전달한다!
-    setTransData(localD);
-
-    setCsts(1);
-
-    // 쇼핑카트 버튼 초기화
-    $("#mycart")
-      .removeClass("on")
-      .delay(1000)
-      .fadeIn(300, function () {
-        // 페이드 애니후
-        $(this).addClass("on");
-      }); ////// fadeIn ////////
+    // 공통 처리 ******************************
+    // temp에 데이터가 담긴 경우에만 공통업데이트함!
   }; /////////// useCart함수 ////////////
 
   // 선택데이터 : 전체데이터[분류명][상품코드].split('^')
