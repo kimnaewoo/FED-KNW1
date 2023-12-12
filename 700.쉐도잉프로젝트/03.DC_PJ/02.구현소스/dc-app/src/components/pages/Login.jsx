@@ -125,13 +125,18 @@ export function Login() {
           // 비밀번호에러 상태 업데이트
           setPwdError(false);
         } else {
-          // 같은 아이디가 없는 경우
-          console.log("아이디 달라요~!");
-          // 아이디가 다를때 메시지 보이기
-          setIdMsg(msgId[1]);
-          // 아이디 에러상태 업데이트
-          setUserIdError(true);
+          console.log("비밀번호가달라요");
+          // 비밀번호 다를때 메세지
+          setPwdMsg(msgPwd[1]);
+          // 비밀번호 에러상태 업데이트
+          setPwdError(true);
         }
+      } else {
+        console.log("아이디 달라요~!");
+        // 아이디가 다를때 메시지 보이기
+        setIdMsg(msgId[1]);
+        // 아이디 에러상태 업데이트
+        setUserIdError(true);
       }
 
       // -> forEach를 사용하면 비효율적이다 (모두 순회하므로)
