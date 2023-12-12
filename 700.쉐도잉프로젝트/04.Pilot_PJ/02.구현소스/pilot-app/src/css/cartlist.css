@@ -88,3 +88,14 @@
   width: 50px;
   transition: .4s ease-in 2s;
 }
+#mycart .cntBx{
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  counter-reset: hotpink;
+  opacity: 0;
+}
+#mycart.on .cntBx{
+  opacity: 1;
+  transition: .4s 2s;
+}
