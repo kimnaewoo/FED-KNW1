@@ -139,8 +139,10 @@ export function Login() {
           // 2. 컨텍스트 API에 공개된 로그인상태 업데이트하기!
           myCon.setLogSts(localStorage.getItem('minfo'));
 
+          const usrIcon = ["🧙‍♂️","🦸‍♂️","🧛‍♂️","🧚‍♂️","🧟‍♂️"]
+
           // 3. 컨텍스트 API에 공개된 로그인 메시지 업데이트하기 
-          myCon.setLogMsg("welcome "+findD.unm)
+          myCon.setLogMsg("welcome "+findD.unm+usrIcon[Math.floor(Math.random()*5)])
 
           // 버튼에 메시지
           $(".sbtn").text("넌 로그인된거야");
