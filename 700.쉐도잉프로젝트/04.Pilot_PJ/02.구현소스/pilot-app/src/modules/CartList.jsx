@@ -1,7 +1,7 @@
 // Pilot PJ 장바구니 리스트 컴포넌트
 
 // 장바구니 리스트 CSS 불러오기
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import "../css/cartlist.css";
 
 // 제이쿼리
@@ -11,17 +11,28 @@ import $ from "jquery";
 export const CartList = memo(({selData}) => {
   // 로컬 스토리지 데이터를 props로 전달 받는다!
 
+  
+  // 상태관리변수 설정 
+  // 1. 변경 데이터 변수 : 전달된 데이터로 초기화
+  const [cartData,setCartData] = useState(selData);
+  
+  console.log('받은 데이터:',selData,'\n기존 데이터:',cartData);
+
+  // 카트 컴포넌트의 데이터가 상태관리 되고 있으므로 외부에서 전달되는 데이터와 다를때 업데이트해야 외부에서 들어오는 데이터가 반영되어 리랜더링 된다
+  // 삭제버튼도 작동하게 하려면??
+  if(cartData!==selData){ setCartData(selData)};
+
   // 선택 데이터 : 로컬스토리지 데이터를 객체변환! -> 주석처리
   // const selData = JSON.parse(localStorage.getItem("cart"));
 
   // 데이터개수
-  const cntData = selData.length;
+  const cntData = cartData.length;
 
-  console.log(selData,cntData+'개');
+  console.log(cartData,cntData+'개');
 
   // 전체합계 구하기 
   let totalCnt = 0;
-  selData.forEach(v=>{
+  cartData.forEach(v=>{
     totalCnt += v.ginfo[3]*v.num;
   }); // forEach
 
@@ -63,12 +74,16 @@ export const CartList = memo(({selData}) => {
     console.log('지울녀석',selIdx);
 
     // 해당 데이터 순번 알아내기
-    const newData = selData.filter((v)=>{if(v.idx!==selIdx){return true}})
+    const newData = cartData.filter((v)=>{if(v.idx!==selIdx){return true}})
 
-    console.log(newData);
+    console.log('제거후리스트',newData);
 
-    // 선택배열 데이터 selData에서 해당 idx를 삭제함 
-    selData.splice();
+    // 로컬스토리지 데이터 업데이트
+    localStorage.setItem('cart',JSON.stringify(newData));
+
+
+    // 전체 데이터 업데이트 하면 모두 리랜더링하게 하자!
+    setCartData(newData);
 
   }; // deleteItem 함수
 
@@ -96,7 +111,7 @@ export const CartList = memo(({selData}) => {
               <th>삭제</th>
             </tr>
 
-            {selData.map((v, i) => (
+            {cartData.map((v, i) => (
               <tr key={i}>
                 {/* 상품이미지 */}
                 <td>
