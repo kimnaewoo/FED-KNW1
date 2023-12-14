@@ -110,7 +110,6 @@
 }
 /* 증감 이미지버튼 */
 .btn-cnt {
-
 }
 #cartlist .btn-cnt img {
   display: block;
@@ -118,12 +117,17 @@
 }
 /* 반영 버튼 */
 .btn-insert {
-  width: 34px;
+  width: 0;
+  margin-left: 43px;
   white-space: nowrap;
   padding: 0;
-  display: none;
+  transition: 0.1s 0.1s;
+  overflow: hidden;
+  /* display: none; */
 }
 /* 입력창에 포커스 갈때 다음형제요소 반영버튼 보이기 */
-.item-cnt:focus + .btn-insert{
-  display: inline-block;
+.item-cnt:focus + .btn-insert {
+  transition: none;
+  /* display: inline-block; */
+  width: 34px;
 }

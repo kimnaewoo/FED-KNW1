@@ -87,13 +87,15 @@ export const CartList = memo(({ selData, flag }) => {
       const selIdx = $(e.target).attr("data-idx");
       console.log("지울녀석", selIdx);
 
-      // 해당 데이터 순번 알아내기
+      // 데이터 리랜더링 중복실행막기
+      flag.current = false;
+
+      // 해당 데이터 업데이트하기
       const newData = cartData.filter((v) => {
         if (v.idx !== selIdx) {
           return true;
         }
       });
-      console.log("제거후리스트", newData);
 
       // 로컬스토리지 데이터 업데이트
       localStorage.setItem("cart", JSON.stringify(newData));
@@ -127,8 +129,31 @@ export const CartList = memo(({ selData, flag }) => {
   }; // chgNum 함수
 
   // 반영버튼 클릭시 데이터 업데이트하기
-  const goResult= () => {
-    console.log('결과야 나와라~!');
+  const goResult = () => {
+    console.log("결과야 나와라~!");
+
+    // 해당 데이터 순번 알아내기
+    // forEach 로 돌리면 중간에 맞을 경우 return 할수없다.
+    // 일반 for문으로 해야 return 또는 continue를 사용 가능!
+    // -> some() 이라는 메서드가 있다!!!
+    // -> return true로 조건에 처리시 for문을 빠져나온다! (return과 유사하다.)
+    // return false로 조건처리시 for문을 해당순번 제외하고 계속 순회한다. (continue와 유사하다.)
+    // -> 참고 : https://www.w3schools.com/jsref/jsref_some.asp
+    // cartData.some((v) => {
+    //   console.log("some테스트상단:", v.idx);
+    //   // if(v.idx == 17){return true;} -> for문 break와 유사! 
+    //   if(v.idx == 17){return false;} // -> for문 continue와 유사!
+    //   console.log("some테스트하단:", v.idx);
+    // });
+
+    cartData.some((v) => {
+      if()
+    });
+
+    // 로컬스토리지 데이터 업데이트
+    // localStorage.setItem("cart", JSON.stringify(newData));
+    // 전체 데이터 업데이트 하면 모두 리랜더링하게 하자!
+    // setCartData(newData);
   }; // goResult 함수
 
   /// 리턴 코드 ///////////////////////
@@ -173,7 +198,9 @@ export const CartList = memo(({ selData, flag }) => {
                   <div>
                     <span>
                       <input type="text" className="item-cnt" defaultValue={v.num} />
-                      <button className="btn-insert" onClick={goResult}>반영</button>
+                      <button className="btn-insert" onClick={goResult} date-idx={v.idx}>
+                        반영
+                      </button>
                       <b className="btn-cnt">
                         <img src="./images/cnt_up.png" alt="증가" onClick={chgNum} />
                         <img src="./images/cnt_down.png" alt="감소" onClick={chgNum} />
