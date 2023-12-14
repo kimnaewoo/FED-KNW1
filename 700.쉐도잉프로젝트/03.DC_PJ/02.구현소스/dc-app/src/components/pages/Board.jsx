@@ -19,9 +19,7 @@ if (localStorage.getItem("bdata")) {
   orgData = JSON.parse(localStorage.getItem("bdata"));
 }
 // 로컬스토리지 없으면 제이슨 데이터 넣기
-else {
-  orgData = baseData;
-}
+else orgData = [];
 
 // console.log(org);
 
@@ -31,7 +29,7 @@ export function Board() {
   // 1. 페이지 단위수 : 한페이지 당 레코드 수
   const pgBlock = 7;
   // 2. 전체 레코드수 : 배열데이터 총 개수
-  const totNum = baseData.length;
+  const totNum = orgData.length;
   console.log("페이지 단위수:", pgBlock, "\n전체 레코드수:", totNum);
 
   // [ 상태관리변수 셋팅 ]
@@ -64,11 +62,21 @@ export function Board() {
     console.log("시작값:", initNum, "\n한계값:", limitNum);
     // 데이터 선별용 for문 : 원본데이터(orgData)로부터 생성한다
     for (let i = initNum; i < limitNum; i++) {
+      // 마지막페이지 한계수체크
+      if (i >= totNum) break;
+      // 코드 푸시
       tempData.push(orgData[i]);
     }
 
     console.log("결과셋:", tempData);
-
+    // 데이터가 없는경우 출력
+    if (tempData.length === 0) {
+      return (
+        <tr>
+          <td colSpan="5">There is no data.</td>
+        </tr>
+      );
+    } // if 문
     return tempData.map((v, i) => (
       <tr key={i}>
         {/* 1. 일련번호 */}
@@ -87,9 +95,6 @@ export function Board() {
         <td>{v.cnt}</td>
       </tr>
     ));
-    /*  <tr>
-      <td colSpan="5">There is no data.</td>
-    </tr>; */
   }; // bindList 함수
 
   /********************************************************************** 
@@ -120,9 +125,13 @@ export function Board() {
     for (let i = 0; i < limit; i++) {
       pgCode[i] = (
         <Fragment key={i}>
-          <a href="#" onClick={chgList}>
-            {i + 1}
-          </a>
+          {pgNum - 1 === i ? (
+            <b>{i + 1}</b>
+          ) : (
+            <a href="#" onClick={chgList}>
+              {i + 1}
+            </a>
+          )}
           {i < limit - 1 ? " | " : ""}
         </Fragment>
       );
