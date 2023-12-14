@@ -103,6 +103,12 @@ export const CartList = memo(({ selData, flag }) => {
     }
   }; // deleteItem 함수
 
+  // 증감반영함수
+  const chgNum = e => {
+    console.log('증감반영:');
+    $(e.currentTarget).parent().siblings('.item-cnt').focus();
+  }; // chgNum 함수
+
   /// 리턴 코드 ///////////////////////
   return (
     <>
@@ -144,13 +150,13 @@ export const CartList = memo(({ selData, flag }) => {
                 <td className="cnt-part">
                   <div>
                     <span>
-                      <input type="text" id="item-cnt" defaultValue={v.num} />
+                      <input type="text" className="item-cnt" defaultValue={v.num} />
+                    <button className="btn-insert">반영</button>
                       <b className="btn-cnt">
-                        <img src="./images/cnt_up.png" alt="증가" />
-                        <img src="./images/cnt_down.png" alt="감소" />
+                        <img src="./images/cnt_up.png" alt="증가" onClick={chgNum} />
+                        <img src="./images/cnt_down.png" alt="감소"  onClick={chgNum}/>
                       </b>
                     </span>
-                    <button className="btn-insert">반영</button>
                   </div>
                 </td>
                 {/* 상품가격 총합계 */}

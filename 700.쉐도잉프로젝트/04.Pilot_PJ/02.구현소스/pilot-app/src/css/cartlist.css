@@ -105,11 +105,12 @@
   display: flex;
 }
 /* 입력창 */
-#item-cnt {
+.item-cnt {
   width: 20px;
 }
 /* 증감 이미지버튼 */
 .btn-cnt {
+
 }
 #cartlist .btn-cnt img {
   display: block;
@@ -122,7 +123,7 @@
   padding: 0;
   display: none;
 }
-#item-cnt:focus + .btn-insert{
-  outline: 10px dotted red;
+/* 입력창에 포커스 갈때 다음형제요소 반영버튼 보이기 */
+.item-cnt:focus + .btn-insert{
   display: inline-block;
 }
