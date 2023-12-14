@@ -8,6 +8,11 @@ import "../../css/board.css";
 import baseData from "../data/board.json";
 import { useState } from "react";
 
+// 기본데이터 역순정렬
+baseData.sort((a, b) => {
+  return Number(a.idx) === Number(b.idx) ? 0 : Number(a.idx) > Number(b.idx) ? -1 : 1;
+});
+
 /**** 초기데이터 셋업하기 ****/
 let org;
 if (localStorage.getItem("bdata")) {
@@ -31,6 +36,38 @@ export function Board() {
   // 상태추가 : L - 글목록
   // 전체 5가지 상태값 : CRUD+L
 
+  /********************************************************************** 
+    함수명 : bindList
+    기능 : 페이지별 리스트를 생성하여 바인딩한다
+  **********************************************************************/
+  const bindList = () => {
+    // 데이터 선별하기
+    const tempData = [];
+
+    // 데이터 선별용 for문
+    for (let i = 0; i < 10; i++) {
+      tempData.push(baseData[i]);
+    }
+
+    return tempData.map((v, i) => (
+      <tr key={i}>
+        {/* 1. 일련번호 */}
+        <td>{i + 1}</td>
+        {/* 2. 제목 */}
+        <td>{<a href="#">{v.tit}</a>}</td>
+        {/* 3. 글쓴이 */}
+        <td>{v.writer}</td>
+        {/* 4. 연월날짜 */}
+        <td>{v.date}</td>
+        {/* 5. 조회수 */}
+        <td>{v.cnt}</td>
+      </tr>
+    ));
+    /*  <tr>
+      <td colSpan="5">There is no data.</td>
+    </tr>; */
+  }; // bindList 함수
+
   // 리턴코드//////////////////////////////
   return (
     <>
@@ -50,11 +87,7 @@ export function Board() {
               </tr>
             </thead>
             {/* 중앙 레코드 표시부분 */}
-            <tbody>
-              <tr>
-                <td colSpan="5">There is no data.</td>
-              </tr>
-            </tbody>
+            <tbody>{bindList()}</tbody>
 
             {/* 하단 페이징 표시부분 */}
             <tfoot>
@@ -208,7 +241,7 @@ export function Board() {
                   </>
                 )
               }
-                    {/* <button>
+              {/* <button>
                       <a href="#">Modify</a>
                     </button> */}
             </td>
