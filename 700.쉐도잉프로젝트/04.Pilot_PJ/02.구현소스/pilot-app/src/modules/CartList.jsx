@@ -11,7 +11,7 @@ import $ from "jquery";
 export const CartList = memo(({ selData, flag }) => {
   // selData - 현재 반영된 데이터
   // flag - 상태값 체크변수 (true/false) -> 업데이트 여부결정!
-  console.log('업데이트상태값:',flag.current);
+  console.log("업데이트상태값:", flag.current);
 
   // 상태관리변수 설정
   // 1. 변경 데이터 변수 : 전달된 데이터로 초기화
@@ -19,11 +19,11 @@ export const CartList = memo(({ selData, flag }) => {
 
   console.log("받은 데이터:", selData, "\n기존 데이터:", cartData);
 
-  // 카트 컴포넌트의 데이터가 상태관리 되고 있으므로 외부에서 
+  // 카트 컴포넌트의 데이터가 상태관리 되고 있으므로 외부에서
   // 전달되는 데이터와 다를때 업데이트해야 외부에서 들어오는 데이터가 반영되어 리랜더링 된다
   // 삭제버튼도 작동하게 하려면? -> 상태변수로 제어한다
   // 외부데이터 업데이트는 flag.current값이 true까지 되어야한다.
-  if (cartData !== selData&&flag.current) {
+  if (cartData !== selData && flag.current) {
     setCartData(selData);
     console.log(3333);
   }
@@ -79,24 +79,28 @@ export const CartList = memo(({ selData, flag }) => {
     // 삭제 기능만 작동하게 하기위해 부모의 useRef값인 flag값을 false로 변경하면
     // 상단의 조건업데이트값이 작동하지 않는다.
     flag.current = false;
-    
-    const selIdx = $(e.target).attr("data-idx");
-    console.log("지울녀석", selIdx);
 
-    // 해당 데이터 순번 알아내기
-    const newData = cartData.filter((v) => {
-      if (v.idx !== selIdx) {
-        return true;
-      }
-    });
+    let confMsg = "해당 상품은 할인이 적용된 상품입니다. 정말 지우시겠습니까?";
+    // 삭제 여부를 사용자에게 물어본다!
+    // confirm() 대화창에 '확인'-> true, '취소' -> false 리턴한다
+    if (window.confirm(confMsg)) {
+      const selIdx = $(e.target).attr("data-idx");
+      console.log("지울녀석", selIdx);
 
-    console.log("제거후리스트", newData);
+      // 해당 데이터 순번 알아내기
+      const newData = cartData.filter((v) => {
+        if (v.idx !== selIdx) {
+          return true;
+        }
+      });
+      console.log("제거후리스트", newData);
 
-    // 로컬스토리지 데이터 업데이트
-    localStorage.setItem("cart", JSON.stringify(newData));
+      // 로컬스토리지 데이터 업데이트
+      localStorage.setItem("cart", JSON.stringify(newData));
 
-    // 전체 데이터 업데이트 하면 모두 리랜더링하게 하자!
-    setCartData(newData);
+      // 전체 데이터 업데이트 하면 모두 리랜더링하게 하자!
+      setCartData(newData);
+    }
   }; // deleteItem 함수
 
   /// 리턴 코드 ///////////////////////
@@ -137,7 +141,18 @@ export const CartList = memo(({ selData, flag }) => {
                 {/* 상품가격 */}
                 <td>{addComma(v.ginfo[3])}원</td>
                 {/* 상품수량 */}
-                <td>{v.num}</td>
+                <td className="cnt-part">
+                  <div>
+                    <span>
+                      <input type="text" id="item-cnt" defaultValue={v.num} />
+                      <b className="btn-cnt">
+                        <img src="./images/cnt_up.png" alt="증가" />
+                        <img src="./images/cnt_down.png" alt="감소" />
+                      </b>
+                    </span>
+                    <button className="btn-insert">반영</button>
+                  </div>
+                </td>
                 {/* 상품가격 총합계 */}
                 <td>{addComma(v.ginfo[3] * v.num)}원</td>
                 {/* 삭제버튼 */}
