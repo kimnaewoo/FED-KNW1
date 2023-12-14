@@ -33,11 +33,11 @@ export function Board() {
   // 2. 전체 레코드수 : 배열데이터 총 개수
   const totNum = baseData.length;
   console.log("페이지 단위수:", pgBlock, "\n전체 레코드수:", totNum);
-  
+
   // [ 상태관리변수 셋팅 ]
   // 1. 현재 페이지 번호 : 가장 중요한 리스트 바인딩의 핵심!
-  const [pgNum,setPgNum] = useState(1);
-  // 2. 데이터 변경 변수 : 리스트에 표시되는 실제 데이터셋 
+  const [pgNum, setPgNum] = useState(1);
+  // 2. 데이터 변경 변수 : 리스트에 표시되는 실제 데이터셋
   const [currData, setCurrData] = useState(null);
   // 3. 게시판 모드관리 변수
   const [bdMode, setBdMode] = useState("L");
@@ -51,27 +51,28 @@ export function Board() {
     기능 : 페이지별 리스트를 생성하여 바인딩한다
   **********************************************************************/
   const bindList = () => {
-    console.log("다시바인딩!",pgNum);
+    console.log("다시바인딩!", pgNum);
     // 데이터 선별하기
     const tempData = [];
 
     // 시작값 : (페이지번호-1) * 블록단위수
-    // 한계값 : 블록단위수 * 페이지번호 
+    let initNum = (pgNum - 1) * pgBlock;
+    // 한계값 : 블록단위수 * 페이지번호
+    let limitNum = pgBlock * pgNum;
+
     // 블록단위가 7일 경우 첫페이지는 0~7, 7~14, ...
-    console.log('시작값:',(pgNum-1)*pgBlock,'\n한계값:',pgBlock*pgNum);
-    
-    
+    console.log("시작값:", initNum, "\n한계값:", limitNum);
     // 데이터 선별용 for문 : 원본데이터(orgData)로부터 생성한다
-    for (let i = (pgNum-1)*pgBlock; i < pgBlock*pgNum; i++) {
+    for (let i = initNum; i < limitNum; i++) {
       tempData.push(orgData[i]);
     }
 
-    console.log('결과셋:',tempData);
+    console.log("결과셋:", tempData);
 
     return tempData.map((v, i) => (
       <tr key={i}>
         {/* 1. 일련번호 */}
-        <td>{i + 1}</td>
+        <td>{i + 1 + initNum}</td>
         {/* 2. 제목 */}
         <td>
           <a href="#" datatype={v.idx}>
@@ -114,12 +115,14 @@ export function Board() {
     // 출력하면 바로 코드로 변환된다!
     let pgCode = [];
     // 리턴코드
-    // 만약 빈태그 묶음에 key를 심어야할 경우 
+    // 만약 빈태그 묶음에 key를 심어야할 경우
     // 불가하므로 Fragment 조각 가상태그를 사용한다!
     for (let i = 0; i < limit; i++) {
       pgCode[i] = (
         <Fragment key={i}>
-          <a href="#" onClick={chgList}>{i + 1}</a>
+          <a href="#" onClick={chgList}>
+            {i + 1}
+          </a>
           {i < limit - 1 ? " | " : ""}
         </Fragment>
       );
@@ -134,12 +137,11 @@ export function Board() {
   **********************************************************************/
   const chgList = (e) => {
     let currNum = e.target.innerText;
-    console.log('번호:',currNum);
+    console.log("번호:", currNum);
     // 현재 페이지번호 업데이트! -> 리스트 업데이트 된다!
     setPgNum(currNum);
-    // 바인드 리스트 호출 (불필요!) 
+    // 바인드 리스트 호출 (불필요!)
     // 이유는, pgNum을 bindList()에서 사용하기 때문에 리랜더링이 자동으로 일어난다!!
-
   }; // chgList 함수
 
   // 리턴코드//////////////////////////////
