@@ -126,6 +126,11 @@ export const CartList = memo(({ selData, flag }) => {
     tgInput.val(cNum);
   }; // chgNum 함수
 
+  // 반영버튼 클릭시 데이터 업데이트하기
+  const goResult= () => {
+    console.log('결과야 나와라~!');
+  }; // goResult 함수
+
   /// 리턴 코드 ///////////////////////
   return (
     <>
@@ -168,7 +173,7 @@ export const CartList = memo(({ selData, flag }) => {
                   <div>
                     <span>
                       <input type="text" className="item-cnt" defaultValue={v.num} />
-                      <button className="btn-insert">반영</button>
+                      <button className="btn-insert" onClick={goResult}>반영</button>
                       <b className="btn-cnt">
                         <img src="./images/cnt_up.png" alt="증가" onClick={chgNum} />
                         <img src="./images/cnt_down.png" alt="감소" onClick={chgNum} />
