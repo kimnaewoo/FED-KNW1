@@ -1,8 +1,14 @@
 // OPINION 의견 게시판 컴포넌트
 
 // 게시판용 CSS
-import { Fragment, useCallback, useRef, useState } from "react";
+import { Fragment, useCallback, useContext, useRef, useState } from "react";
 import "../../css/board.css";
+
+// 컨텍스트 API
+import { dcCon } from "../modules/dcContext";
+
+// 로컬스토리지 생성 JS
+import { initData } from "../func/mem_fn";
 
 // 제이쿼리
 import $ from "jquery";
@@ -27,6 +33,14 @@ else orgData = baseData;
 
 // ******* Borad 컴포넌트 ******* //
 export function Board() {
+  // 기본사용자 정보셋업 함수 호출
+  initData();
+
+  // 컨텍스트 API 사용하기
+  const myCon = useContext(dcCon);
+
+  console.log("로그인상태:", myCon.logSts);
+
   // [컴포넌트 전체 공통변수] /////////////
   // 1. 페이지 단위수 : 한 페이지 당 레코드수
   const pgBlock = 7;
@@ -46,6 +60,9 @@ export function Board() {
   // C - 글쓰기 / R - 글읽기 / U - 글수정 / D - 글삭제(U에포함!)
   // 상태추가 : L - 글목록
   // 전체 5가지 상태값 : CRUD+L
+
+  // 3. 버튼 공개 여부 관리변수 - 수정버튼
+  const [btnSts, setBtnSts] = useState(false);
 
   /************************************* 
     함수명 : bindList
@@ -89,13 +106,13 @@ export function Board() {
         {/* 1. 일련번호 */}
         <td>{i + 1 + initNum}</td>
         {/* 2. 글제목 */}
-        <td>
+        <td className="title">
           <a href="#" data-idx={v.idx} onClick={chgMode}>
             {v.tit}
           </a>
         </td>
         {/* 3. 글쓴이 */}
-        <td>{v.writer}</td>
+        <td>{v.unm}</td>
         {/* 4. 쓴날짜 */}
         <td>{v.date}</td>
         {/* 5. 조회수 */}
@@ -224,6 +241,10 @@ export function Board() {
 
       console.log("현재Data:", cData.current);
 
+      // 로그인 사용자와 글쓴이가 같으면 btnSts상태값 true
+      // 상태업데이트 함수 호출!(uid를 보내준다)
+      comfUsr(cData.current.uid);
+      
       setBdMode("R");
 
       // -> 아래의 방식은 스크립트로 DOM에 셋팅하는 방법
@@ -289,6 +310,26 @@ export function Board() {
     //   console.log("삭제처리");
     // } ////// else if ///////
   }; //////// chgMode 함수 ///////////
+
+  // 사용자 비교함수 /////
+  // 원본으로부터 해당 사용자 정보 조회하여
+  // 글쓴이와 로그인사용자가 같으면 btnSts값을 true로 업데이트
+  const comfUsr = (usr) => {
+    // 사용자 정보조회 로컬스(mem-info)
+    // 보드 상단에서 null일 경우 생성함수 이미 호출!
+    // null을 고려하지 말고 코드작성!
+
+    // 1. 로컬스토리지 원본 데이터 조회
+    const info = JSON.parse(localStorage.getItem("mem-data"));
+    console.log(info);
+
+    
+    const cUser = info.find((v) => {
+      if (v.uid === usr) return true;
+    });
+    console.log(cUser);
+
+  }; // chgUsrInfo 함수
 
   // 리턴코드 ////////////////////
   return (
@@ -367,7 +408,7 @@ export function Board() {
               <tr>
                 <td>Name</td>
                 <td>
-                  <input type="text" className="name" size="20" readOnly value={cData.current.writer} />
+                  <input type="text" className="name" size="20" readOnly value={comfUsr(cData.current.unm)} />
                 </td>
               </tr>
               <tr>
@@ -426,7 +467,7 @@ export function Board() {
             <td>
               {
                 // 리스트 모드(L)
-                bdMode === "L" && (
+                bdMode === "L" && myCon.logSts !== null && (
                   <button onClick={chgMode}>
                     <a href="#">Write</a>
                   </button>
@@ -452,9 +493,14 @@ export function Board() {
                     <button onClick={chgMode}>
                       <a href="#">List</a>
                     </button>
-                    <button onClick={chgMode}>
-                      <a href="#">Modify</a>
-                    </button>
+                    {
+                      /* btnSts 상태변수가 true일때 보임 -> 글쓴이===로그인사용자 일때 true 변경 */
+                      btnSts && (
+                        <button onClick={chgMode}>
+                          <a href="#">Modify</a>
+                        </button>
+                      )
+                    }
                   </>
                 )
               }

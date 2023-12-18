@@ -48,7 +48,6 @@
       padding: 모든방향;(1개)
    */
 }
-
 /*각 th별 가로크기지정 */
 .dtbl th:nth-child(1) {
   width: 50px;
