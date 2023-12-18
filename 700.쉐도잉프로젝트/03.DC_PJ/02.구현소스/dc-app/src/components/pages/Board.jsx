@@ -1,7 +1,7 @@
 // OPINION 의견 게시판 컴포넌트
 
 // 게시판용 CSS
-import { Fragment, useCallback, useContext, useRef, useState } from "react";
+import { Fragment, useCallback, useContext, useEffect, useRef, useState } from "react";
 import "../../css/board.css";
 
 // 컨텍스트 API
@@ -63,6 +63,15 @@ export function Board() {
 
   // 3. 버튼 공개 여부 관리변수 - 수정버튼
   const [btnSts, setBtnSts] = useState(false);
+
+  // 리렌더링 루프에 빠지지 않도록 랜더링후 실행구역에 변경코드를 써준다
+  // -> 단, logSts에 의존성을 설정해준다
+  useEffect(() => {
+    // 만약 로그아웃하면 버튼 상태값 false로 변경하기
+    if (myCon.logSts === null) {
+      setBtnSts(false);
+    }
+  }, [myCon.logSts]);
 
   /************************************* 
     함수명 : bindList
