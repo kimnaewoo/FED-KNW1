@@ -4,10 +4,10 @@
 import { Fragment, useCallback, useContext, useEffect, useRef, useState } from "react";
 import "../../css/board.css";
 
-// 컨텍스트 API
+// 컨텍스트 API 불러오기
 import { dcCon } from "../modules/dcContext";
 
-// 로컬스토리지 생성 JS
+// 로컬스토리지 사용자 정보 생성 JS
 import { initData } from "../func/mem_fn";
 
 // 제이쿼리
@@ -33,14 +33,13 @@ else orgData = baseData;
 
 // ******* Borad 컴포넌트 ******* //
 export function Board() {
-  // 기본사용자 정보셋업 함수 호출
+  // 기본 사용자 정보 셋업 함수 호출
   initData();
 
   // 컨텍스트 API 사용하기
   const myCon = useContext(dcCon);
 
-  console.log("로그인상태:", myCon.logSts);
-
+  console.log("로그인 상태 : ", myCon.logSts);
   // [컴포넌트 전체 공통변수] /////////////
   // 1. 페이지 단위수 : 한 페이지 당 레코드수
   const pgBlock = 7;
@@ -61,19 +60,20 @@ export function Board() {
   // 상태추가 : L - 글목록
   // 전체 5가지 상태값 : CRUD+L
 
-  // 3. 버튼 공개 여부 관리변수 - 수정버튼
+  // 3. 버튼 공개 여부 관리변수 : 수정버튼
   const [btnSts, setBtnSts] = useState(false);
 
-  // 리렌더링 루프에 빠지지 않도록 랜더링후 실행구역에 변경코드를 써준다
-  // -> 단, logSts에 의존성을 설정해준다
-  // [ 리렌더링 원인중 많은 경우 렌더링 전 즉, 가상돔에 설정을 잡을 때 발생한다! ]
-  // -> 해결책은 렌더링 후, 처리구역에서 변경되는 상태변수를 의존성에 등록하여 그 변경발생시 한번만 실행되도록 설정하는 것이다.
+  // 리랜더링 루프에 빠지지 않도록 핸더링 후 실행구역에
+  // 변경코드를 써준다 단, logSts에 의존성을 설정해준다.
   useEffect(() => {
-    // 만약 로그아웃하면 버튼 상태값 false로 변경하기
-    if (myCon.logSts === null) {
-      setBtnSts(false);
-    }
+    // 만약 로그아웃하면 버튼 상대값 false로 변경하기
+    if (myCon.logSts === null) setBtnSts(false);
+
+    // 만약 글쓰기(C)모드에서 로그아웃을 한 경우 리스트 페이지 이동
+    if (myCon.logSts === null && bdMode === "C") setBdMode("L");
   }, [myCon.logSts]);
+  // [ 리랜더링의 원인 중 많은 경우 랜더링 전 즉, 가상돔에 설정을 잡을 때 발생한다 ]
+  // -> 해결책은 랜더링 후 처리 구역에서 변경되는 상태변수를 의존성에 등록하여 그 변경발생시 한번만 실행되도록 설정하는 것이다!!
 
   /************************************* 
     함수명 : bindList
@@ -100,6 +100,11 @@ export function Board() {
       tempData.push(orgData[i]);
     } ///// for /////
 
+    // 내림차순 정렬
+    orgData.sort((a, b) => {
+      return Number(a.idx) === Number(b.idx) ? 0 : Number(a.idx) > Number(b.idx) ? -1 : 1;
+    });
+
     // console.log("결과셋:", tempData);
 
     // 데이터가 없는 경우 출력 ///
@@ -117,7 +122,7 @@ export function Board() {
         {/* 1. 일련번호 */}
         <td>{i + 1 + initNum}</td>
         {/* 2. 글제목 */}
-        <td className="title">
+        <td>
           <a href="#" data-idx={v.idx} onClick={chgMode}>
             {v.tit}
           </a>
@@ -199,9 +204,9 @@ export function Board() {
   // 선택된 데이터 셋팅을 위한 참조변수
   const cData = useRef(null);
 
-
-  // 로그인 사용자 데이터셋팅을 위한 참조변수
+  // 로그인 사용자 데이터 셋팅을 위한 참조 변수
   const logData = useRef(null);
+
   /************************************* 
     함수명 : chgMode
     기능 : 게시판 옵션 모드를 변경함
@@ -250,14 +255,14 @@ export function Board() {
       // 전역 참조변수에 저장하여 리랜더링시 리턴코드에
       // 이값이 적용되게 해준다!!!
       cData.current = orgData.find((v) => {
-        if (v.idx === cidx) return true;
+        if (Number(v.idx) === Number(cidx)) return true;
       });
 
       console.log("현재Data:", cData.current);
 
       // 로그인 사용자와 글쓴이가 같으면 btnSts상태값 true
-      // 상태업데이트 함수 호출!(uid를 보내준다)
-      comfUsr(cData.current.uid);
+      // 상태업데이트 함수 호출(uid를 보냄)
+      compUsr(cData.current.uid);
 
       setBdMode("R");
 
@@ -283,12 +288,10 @@ export function Board() {
 
     // 3-3. 쓰기 모드 //////////////
     else if (modeTxt === "C") {
-      // 로그인한 사용자 정보 셋팅하기 : 글쓰기버튼은 로그인한 사람에게 노출되므로 아래코드는 괜찮다.
+      // 사용자 정보 셋팅하기 : 글쓰기는 로그인한 사람에게 노출되므로 아래코드는 괜찮다
       logData.current = JSON.parse(myCon.logSts);
-      // 이 데이터로 가상돔 구성시 리액트코드에 데이터매칭한다. 
-      // 필요데이터 : 로그인 사용자이름(unm), 이메일(eml)
-
-
+      // 이 데이터로 가상돔 구성시 리액트코드에 데이터 매칭함
+      // 필요데이터 : 로그인 사용자이름(unm),이메일(eml)
 
       setBdMode("C");
 
@@ -296,11 +299,11 @@ export function Board() {
       // 본 읽기전용 입력창에 넣어준다!
       // 지금은 임시로 tomtom / tom@gmail.com
       // $(() => {
-      //   // DOM 그려진 후 실행
-      //   // (1) 글쓴이
-      //   $(".writeone .name").val("tomtom");
-      //   // (2) 이메일
-      //   $(".writeone .email").val("tom@gmail.com");
+      //     // DOM 그려진 후 실행
+      //     // (1) 글쓴이
+      //     $(".writeone .name").val("tomtom");
+      //     // (2) 이메일
+      //     $(".writeone .email").val("tom@gmail.com");
       // });
     } ////// else if ///////
 
@@ -308,7 +311,72 @@ export function Board() {
     else if (modeTxt === "S" && bdMode === "C") {
       console.log("글쓰기 서브밋");
 
+      const subEle = $(".writeone .subject");
+      const contEle = $(".writeone .content");
+
       // 1. 제목, 내용 필수입력 체크
+      // 리랜더링 없는 DOM 상태 기능구현!!
+      if (subEle.val().trim() === "" || contEle.val().trim() === "") {
+        window.alert("제목과 내용은 필수입력입니다.");
+      } ////////////if///////////////
+
+      // 2. 통과시 실제 데이터 입력하기
+      else {
+        const addZero = (x) => (x < 10 ? "0" + x : x);
+        // 1. 날짜 데이터 구성
+        let today = new Date();
+        let yy = today.getFullYear();
+        let mm = today.getMonth() + 1;
+        let dd = today.getDate();
+
+        // 2.원본 데이터 변수할당
+        let orgTemp = orgData;
+
+        // 3. 입력 idx 기본키값을 숫자값 중 최대값에 1을 더함
+        // 3-1. idx값만 모아서 배열로 재구성함
+        let arrIdx = orgTemp.map((v) => v.idx);
+        let maxNum = Math.max(...arrIdx);
+        console.log("idx배열:", arrIdx);
+        console.log("최대값:", maxNum);
+        console.log("다른방법최대값:", Math.max.apply(null, arrIdx));
+        // 스프레드 연산자 나오기 전에는 항상 apply메서드 사용한다.
+        // apply(this객체,배열값) -> this객체 전달없으므로 null쓴다.
+        // -> 배열값 내부의 값을 하나씩 전달함
+
+        // Math.max() 에서 값을 비교하기 위해 배열값을
+        // 나열하여 입력하면 된다.
+        // 배열값을 나열하는 연산자는? Spread Operator
+        // (스프레드연산자 : ...)
+        // 다른 배열을 합칠 때도 사용함
+        // let aa = [1,16];
+        // let bb = [300,500];
+        // let cc = [...aa,...bb];
+        // console.log("합친 배열 : ",cc);
+
+        // let test = Math.max(1,5,3,2,4);
+        // console.log('1~5사이 최대값 : ',test);
+
+        // 4. 임시변수에 입력할 객체 데이터 생성하기
+        let temp = {
+          idx: maxNum + 1,
+          tit: subEle.val().trim(),
+          cont: contEle.val().trim(),
+          att: "",
+          date: `${yy}-${addZero(mm)}-${addZero(dd)}`,
+          uid: logData.current.uid,
+          unm: logData.current.unm,
+          cnt: "0",
+        };
+
+        console.log("입력전 준비 데이터 : ", temp);
+        // 5. 원본임시변수에 배열데이터 값 push하기
+        orgTemp.push(temp);
+        // console.log("최종반영 전체데이터:", orgTemp);
+        // 6. 로컬스토리지에 반영하기
+        localStorage.setItem("bdata", JSON.stringify(orgTemp));
+        // 7. 리스트 페이지로 이동하기
+        setBdMode("L");
+      } //////else/////////
     } ////// else if ///////
 
     // 3-5. 수정모드 /////////
@@ -332,37 +400,41 @@ export function Board() {
     // } ////// else if ///////
   }; //////// chgMode 함수 ///////////
 
-  // 사용자 비교함수 /////
-  const comfUsr = (usr) => {
+  // 사용자 정보 비교 함수 //////////////////
+  // 원본으로 부터 해당 사용자 정보 조회하여
+  // 글쓴이와 로그인사용자가 같으면 btnSts값을 true로 업데이트
+  const compUsr = (usr) => {
     // usr - 글쓴이 아이디(uid)
-    // 사용자 정보조회 로컬스(mem-info)
-    // 보드 상단에서 null일 경우 생성함수 이미 호출!
-    // null을 고려하지 말고 코드작성!
+    // 사용자 정보 조회 로컬스(mem-info)
+    // 보드 상단에서 null일 경우 생성함수 이미 호출
+    // null을 고려하지 말고 코드 작성
 
-    // 로그인 상태일 경우 조회하여 버튼 상태 업데이트 하기
+    // 로그인 상태일 경우 조회하여
+    // 버튼 상태 업데이트 하기
     if (myCon.logSts !== null) {
-      // 1. 로컬스토리지 원본 데이터 조회
+      // 1. 로컬스 원본 데이터 조회
       const info = JSON.parse(localStorage.getItem("mem-data"));
       console.log(info);
 
-      // 원본으로부터 해당 사용자 정보 조회하여
-      // 글쓴이와 로그인사용자가 같으면 btnSts값을 true로 업데이트
+      // 2.
       const cUser = info.find((v) => {
         if (v.uid === usr) return true;
       });
-      console.log(cUser);
 
+      console.log(cUser);
       // 3. 로그인 사용자 정보와 조회하기
-      // 아이디로 조회함!
+      // 아이디로 조회함
       const currUsr = JSON.parse(myCon.logSts);
       if (currUsr.uid === cUser.uid) setBtnSts(true);
-      else setBtnSts(false);
-    } // if
-    // 로그인 안한 상태
+      else {
+        setBtnSts(false);
+      }
+    } ///////////if/////////////
     else {
+      ////로그인 안한 상태
       setBtnSts(false);
-    } // else
-  }; // chgUsrInfo 함수
+    } ///////////else ////////////////
+  }; ///////compUsr 함수 ///////////
 
   // 리턴코드 ////////////////////
   return (
@@ -407,13 +479,13 @@ export function Board() {
               <tr>
                 <td>Name</td>
                 <td>
-                  <input type="text" className="name" size="20" readOnly value={logData.current.unm}/>
+                  <input type="text" className="name" size="20" readOnly value={logData.current.unm} />
                 </td>
               </tr>
               <tr>
                 <td>Email</td>
                 <td>
-                  <input type="text" className="email" size="40" readOnly value={logData.current.eml}/>
+                  <input type="text" className="email" size="40" readOnly value={logData.current.eml} />
                 </td>
               </tr>
               <tr>
@@ -469,7 +541,7 @@ export function Board() {
               <tr>
                 <td>Name</td>
                 <td>
-                  <input type="text" className="name" size="20" readOnly value={cData.current.writer} />
+                  <input type="text" className="name" size="20" readOnly value={cData.current.uid} />
                   {/* value는 수정불가! */}
                 </td>
               </tr>
@@ -527,7 +599,8 @@ export function Board() {
                       <a href="#">List</a>
                     </button>
                     {
-                      /* btnSts 상태변수가 true일때 보임 -> 글쓴이===로그인사용자 일때 true 변경 */
+                      // btnSts 상태변수가 true일 때 보임
+                      // ->글쓴이 === 로그인사용자 일 때 true 변경
                       btnSts && (
                         <button onClick={chgMode}>
                           <a href="#">Modify</a>
