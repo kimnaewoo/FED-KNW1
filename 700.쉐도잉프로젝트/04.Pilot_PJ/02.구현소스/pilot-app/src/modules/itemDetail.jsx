@@ -12,24 +12,36 @@ export function ItemDetail({ cat, goods }) {
   // cat - 카테고리명(men/women/style)
   // goods - 상품 아이템정보(속성코드: m1,m2,...)
 
-  // 카트사용여부 상태변수 /////////
-  const [csts, setCsts] = useState(0);
-
   // 자식 카트 컴포넌트와 함께 상태값 공유할 변수
   const flag = useRef(true);
-  // -> 이 값이 true일때만 새로 추가하는 데이터가 반영됨
-  // -> 이 값이 false 이면 카트 컴포넌트의 삭제 등 자체기능이 작동함!
-  // useRef를 사용하는 이유는 리랜더링시에도 값을 유지하면서 이값이 변경되어도 리랜더링 되지않아야 하기 때문에 선택함!!!
+  // -> 이값이 true일때만 새로추가하는 데이터가 반영됨
+  // -> 이값이 false이면 카트 컴포넌트의 삭제 등 자체기능이 작동함!
+  // useRef를 사용한 이유는 리랜더링시에도 값을 유지하면서
+  // 이 값이 변경되어도 리랜더링 되지 않아야 하기 때문에 선택함!!!
+
+  // 카트 사용여부 초기값은 로컬스 'cart'가 있으면 1
+  // 없으면 0 으로 셋팅해준다!
+  let stsVal = 0;
+  let transVal = null;
+
+  // 카트셋팅에 필요한 데이터를 로컬스에 따라 셋팅함!
+  if (localStorage.getItem("cart")) {
+    stsVal = 1;
+    transVal = JSON.parse(localStorage.getItem("cart"));
+  } ///// if ////////
 
   // 로컬스 변환값 변수 - 상태변수로 리랜더링시 값을 유지하게함!
-  const [transData, setTransData] = useState(null);
+  const [transData, setTransData] = useState(transVal);
+
+  // 카트사용여부 상태변수 /////////
+  const [csts, setCsts] = useState(stsVal);
 
   // 카트에 담기 버튼 클릭시 호출함수 ////
   const useCart = () => {
-    // 카트 선택 아이템만 추가하기 위해 
-    // 카트 컴포넌트와 공유한 useRef 참조변수인 flag값을 true로 업데이트한다!
+    // 카트 선택 아이템만 추가하기 위해
+    // 카트 컴포넌트와 공유한 useRef 참조변수인 flag값을
+    // true로 업데이트 한다!!!
     flag.current = true;
-
 
     // 1.선택된 상품을 로컬스토리지에 담기!
     /* 데이터 구성:
@@ -49,8 +61,6 @@ export function ItemDetail({ cat, goods }) {
 
     // 로컬스 변환값 담을 변수
     let localD;
-    // 카트 입력데이터 담을 변수
-    let temp; // find() 에서 undefined로 처리될 경우 false
 
     // 1-2.로컬스에 문자형변환하여 담는다
     // (1) 기존 카트 로컬스가 없는 경우
@@ -60,12 +70,16 @@ export function ItemDetail({ cat, goods }) {
       localD.push(selData);
       localStorage.setItem("cart", JSON.stringify(localD));
 
-      // localD변수에 담긴 로컬스 변환값을 transData에 담아
+      // localD변수에 담긴 로컬스 변환값을
+      // transData에 담아
       // CartList 컴포넌트에 전달한다!
       setTransData(localD);
 
+      console.log(transData);
+
       setCsts(1);
-      // 쇼핑카트 버튼 초기화
+
+      // 쇼핑카트버튼 초기화
       $("#mycart")
         .removeClass("on")
         .delay(1000)
@@ -73,38 +87,44 @@ export function ItemDetail({ cat, goods }) {
           // 페이드 애니후
           $(this).addClass("on");
         }); ////// fadeIn ////////
-    } ///// if ///
+    } ///// if //////
     // (2) 기존 카트 로컬스가 있는 경우 기존값에 더하기
     else {
       localD = localStorage.getItem("cart");
       // 객체변환
       localD = JSON.parse(localD);
+      // console.log('요요기:',localD,selData);
 
-      // 읽어온 로컬스토리지에 넣을 상품코드가 있으면 메시지와 함께 넣지않는다!
+      // **** 읽어온 로컬스에 넣을 상품코드가 있으면
+      // 메시지와 함께 넣지 않는다!
       let temp = localD.find((v) => {
         if (v.idx === selData.idx) return true;
-      }); // find
+      }); ////// find /////
 
-      console.log("같은값 있나?", temp);
+      console.log("같은값있나?", temp);
 
       // 만약 이미 선택된 데이터이면 메시지만 띄움
       if (temp) {
-        alert("이미 선택하신 아이템입니다");
-      } // if
+        alert("이미 선택하신 아이템입니다!");
+      } /////// if //////
 
-      // 새로운 아이템만 등록! **************************************************
+      // **** 새로운 아이템만 등록! **** ///
       else {
         // 객체변환 데이터에 push로 추가!
         localD.push(selData);
         // // 다시 문자형변환하여 넣기
         localStorage.setItem("cart", JSON.stringify(localD));
 
-        // localD변수에 담긴 로컬스 변환값을 transData에 담아
+        // localD변수에 담긴 로컬스 변환값을
+        // transData에 담아
         // CartList 컴포넌트에 전달한다!
         setTransData(localD);
 
+        console.log(transData);
+
         setCsts(1);
-        // 쇼핑카트 버튼 초기화
+
+        // 쇼핑카트버튼 초기화
         $("#mycart")
           .removeClass("on")
           .delay(1000)
@@ -112,11 +132,8 @@ export function ItemDetail({ cat, goods }) {
             // 페이드 애니후
             $(this).addClass("on");
           }); ////// fadeIn ////////
-      } // else
-    } ///// else ///////
-
-    // 공통 처리 ******************************
-    // temp에 데이터가 담긴 경우에만 공통업데이트함!
+      } ///////// else //////////
+    } //////////// else /////////////
   }; /////////// useCart함수 ////////////
 
   // 선택데이터 : 전체데이터[분류명][상품코드].split('^')
@@ -283,8 +300,8 @@ export function ItemDetail({ cat, goods }) {
       {
         csts && <CartList selData={transData} flag={flag} />
         // useRef 변수인 flag를 보내면 자식 컴포넌트에서도
-        // 이 값을 참조할 뿐만 아니라 변경도 가능하다!
-        // 주의 : useRef 변수는 사용시 변수명.current 를 꼭 쓴다!
+        // 이 값을 참조할 뿐만 아니라 변경도 가능하다!!!
+        // 주의: useRef변수는 사용시 변수명.current를 꼭 쓴다!
       }
     </>
   );
