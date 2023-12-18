@@ -66,6 +66,8 @@ export function Board() {
 
   // 리렌더링 루프에 빠지지 않도록 랜더링후 실행구역에 변경코드를 써준다
   // -> 단, logSts에 의존성을 설정해준다
+  // [ 리렌더링 원인중 많은 경우 렌더링 전 즉, 가상돔에 설정을 잡을 때 발생한다! ]
+  // -> 해결책은 렌더링 후, 처리구역에서 변경되는 상태변수를 의존성에 등록하여 그 변경발생시 한번만 실행되도록 설정하는 것이다.
   useEffect(() => {
     // 만약 로그아웃하면 버튼 상태값 false로 변경하기
     if (myCon.logSts === null) {
@@ -197,6 +199,9 @@ export function Board() {
   // 선택된 데이터 셋팅을 위한 참조변수
   const cData = useRef(null);
 
+
+  // 로그인 사용자 데이터셋팅을 위한 참조변수
+  const logData = useRef(null);
   /************************************* 
     함수명 : chgMode
     기능 : 게시판 옵션 모드를 변경함
@@ -278,18 +283,25 @@ export function Board() {
 
     // 3-3. 쓰기 모드 //////////////
     else if (modeTxt === "C") {
+      // 로그인한 사용자 정보 셋팅하기 : 글쓰기버튼은 로그인한 사람에게 노출되므로 아래코드는 괜찮다.
+      logData.current = JSON.parse(myCon.logSts);
+      // 이 데이터로 가상돔 구성시 리액트코드에 데이터매칭한다. 
+      // 필요데이터 : 로그인 사용자이름(unm), 이메일(eml)
+
+
+
       setBdMode("C");
 
       // 1. 글쓴이와 이메일은 로그인상태값에서 읽어와서
       // 본 읽기전용 입력창에 넣어준다!
       // 지금은 임시로 tomtom / tom@gmail.com
-      $(() => {
-        // DOM 그려진 후 실행
-        // (1) 글쓴이
-        $(".writeone .name").val("tomtom");
-        // (2) 이메일
-        $(".writeone .email").val("tom@gmail.com");
-      });
+      // $(() => {
+      //   // DOM 그려진 후 실행
+      //   // (1) 글쓴이
+      //   $(".writeone .name").val("tomtom");
+      //   // (2) 이메일
+      //   $(".writeone .email").val("tom@gmail.com");
+      // });
     } ////// else if ///////
 
     // 3-4. 글쓰기 서브밋 /////////
@@ -395,13 +407,13 @@ export function Board() {
               <tr>
                 <td>Name</td>
                 <td>
-                  <input type="text" className="name" size="20" readOnly />
+                  <input type="text" className="name" size="20" readOnly value={logData.current.unm}/>
                 </td>
               </tr>
               <tr>
                 <td>Email</td>
                 <td>
-                  <input type="text" className="email" size="40" readOnly />
+                  <input type="text" className="email" size="40" readOnly value={logData.current.eml}/>
                 </td>
               </tr>
               <tr>
