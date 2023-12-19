@@ -175,7 +175,7 @@ export function Member() {
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
     // 2. 입력값 확인 : e.target -> 이벤트가 발생한 요소
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
     // 3. 에러에 따른 상태값 변경
     if (valid.test(e.target.value)) setEmailError(false);

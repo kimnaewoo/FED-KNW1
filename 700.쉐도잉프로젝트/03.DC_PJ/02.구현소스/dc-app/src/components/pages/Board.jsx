@@ -255,7 +255,10 @@ export function Board() {
       // 전역 참조변수에 저장하여 리랜더링시 리턴코드에
       // 이값이 적용되게 해준다!!!
       cData.current = orgData.find((v) => {
-        if (Number(v.idx) === Number(cidx)) return true;
+        if (Number(v.idx) === Number(cidx)) {
+          // console.log("내순번:", i);
+          return true;
+        }
       });
 
       console.log("현재Data:", cData.current);
@@ -386,18 +389,41 @@ export function Board() {
       setBdMode("U");
     } ////// else if ///////
 
-    // 4-2. 쓰기 모드 : 모드변경없이 처리후 리스트보내기
-    // else if(modeTxt==="C" && btxt==="Submit"){
-    //   console.log("쓰기처리");
-    // } ////// else if ///////
-    // 4-3. 수정하기 모드 : 모드변경없이 처리후 리스트보내기
-    // else if(modeTxt==="U" && btxt==="Submit"){
-    //   console.log("수정처리");
-    // } ////// else if ///////
-    // 4-4. 삭제하기 모드 : 모드변경없이 처리후 리스트보내기
-    // else if(modeTxt==="U" && btxt==="Delete"){
-    //   console.log("삭제처리");
-    // } ////// else if ///////
+    // 3-6. 수정 서브밋
+    else if (modeTxt === "S" && bdMode === "U") {
+      console.log("수정하기 서브밋");
+
+      const subEle = $(".updateone .subject");
+      const contEle = $(".updateone .content");
+
+      // 1. 제목, 내용 필수입력 체크
+      // 리랜더링 없는 DOM 상태 기능구현!!
+      if (subEle.val().trim() === "" || contEle.val().trim() === "") {
+        window.alert("제목과 내용은 필수입력입니다.");
+      } ////////////if///////////////
+
+      // 2. 통과시 실제 데이터 입력하기
+      else {
+        // 2.원본 데이터 변수할당
+        let orgTemp = orgData;
+
+        // 3. 원본에 해당 데이터 찾아서 업데이트하기
+        orgData.some((v) => {
+          if (Number(cData.current.idx) === Number(v.idx)) {
+            // 제목과 내용 업데이트하기
+            v.tit = subEle.val().trim();
+            v.cont = contEle.val().trim();
+            // 이 코드를 만나면 여기서 순회종료
+            return true;
+          } // if
+        }); // Array some
+
+        // 4. 로컬스토리지에 반영하기
+        localStorage.setItem("bdata", JSON.stringify(orgTemp));
+        // 5. 리스트 페이지로 이동하기
+        setBdMode("L");
+      }
+    } ////// else if ///////
   }; //////// chgMode 함수 ///////////
 
   // 사용자 정보 비교 함수 //////////////////
@@ -541,7 +567,7 @@ export function Board() {
               <tr>
                 <td>Name</td>
                 <td>
-                  <input type="text" className="name" size="20" readOnly value={cData.current.uid} />
+                  <input type="text" className="name" size="20" readOnly value={cData.current.unm} />
                   {/* value는 수정불가! */}
                 </td>
               </tr>
