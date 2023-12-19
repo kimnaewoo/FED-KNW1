@@ -424,6 +424,26 @@ export function Board() {
         setBdMode("L");
       }
     } ////// else if ///////
+
+    // 3-7. 삭제하기
+    else if (modeTxt === "D" && bdMode === "U") {
+      if (window.confirm("정말로 글을 삭제 하시겠습니까?")) {
+        // 1. 데이터순회하다가 해당데이터이면 순번으로 splice(순번,1)사용 삭제
+        orgData.some((v, i) => {
+          if (Number(cData.current.idx) === Number(v.idx)) {
+            // 해당데이터의 순번으로 삭제
+            orgData.splice(i, 1);
+            // 이 코드를 만나면 여기서 순회종료
+            return true;
+          } // if
+        }); // Array some
+
+        // 2. 로컬스토리지에 반영하기
+        localStorage.setItem("bdata", JSON.stringify(orgData));
+        // 3. 리스트 페이지로 이동하기
+        setBdMode("L");
+      } // if
+    } // else if
   }; //////// chgMode 함수 ///////////
 
   // 사용자 정보 비교 함수 //////////////////
@@ -450,8 +470,14 @@ export function Board() {
       console.log(cUser);
       // 3. 로그인 사용자 정보와 조회하기
       // 아이디로 조회함
-      const currUsr = JSON.parse(myCon.logSts);
-      if (currUsr.uid === cUser.uid) setBtnSts(true);
+      if (cUser) {
+        // 할당 안되면 undefined 이므로, 할당되었을때만 if문 처리
+        const currUsr = JSON.parse(myCon.logSts);
+        if (currUsr.uid === cUser.uid) setBtnSts(true);
+        else {
+          setBtnSts(false);
+        }
+      } // if
       else {
         setBtnSts(false);
       }
