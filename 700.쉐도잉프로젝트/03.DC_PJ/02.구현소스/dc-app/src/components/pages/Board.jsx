@@ -478,6 +478,7 @@ export function Board() {
           setBtnSts(false);
         }
       } // if
+      // 사용자 비교값이 다른경우 
       else {
         setBtnSts(false);
       }
