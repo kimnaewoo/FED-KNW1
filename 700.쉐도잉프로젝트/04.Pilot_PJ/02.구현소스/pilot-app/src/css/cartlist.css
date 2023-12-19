@@ -131,3 +131,16 @@
   /* display: inline-block; */
   width: 34px;
 }
+/* 페이징 파트 */
+.paging{
+  /*글자중앙정렬*/
+  text-align: center;
+  /*위아래,우좌 padding설정*/
+  padding: 20px 0px;
+}
+
+.paging a, .paging b{
+  color: #222;
+  text-decoration: none;
+  font-size: 20px;
+}
