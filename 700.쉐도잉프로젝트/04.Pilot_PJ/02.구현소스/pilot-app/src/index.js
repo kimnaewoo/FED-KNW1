@@ -7,7 +7,7 @@ import { pCon } from "./modules/PilotContext";
 import { TopArea } from "./layout/TopArea";
 import { MainArea } from "./layout/MainArea";
 import { FooterArea } from "./layout/FooterArea";
-import { CartList } from "../src/modules/CartList";
+import { CartList } from "./modules/CartList";
 
 // 제이쿼리
 import $ from "jquery";
@@ -94,7 +94,7 @@ function App() {
   // 처음 로딩시 스크롤 상단이동
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-  }); // useLayoutEffect
+  },[]); // useLayoutEffect
 
   /***************************************************** 
     [ 컨텍스트 API 공개 변수들 ]
