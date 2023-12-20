@@ -536,9 +536,14 @@ export function Board() {
 
     // 3-2. 로그인한 사용자일 경우 로그인 사용자계정과 같은 글이면 증가하지 않는다
     if(localStorage.getItem('minfo')){
+      // 1. 사용자 로그인정보 로컬스토리지
       let minfo = JSON.parse(localStorage.getItem('minfo'));
+      // 2. 로그인 아이디
       let cUid = minfo.uid;
       console.log('로그인사용자 검사:',cUid);
+      // 로그인 아이디 === 현재글 아이디
+      if(cUid===cData.current.uid) isOK = false;
+
     } // if 
 
     // 4. [ 카운트 증가하기 ]
@@ -548,7 +553,7 @@ export function Board() {
       let data = JSON.parse(localStorage.getItem("bdata"));
       data.some((v) => {
         if (Number(v.idx) === Number(cidx)) {
-          // 기존 cnt항목의 숫자를 +1 증가시켜 업데이 트하기
+          // 기존 cnt항목의 숫자를 +1 증가시켜 업데이트 하기
           v.cnt = Number(v.cnt) + 1;
           // 여기서 나감!(break역할!)
           return true;
