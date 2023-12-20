@@ -523,14 +523,23 @@ export function Board() {
     console.log(Array.isArray(cntIdx));
 
     // 3. [ 카운트 증가하기 조건검사 ]
+
     // 세션스토리지에 등록된 글번호만큼 돌다가 같은글이면 isOK값을 false로 처리한다.
+    // 주의 :  cntIdx는 숫자로만 된 배열이다! [1,2,5,6]
     cntIdx.some((v) => {
-      if (Number(v.idx) === Number(cidx)) {
+      if (Number(v) === Number(cidx)) {
         isOK = false;
         // 여기서 나감!(break역할!)
         return true;
       } // if
     }); // some
+
+    // 3-2. 로그인한 사용자일 경우 로그인 사용자계정과 같은 글이면 증가하지 않는다
+    if(localStorage.getItem('minfo')){
+      let minfo = JSON.parse(localStorage.getItem('minfo'));
+      let cUid = minfo.uid;
+      console.log('로그인사용자 검사:',cUid);
+    } // if 
 
     // 4. [ 카운트 증가하기 ]
     
@@ -539,15 +548,19 @@ export function Board() {
       let data = JSON.parse(localStorage.getItem("bdata"));
       data.some((v) => {
         if (Number(v.idx) === Number(cidx)) {
-          // 기존 cnt항목의 숫자를 +1 증가시켜 업데이트하기
+          // 기존 cnt항목의 숫자를 +1 증가시켜 업데이 트하기
           v.cnt = Number(v.cnt) + 1;
           // 여기서 나감!(break역할!)
           return true;
         } // if
       }); // some
+      
+      // 원본데이터에 반영하기 : 꼭 해야만 리스트가 업데이트된다
+      orgData = data;
+
       // 반영된 배열데이터를 다시 'bdata' 로컬스토리지에 넣기
       localStorage.setItem('bdata',JSON.stringify(data));
-        
+
     } // if
 
     // 5. [ 현재글 세션스토리지에 처리하기 ]
