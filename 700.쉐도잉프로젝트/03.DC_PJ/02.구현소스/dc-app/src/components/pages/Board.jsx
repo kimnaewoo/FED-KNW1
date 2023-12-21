@@ -24,15 +24,27 @@ baseData.sort((a, b) => {
 // 초기데이터 셋업하기(원본데이터 담기)
 let orgData;
 // 로컬스가 있으면 그것 넣기
-if (localStorage.getItem("bdata")) orgData = JSON.parse(localStorage.getItem("bdata"));
-// 로컬스 없으면 제이슨 데이터 넣기
-else orgData = baseData;
+if (localStorage.getItem("bdata")) {
+  orgData = JSON.parse(localStorage.getItem("bdata"));
+}
+// 로컬스 없으면 제이슨 데이터 넣기 + 로컬스토리지 생성하기
+else {
+  // 기본 데이터 제이슨에서 가져온것 넣기
+  orgData = baseData;
+} // else
 // else orgData = [];
 
 // // console.log(org);
 
 // ******* Borad 컴포넌트 ******* //
 export function Board() {
+  // 보드데이터가 로컬스토리지에 없으면 생성하기
+  if (!localStorage.getItem("bdata")) { // !연산자로 false일때 실행
+    // 로컬스토리지 'bdata'가 없으므로 여기서 최초 생성하기
+    // -> 조회수 증가시 로컬스토리지 데이터로 확인하기 때문!
+    localStorage.setItem("bdata", JSON.stringify(orgData));
+  } // if
+
   // 기본 사용자 정보 셋업 함수 호출
   initData();
 
@@ -535,19 +547,18 @@ export function Board() {
     }); // some
 
     // 3-2. 로그인한 사용자일 경우 로그인 사용자계정과 같은 글이면 증가하지 않는다
-    if(localStorage.getItem('minfo')){
+    if (localStorage.getItem("minfo")) {
       // 1. 사용자 로그인정보 로컬스토리지
-      let minfo = JSON.parse(localStorage.getItem('minfo'));
+      let minfo = JSON.parse(localStorage.getItem("minfo"));
       // 2. 로그인 아이디
       let cUid = minfo.uid;
-      console.log('로그인사용자 검사:',cUid);
+      console.log("로그인사용자 검사:", cUid);
       // 로그인 아이디 === 현재글 아이디
-      if(cUid===cData.current.uid) isOK = false;
-
-    } // if 
+      if (cUid === cData.current.uid) isOK = false;
+    } // if
 
     // 4. [ 카운트 증가하기 ]
-    
+
     if (isOK) {
       // 로컬스토리지 'bdata'에서 조회하여 업데이트함
       let data = JSON.parse(localStorage.getItem("bdata"));
@@ -559,13 +570,12 @@ export function Board() {
           return true;
         } // if
       }); // some
-      
+
       // 원본데이터에 반영하기 : 꼭 해야만 리스트가 업데이트된다
       orgData = data;
 
       // 반영된 배열데이터를 다시 'bdata' 로컬스토리지에 넣기
-      localStorage.setItem('bdata',JSON.stringify(data));
-
+      localStorage.setItem("bdata", JSON.stringify(data));
     } // if
 
     // 5. [ 현재글 세션스토리지에 처리하기 ]
