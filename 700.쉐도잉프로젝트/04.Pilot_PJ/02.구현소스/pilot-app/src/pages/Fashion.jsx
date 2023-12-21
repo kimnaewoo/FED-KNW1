@@ -12,7 +12,7 @@ import { pCon } from "../modules/PilotContext";
 // 제이쿼리
 import $ from "jquery";
 import { SinSang } from "../modules/SinSang";
-import { ItemDetail } from "../modules/itemDetail";
+import { ItemDetail } from "../modules/ItemDetail";
 
 export function Fashion(props) {
   // 컨텍스트 API 사용!
