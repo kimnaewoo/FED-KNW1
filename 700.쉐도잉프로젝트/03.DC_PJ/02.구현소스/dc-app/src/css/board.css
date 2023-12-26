@@ -1,6 +1,19 @@
 /* 게시판 모듈용 CSS - board.css  */
 
 /* CSS Document */
+
+/* 검색옵션박스 */
+.selbx {
+  box-sizing: border-box;
+  padding: 20px 10px 10px;
+  max-width: 90%;
+  width: 950px;
+  margin: 0 auto;
+}
+.selbx>*{
+  margin-right: 10px;
+}
+
 /*테이블 디자인*/
 .dtbl {
   /*테이블전체*/
@@ -47,6 +60,14 @@
       padding: 위아래 오른왼;(2개)
       padding: 모든방향;(1개)
    */
+}
+/* a요소 말줄임표시하기 */
+.dtbl tbody td a{
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  /* 말줄임 표시 */
+  text-overflow: ellipsis;
 }
 /*각 th별 가로크기지정 */
 .dtbl th:nth-child(1) {
