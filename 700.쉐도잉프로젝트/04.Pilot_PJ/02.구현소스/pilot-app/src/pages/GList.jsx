@@ -1,7 +1,7 @@
 // 상품 전체 리스트 페이지
 
 // 상품전체리스트 CSS 불러오기
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "../css/glist.css";
 
 // 제이쿼리
@@ -12,11 +12,21 @@ import gdata from "../data/glist-items";
 
 import { ItemDetail } from "../modules/ItemDetail";
 
+// 컨텍스트 API 불러오기
+import { pCon } from "../modules/PilotContext";
+
 console.log("전체Data:", gdata);
 
 ///////////////////////////////////////////
 //////// GList 컴포넌트 ///////////////////
 export function GList() {
+  // 컨텍스트 사용하기
+  const myCon = useContext(pCon);
+
+  // 컨텍스트 변수인 gMode의 3가지값 :
+  // "F" -> Filter List, "P" - Paging List , "M" - More List
+  // -> 위의 값에 따라 리액트 조건출력 && 를 사용하여 출력
+
   // 변경될 데이터 원본과 분리하여 데이터 변경하기위한 참조변수
   const transData = useRef(JSON.parse(JSON.stringify(gdata)));
   // -> 깊은복사로 원본데이터와 연결성 없음!!!
@@ -163,17 +173,45 @@ export function GList() {
   return (
     <main id="cont">
       <h1 className="tit">All ITEMS LIST</h1>
-      <section>
-        <div id="optbx">
-          <label htmlFor="men">남성</label>
-          <input type="checkbox" className="chkbx" id="men" defaultChecked onChange={changeList} />
-          <label htmlFor="women">여성</label>
-          <input type="checkbox" className="chkbx" id="women" defaultChecked onChange={changeList} />
-          <label htmlFor="style">스타일</label>
-          <input type="checkbox" className="chkbx" id="style" defaultChecked onChange={changeList} />
-        </div>
-        <div className="grid">{makeList()}</div>
-      </section>
+
+      {
+        // [ Filter List 모드 출력 ] //
+        myCon.gMode === "F" && (
+          <section>
+            <div id="optbx">
+              <label htmlFor="men">남성</label>
+              <input type="checkbox" className="chkbx" id="men" defaultChecked onChange={changeList} />
+              <label htmlFor="women">여성</label>
+              <input type="checkbox" className="chkbx" id="women" defaultChecked onChange={changeList} />
+              <label htmlFor="style">스타일</label>
+              <input type="checkbox" className="chkbx" id="style" defaultChecked onChange={changeList} />
+            </div>
+            <div className="grid">{makeList()}</div>
+          </section>
+        )
+      }
+      {
+        // [ Filter List 모드 출력 ] //
+        myCon.gMode === "P" && (
+          <section>
+            <div className="grid">{makeList()}</div>
+            <div id="paging">
+              <a href="#">1</a>|<a href="#">2</a>|<a href="#">3</a>
+            </div>
+          </section>
+        )
+      }
+      {
+        // [ Filter List 모드 출력 ] //
+        myCon.gMode === "M" && (
+          <section>
+            <div className="grid">{makeList()}</div>
+            <div id="more">
+              <button className="more">MORE</button>
+            </div>
+          </section>
+        )
+      }
       {/* 2.5. 상세보기박스 */}
       <div
         className="bgbx"
