@@ -19,6 +19,10 @@ export function TopArea(props) {
 
   // GNB 클릭시 변경적용 함수
   const clickGnb = (e) => {
+    // 초기화 상태값 true로 업데이트 하기
+    myCon.gInit.current = true;
+
+    // 클릭된 요소
     if(props.cat==="glist"){
       const tgEle = $(e.currentTarget)
       let atxt = tgEle.text();
