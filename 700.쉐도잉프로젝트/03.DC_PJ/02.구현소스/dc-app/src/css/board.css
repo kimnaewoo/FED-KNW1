@@ -61,13 +61,14 @@
       padding: 모든방향;(1개)
    */
 }
-/* a요소 말줄임표시하기 */
-.dtbl tbody td a{
+/* 보드 메인리스트 a요소 말줄임표시하기 */
+#board tbody td a{
   display: block;
   white-space: nowrap;
   overflow: hidden;
   /* 말줄임 표시 */
   text-overflow: ellipsis;
+  width: min(420px,40vw);
 }
 /*각 th별 가로크기지정 */
 .dtbl th:nth-child(1) {

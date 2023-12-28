@@ -1,7 +1,7 @@
 // OPINION 의견 게시판 컴포넌트
 
 // 게시판용 CSS
-import { Fragment, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import "../../css/board.css";
 
 // 컨텍스트 API 불러오기
@@ -52,7 +52,7 @@ export function Board() {
   // 컨텍스트 API 사용하기
   const myCon = useContext(dcCon);
 
-  console.log("로그인 상태 : ", myCon.logSts);
+  // console.log("로그인 상태 : ", myCon.logSts);
   // [컴포넌트 전체 공통변수] /////////////
   // 1. 페이지 단위수 : 한 페이지 당 레코드수
   const pgBlock = 7;
@@ -230,7 +230,7 @@ export function Board() {
 
     // 1. 해당 버튼의 텍스트 읽어오기
     let btxt = $(e.target).text();
-    console.log(btxt);
+    // console.log(btxt);
 
     // 2. 텍스트별 모드 연결하기
     let modeTxt;
@@ -255,14 +255,14 @@ export function Board() {
         modeTxt = "R";
     }
 
-    console.log("버튼명:", btxt, "모드명:", modeTxt);
+    // console.log("버튼명:", btxt, "모드명:", modeTxt);
 
     // 3. 모드별 분기하기 //////
     // 3-1. 읽기 모드
     if (modeTxt === "R") {
       // 1. a링크의 'data-idx'값 읽어오기
       let cidx = $(e.target).attr("data-idx");
-      console.log("읽기처리", cidx);
+      // console.log("읽기처리", cidx);
 
       // 2. 해당정보 가져오기 : orgData에서 조회함
       // 전역 참조변수에 저장하여 리랜더링시 리턴코드에
@@ -274,7 +274,7 @@ export function Board() {
         }
       });
 
-      console.log("현재Data:", cData.current);
+      // console.log("현재Data:", cData.current);
 
       // 로그인 사용자와 글쓴이가 같으면 btnSts상태값 true
       // 상태업데이트 함수 호출(uid를 보냄)
@@ -355,9 +355,9 @@ export function Board() {
         // 3-1. idx값만 모아서 배열로 재구성함
         let arrIdx = orgTemp.map((v) => v.idx);
         let maxNum = Math.max(...arrIdx);
-        console.log("idx배열:", arrIdx);
-        console.log("최대값:", maxNum);
-        console.log("다른방법최대값:", Math.max.apply(null, arrIdx));
+        // console.log("idx배열:", arrIdx);
+        // console.log("최대값:", maxNum);
+        // console.log("다른방법최대값:", Math.max.apply(null, arrIdx));
         // 스프레드 연산자 나오기 전에는 항상 apply메서드 사용한다.
         // apply(this객체,배열값) -> this객체 전달없으므로 null쓴다.
         // -> 배열값 내부의 값을 하나씩 전달함
@@ -400,14 +400,14 @@ export function Board() {
 
     // 3-5. 수정모드 /////////
     else if (modeTxt === "U") {
-      console.log("수정모드");
+      // console.log("수정모드");
 
       setBdMode("U");
     } ////// else if ///////
 
     // 3-6. 수정 서브밋
     else if (modeTxt === "S" && bdMode === "U") {
-      console.log("수정하기 서브밋");
+      // console.log("수정하기 서브밋");
 
       const subEle = $(".updateone .subject");
       const contEle = $(".updateone .content");
@@ -476,14 +476,14 @@ export function Board() {
     if (myCon.logSts !== null) {
       // 1. 로컬스 원본 데이터 조회
       const info = JSON.parse(localStorage.getItem("mem-data"));
-      console.log(info);
+      // console.log(info);
 
       // 2.
       const cUser = info.find((v) => {
         if (v.uid === usr) return true;
       });
 
-      console.log(cUser);
+      // console.log(cUser);
       // 3. 로그인 사용자 정보와 조회하기
       // 아이디로 조회함
       if (cUser) {
@@ -523,7 +523,7 @@ export function Board() {
 
     // 1. [  현재 읽은 글은 cData.current로 읽어옴! ]
     let cidx = cData.current.idx;
-    console.log("조회수 증가체크 idx:", cidx);
+    // console.log("조회수 증가체크 idx:", cidx);
 
     // 2. [ 세션스토리지에 등록된 글 idx의 존재여부 확인 ]
     // 세션스토리지에 'cnt-idx' 없으면 만들기
@@ -533,7 +533,7 @@ export function Board() {
     // 세션스토리지 파싱
     let cntIdx = JSON.parse(sessionStorage.getItem("cnt-idx"));
     // 배열여부 확인
-    console.log(Array.isArray(cntIdx));
+    // console.log(Array.isArray(cntIdx));
 
     // 3. [ 카운트 증가하기 조건검사 ]
 
@@ -553,7 +553,7 @@ export function Board() {
       let minfo = JSON.parse(localStorage.getItem("minfo"));
       // 2. 로그인 아이디
       let cUid = minfo.uid;
-      console.log("로그인사용자 검사:", cUid);
+      // console.log("로그인사용자 검사:", cUid);
       // 로그인 아이디 === 현재글 아이디
       if (cUid === cData.current.uid) isOK = false;
     } // if
@@ -585,11 +585,38 @@ export function Board() {
       // 세션스토리지 배열에 idx값 담기
       cntIdx.push(Number(cidx));
 
-      console.log("넣은후:", cntIdx);
+      // console.log("넣은후:", cntIdx);
       // 세션스토리지에 저장하기
       sessionStorage.setItem("cnt-idx", JSON.stringify(cntIdx));
     } // if
   }; // plusCnt 함수
+
+  // 검색기능 함수
+  const searchList = () => {
+    // 1. 검색기준값 읽어오기
+    const cta = $(".cta").val();
+
+    // 2. 검색어 읽어오기
+    const inpVal = $("#stxt").val().toLowerCase().trim();
+
+    // 3. 검색어 입력없으면 경고창과 리턴
+    if (inpVal === "") {
+      alert("please enter the keyword.");
+    }
+    console.log("검색시작~!", cta, inpVal);
+
+    
+    // 4. 전체 원본데이터에서 검색기준값으로 검색하기
+    const resData = orgData.filter((v) => {
+      // 검색 기준은 동적으로 변수에 담기므로, 대괄호로 객체값을 읽어온다.
+      // indexOf() 로 like검색한다
+      let compTxt = v[cta].toLowerCase();
+      if (compTxt.indexOf(inpVal) !== -1) {
+        return true;
+      }
+    });
+    console.log("검색데이터:", resData);
+  }; // searchList 함수
 
   // 리턴코드 ////////////////////
   return (
@@ -612,8 +639,10 @@ export function Board() {
                 <option value="1">Ascending</option>
                 <option value="2">Descending</option>
               </select>
-              <input id="stxt" type="text" length="50" />
-              <button className="sbtn">Search</button>
+              <input id="stxt" type="text" maxLength="50" />
+              <button className="sbtn" onClick={searchList}>
+                Search
+              </button>
             </div>
             {/* 리스트 테이블 */}
             <table className="dtbl" id="board">
