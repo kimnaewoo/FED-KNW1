@@ -79,6 +79,9 @@ export function Board() {
   // 4. 강제 리랜더링 관리변수
   const [force, setForce] = useState(null);
 
+  // 5. 검색상태 관리변수 : 값유지만 하도록 참조변수로 생성
+  const searchSts = useRef(false);
+
   // 리랜더링 루프에 빠지지 않도록 핸더링 후 실행구역에
   // 변경코드를 써준다 단, logSts에 의존성을 설정해준다.
   useEffect(() => {
@@ -90,6 +93,24 @@ export function Board() {
   }, [myCon.logSts]);
   // [ 리랜더링의 원인 중 많은 경우 랜더링 전 즉, 가상돔에 설정을 잡을 때 발생한다 ]
   // -> 해결책은 랜더링 후 처리 구역에서 변경되는 상태변수를 의존성에 등록하여 그 변경발생시 한번만 실행되도록 설정하는 것이다!!
+  /************************************* 
+      함수명 : sortData
+      기능 : 내림차순 정렬
+    *************************************/
+  const sortData = (data) => {
+    return data.sort((a, b) => {
+      return Number(a.idx) === Number(b.idx) ? 0 : Number(a.idx) > Number(b.idx) ? -1 : 1;
+    });
+  };
+  /************************************* 
+      함수명 : rawData
+      기능 : 데이터 초기화 하기(전체데이터 업데이트)
+    *************************************/
+  const rawData = () => {
+    // orgData를 로컬스토리지 데이터로 덮어쓴다
+    // 단, 내림차순으로 정렬하여 넣어준다! 
+    orgData = sortData(JSON.parse(localStorage.getItem("bdata")));
+  }; ////////////// initData 함수 //////////
 
   /************************************* 
     함수명 : bindList
@@ -99,6 +120,9 @@ export function Board() {
     // console.log("다시바인딩!", pgNum);
     // 데이터 선별하기
     const tempData = [];
+
+    // 내림차순 정렬 함수호출
+    sortData(orgData);
 
     // 시작값 : (페이지번호-1)*블록단위수
     let initNum = (pgNum - 1) * pgBlock;
@@ -230,6 +254,9 @@ export function Board() {
   const chgMode = (e) => {
     // 기본막기
     e.preventDefault();
+
+    // 검색상태가 아니므로 검색 상태값 false로 업데이트~!
+    searchSts.current = false;
 
     // 1. 해당 버튼의 텍스트 읽어오기
     let btxt = $(e.target).text();
@@ -606,6 +633,9 @@ export function Board() {
     if (inpVal === "") {
       alert("please enter the keyword.");
     }
+
+    // 3번 이후 검색실행시 검색상태값 업데이트 true
+    searchSts.current = true;
     console.log("검색시작~!", cta, inpVal);
 
     // 로컬스토리지 데이터
@@ -788,12 +818,18 @@ export function Board() {
             <td>
               {
                 // 리스트 모드(L)
+                // 검색상태관리 참조변수 searchSts값이 true일때만 출력!
+                bdMode === "L" && searchSts.current && (
+                  /* List 버튼은 검색실행시에만 나타남, 클릭시 전체리스트로 돌아간다. 이때 List버튼은 사라진다 */
+                  <button onClick={chgMode}>
+                    <a href="#">List</a>
+                  </button>
+                )
+              }
+              {
+                // 리스트 모드(L)
                 bdMode === "L" && myCon.logSts !== null && (
                   <>
-                  {/* List 버튼은 검색실행시에만 나타남, 클릭시 전체리스트로 돌아간다. 이때 List버튼은 사라진다 */}
-                    <button onClick={chgMode}>
-                      <a href="#">List</a>
-                    </button>
                     <button onClick={chgMode}>
                       <a href="#">Write</a>
                     </button>
