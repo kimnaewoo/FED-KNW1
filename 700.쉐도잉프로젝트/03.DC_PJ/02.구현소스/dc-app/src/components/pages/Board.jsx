@@ -83,6 +83,10 @@ export function Board() {
   // 5. 검색상태 관리변수 : 값유지만 하도록 참조변수로 생성
   const searchSts = useRef(false);
 
+  // 6. 최초 랜더링시 상태관리변수 : 처음 한번만 내림차순적용하기
+  const firstSts = useRef(true);
+  // 주의 : 참조변수는 최초 랜더링시에만 초기값 셋팅되고 리랜더링에는 다시 셋팅되지 않는다.
+
   // 리랜더링 루프에 빠지지 않도록 랜더링후 실행구역에
   // 변경코드를 써준다! 단, logSts에 의존성을 설정해준다!
   useEffect(() => {
@@ -118,20 +122,28 @@ export function Board() {
   const rawData = () => {
     // orgData를 로컬스 데이터로 덮어쓰기
     // 단, 내림차순으로 정렬하여 넣어준다!
-    orgData = sortData(JSON.parse(localStorage.getItem("bdata"), [-1, 1]));
+    // orgData = sortData(JSON.parse(localStorage.getItem("bdata"), [-1, 1]));
+    orgData = JSON.parse(localStorage.getItem("bdata"), [-1, 1]);
   }; ///////////// rawData /////////////
+
+  // 최초랜더링시 에만 한번 실행하기
+  if (firstSts.current) {
+    sortData(orgData, [-1, 1]);
+  }
 
   /************************************* 
     함수명 : bindList
     기능 : 페이지별 리스트를 생성하여 바인딩함
   *************************************/
   const bindList = () => {
+    // 바인드시 최초상태 false로 업데이트
+    firstSts.current = false;
     // console.log("다시바인딩!", pgNum);
     // 데이터 선별하기
     const tempData = [];
 
     // 내림차순 정렬 함수호출
-    sortData(orgData, [-1, 1]);
+    // sortData(orgData, [-1, 1]);
 
     // 시작값 : (페이지번호-1)*블록단위수
     let initNum = (pgNum - 1) * pgBlock;
@@ -711,6 +723,9 @@ export function Board() {
   // 이때 소멸자로 원본 데이터 초기화 셋팅 함수를
   // 호출해준다!!
   useEffect(() => {
+    // 처음 한번 들어왔을때 내림차순 정렬은 효과 있는가?
+    // -> 화면 렌더링전에 정렬을 해야 바로 반영이 된다. useEffect는 렌더링후에 반영이 되어 새로고침해야 보이므로 효과가 없다
+    // sortData(orgData,[-1,1]);
     // 소멸자
     return () => {
       rawData();
@@ -746,7 +761,7 @@ export function Board() {
                   if (Number(opt) === 0) sortData(orgData, [-1, 1]);
                   else sortData(orgData, [1, -1]);
 
-                  console.log(orgData);
+                  console.log("바뀌는지확인:", orgData);
                   // 강제 리랜더링
                   setForce(Math.random());
                 }}
@@ -921,7 +936,7 @@ export function Board() {
                 )
               }
               {
-                // 리스트 모드(L)
+                // 리스트 모드(L) : 로그인상태이면 쓰기버튼 보이기
                 bdMode === "L" && myCon.logSts !== null && (
                   <>
                     <button onClick={chgMode}>
