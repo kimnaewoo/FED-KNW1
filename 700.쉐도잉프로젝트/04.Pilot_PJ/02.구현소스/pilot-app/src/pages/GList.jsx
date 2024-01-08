@@ -23,11 +23,11 @@ export function GList() {
   // 컨텍스트 사용하기
   const myCon = useContext(pCon);
 
-  // 컨텍스트 변수인 gMode의 3가지값:
-  // 'F' -> Filter List
-  // "P" -> Paging List
-  // "M" -> More List
-  // -> 위의 값에 따라 리액트 조건출력(&&)을 사용함
+  // 컨텍스트 변수인 gMode의 3가지값 :
+  // 1. 'F' -> Filter List임!
+  // 2. 'P' -> Paging List
+  // 3. 'M' -> More List
+  // -> 위의 값에 따라 리액트 조건출력(&&)을 사용함!
 
   // 변경될 데이터 원본과 분리하여 데이터 변경하기위한 참조변수
   const transData = useRef(JSON.parse(JSON.stringify(gdata)));
@@ -45,32 +45,43 @@ export function GList() {
   // 데이터 상태관리 변수
   const [currData, setCurrData] = useState(gdata);
 
-  // 페이징을 위한 변수 셋팅하기 ///////
+  // 페이징을 위한 변수 셋팅하기 //////
   // 1. 페이지 단위수 : 한 페이지 당 레코드수
   const pgBlock = 10;
   // 2. 전체 레코드수 : 배열데이터 총개수
   const totNum = gdata.length;
-  // console.log("페이지단위수:", pgBlock, "\n전체 레코드수:", totNum);
-  // 1. 현재 페이지 번호 : 가장중요한 리스트 바인딩의 핵심!
+  // 3. 현재 페이지 번호 : 가장중요한 리스트 바인딩의 핵심!
   const [pgNum, setPgNum] = useState(1);
+  // 4. 더보기 블록단위수 : 한번에 보여주는 레코드수
+  const moreBlock = 5;
+  // 5. 더보기 블록개수 : 상태변수로 숫자 유지하기
+  const [moreNum, setMoreNum] = useState(1);
+  // 6. 더보기 블록개수 한계수 계산
+  const moreLimit = Math.floor(totNum / moreBlock) + (totNum % moreBlock !== 0 ? 1 : 0);
+  // 나누어서 나머지가 있으면 1더하고 없으면 0더함(즉,없음)
+  console.log("더보기한계수:", moreLimit);
 
   // 리스트 만들기 함수 ////////
   const makeList = () => {
+    // 리턴용변수
     let retVal;
-    console.log(currData);
-    // 1. Filter List
-    if (myCon.gMode === "F") {
-      // 데이터 초기화
-      // gdata와 같지 않으면 초기화
-      // 단, 모드를 변경하는 상단메뉴 일때만 적용해야한다
-      // 컨텍스트 API의 gInit 참조변수가 true일때만 적용한다!
-      if (currData !== gdata) {
-        // 깊은 복사로 데이터 재할당하기 -> 무한 리랜더링을 피하려면 참조변수를 활용한다!
 
-        // 참조변수 데이터로 map 돌기~
+    console.log(currData);
+
+    // 1. Filter List //////////////
+    if (myCon.gMode === "F") {
+      // 데이터 초기화하기 /////////////
+      // gdata와 같지 않으면 초기화!
+      // 단, 모드를 변경하는 상단메뉴일때만 적용해야함!
+      // 컨텍스트 API의 gInit 참조변수가 true일때만 적용함!
+      if (currData !== gdata && myCon.gInit.current) {
+        // 깊은복사로 데이터 재할당!
+        // -> 무한 리랜더링을 피하려면 참조변수를 활용한다!
         transData.current = JSON.parse(JSON.stringify(gdata));
       }
-      retVal = currData.map((v, i) => (
+
+      // 참조변수 데이터로 map 돌기!
+      retVal = transData.current.map((v, i) => (
         <div key={i}>
           <a
             href="#"
@@ -88,31 +99,35 @@ export function GList() {
           </a>
         </div>
       ));
-    } //////////////if///////////////
+    } ////////////// if //////////////
 
-    // 2. Paging List
+    // 2. Paging List //////////////
     else if (myCon.gMode === "P") {
-      // 페이징은 데이터 변형이 아닌 원본데이터에 대한 부분데이터 가져오기 이다!
-      // console.log('원본데이터:',gdata);
+      // 페이징은 데이터 변형이 아닌 원본데이터에 대한
+      // 부분데이터 가져오기다!
+      // console.log('원본data:',gdata);
 
-      // 만약 상단메뉴를 클릭해서 들어온 경우 페이지 번호가 1이 아닐경우 초기화해주기
+      // 만약 상단메뉴를 클릭해서 들어온 경우
+      // 페이지 번호가 1이 아니면 초기화해주기
       if (pgNum !== 1 && myCon.gInit.current) {
         setPgNum(1);
       }
 
       console.log("원본개수:", totNum);
 
-      // map아닌 일반 for문 사용시
-      // 배열에 push하여 데이터 넣기
-      // JSX문법 태다를 그냥 태그가 아니다
-      // 절대 변환불필요 그대로 보내서 출력함
-      retVal = []; // 배열형 할당
+      // map아닌 일반 for문사용시
+      // 배열에 push하여 데이터넣기
+      // JSX문법 태그를 그냥태그가 아.니.다!!!!
+      // 절대 변환불필요!!! 그대로 보내서 출력함!
+      retVal = []; // 배열형 할당!
+
       // 시작값 : (페이지번호-1)*블록단위수
       let initNum = (pgNum - 1) * pgBlock;
       // 한계값 : 블록단위수*페이지번호
       let limitNum = pgBlock * pgNum;
+
       for (let i = initNum; i < limitNum; i++) {
-        // 마지막 페이지 한계수 체크
+        // 마지막 페이지 한계수체크
         if (i >= totNum) break;
 
         // 순회하며 데이터 넣기
@@ -134,16 +149,60 @@ export function GList() {
             </a>
           </div>
         );
-      } ////////for ///////////
-    } //////////////else if///////////////
-    // 분기문 결과 리턴하기 ///////
+      } //////// for //////////////
+    } ////////////// else if //////////////
+
+    // 3. More List //////////////
+    else if (myCon.gMode === "M") {
+      // 데이터 초기화하기 /////////////
+      // moreNum이 1이 아니면 초기화!
+      // 단, 모드를 변경하는 상단메뉴일때만 적용해야함!
+      // 컨텍스트 API의 gInit 참조변수가 true일때만 적용함!
+      console.log("상단메뉴클릭상태:", myCon.gInit.current);
+      if (moreNum !== 1 && myCon.gInit.current) {
+        setMoreNum(1);
+      } ///////// if /////////
+
+      // 리턴할 배열을 새로할당함
+      retVal = []; // 배열형 할당!
+
+      // 한계값 : 더보기 블록단위수 * 더보기 블록개수
+      let limitNum = moreBlock * moreNum;
+      // 한계값이 전체 레코드수(totNum)보다 커지면
+      // 전체레코드수로 고정!
+      if (limitNum > totNum) limitNum = totNum;
+
+      for (let i = 0; i < limitNum; i++) {
+        // 순회하며 데이터 넣기
+        retVal.push(
+          <div key={i}>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                showDetail(gdata[i].ginfo[0], gdata[i].cat);
+              }}
+            >
+              [{i + 1}]
+              <img src={"./images/goods/" + gdata[i].cat + "/" + gdata[i].ginfo[0] + ".png"} alt="dress" />
+              <aside>
+                <h2>{gdata[i].ginfo[1]}</h2>
+                <h3>{addComma(gdata[i].ginfo[3])}원</h3>
+              </aside>
+            </a>
+          </div>
+        );
+      } //////// for //////////////
+    } ////////////// else if //////////////
+
+    // 분기문 결과 리턴하기 ////
     return retVal;
-  }; //////////// makeList ////////
+  }; ////////////// makeList ///////////////
 
   /************************************* 
-      함수명 : pagingLink
-      기능 : 리스트 페이징 링크를 생성한다!
-    *************************************/
+    함수명 : pagingLink
+    기능 : 리스트 페이징 링크를 생성한다!
+  *************************************/
   const pagingLink = () => {
     // 페이징 블록만들기 ////
     // 1. 블록개수 계산하기
@@ -191,13 +250,13 @@ export function GList() {
   }; /////////// pagingLink 함수 ////////
 
   /************************************* 
-      함수명 : chgList
-      기능 : 페이지 링크 클릭시 리스트변경
-    *************************************/
+    함수명 : chgList
+    기능 : 페이지 링크 클릭시 리스트변경
+  *************************************/
   const chgList = (e) => {
-    // 초기화 전역변수 false 로 업데이트하기
+    // 초기화 전역변수 false로 업데이트하기(초기화막기!)
     myCon.gInit.current = false;
-    
+
     let currNum = e.target.innerText;
     // console.log("번호:", currNum);
     // 현재 페이지번호 업데이트! -> 리스트 업데이트됨!
@@ -239,7 +298,7 @@ export function GList() {
     기능: 체크박스에 따른 리스트 변경하기
   *******************************************/
   const changeList = (e) => {
-    // 체크박스 일 경우 초기화 전역변수 false로 업데이트
+    // 체크박스일 경우 초기화 전역변수 false로 업데이트
     myCon.gInit.current = false;
 
     // 1. 체크박스 아이디
@@ -310,8 +369,9 @@ export function GList() {
     } /////////// else ///////////
 
     // 6. 검색결과 리스트 업데이트 하기
-    // 위의 분기문에서 만들어진 참조변수 데이터를 최종 업데이트함!
     setCurrData(transData.current);
+    // 위의 분기문에서 만들어진 참조변수 데이터를
+    // 최종 업데이트함!
     // 리스트가 리랜더링됨!!!
   }; ////////////// changeList 함수 ///////////
 
@@ -321,7 +381,7 @@ export function GList() {
       <h1 className="tit">All ITEMS LIST</h1>
 
       {
-        // Filter List 모드 출력 //
+        // [ Filter List 모드 출력 ] //
         myCon.gMode === "F" && (
           <section>
             <div id="optbx">
@@ -336,26 +396,40 @@ export function GList() {
           </section>
         )
       }
+
       {
-        // Paging List 모드 출력 //
+        // [ Paging List 모드 출력 ] //
         myCon.gMode === "P" && (
           <section>
             <div className="grid">{makeList()}</div>
-            <div id="paging">
-              {/* 페이징 번호 위치 */}
-              {pagingLink()}
-            </div>
+            <div id="paging">{pagingLink()}</div>
           </section>
         )
       }
+
       {
-        // More List 모드 출력 //
+        // [ More List 모드 출력 ] //
         myCon.gMode === "M" && (
           <section>
             <div className="grid">{makeList()}</div>
-            <div id="more">
-              <button className="more">MORE</button>
-            </div>
+            {
+              // 더보기 블록개수가 한계수가 아닐때만 버튼출력
+              moreNum !== moreLimit && (
+                <div id="more">
+                  <button
+                    className="more"
+                    onClick={() => {
+                      // 부모 클릭 상태변수값 false변경!
+                      myCon.gInit.current = false;
+                      let temp = moreNum;
+                      setMoreNum(++temp);
+                    }}
+                  >
+                    MORE
+                  </button>
+                </div>
+              )
+            }
           </section>
         )
       }
