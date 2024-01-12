@@ -1,6 +1,6 @@
 // 공통패션 서브페이지 컨텐츠 컴포넌트
 
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useReducer, useState } from "react";
 
 // 공통 서브 CSS 불러오기
 import "../css/fashion.css";
@@ -48,7 +48,7 @@ export function Fashion(props) {
     // 에 대한 기본 막기가 가능함!(여기서는 스크롤 기능임!)
 
     // 부드러운 스크롤 위치값 초기화!!!
-    setPos(0);
+    // setPos(0);
 
     // 스크롤바 생성하기(x축은 숨김)
     $("html,body").css({
@@ -118,19 +118,17 @@ export function Fashion(props) {
       <div className="bgbx">
         <ItemDetail goods={item} cat={props.cat} />
       </div>
-      {/* 3. 패럴랙스 영역 : 라액트용 패럴렉스 적용 */}
+      {/* 3. 패럴랙스 영역 : 리액트용 패럴랙스 적용 */}
       <section id="c2" className="cont">
         <Parallax
-          // 패럴렉스할 배경이지미 설정 속성 bgImage
           className="c2"
+          // 패럴랙스할 배경이미지 설정속성 bgImage
           bgImage={"./images/sub/" + props.cat + "/02.special.png"}
+          // 패럴랙스 이동정도 조정속성 strength
+          // 수치범위 :  -500 ~ 1000 -> 높은 숫자는 반대방향
           strength={200}
-          // 패럴렉스 이동정도 조정속성 : strength
-          //   수치범위 : -500 ~ 1000 -> 높은 숫자는 반대방향
         >
-          <h2 className="c2tit">
-                2024 {gnbData[props.cat][1]} 
-            </h2>
+          <h2 className="c2tit">2024 {gnbData[props.cat][1]}</h2>
         </Parallax>
       </section>
       {/* 4. 단일상품영역 */}
