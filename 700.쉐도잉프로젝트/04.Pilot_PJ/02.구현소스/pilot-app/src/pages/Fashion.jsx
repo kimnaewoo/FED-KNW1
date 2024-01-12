@@ -1,6 +1,6 @@
 // 공통패션 서브페이지 컨텐츠 컴포넌트
 
-import { useContext, useEffect, useLayoutEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 
 // 공통 서브 CSS 불러오기
 import "../css/fashion.css";
@@ -8,6 +8,9 @@ import { SwiperApp } from "../plugin/SwiperApp";
 
 // 컨텍스트 API
 import { pCon } from "../modules/PilotContext";
+
+// 데이터 셋업을 위한 gnb데이터 불러오기
+import { gnbData } from "../data/gnb";
 
 // 제이쿼리
 import $ from "jquery";
@@ -17,12 +20,16 @@ import { ItemDetail } from "../modules/ItemDetail";
 // 부드러운 스크롤 JS
 import { scrolled, setPos } from "../func/smoothScroll24";
 
+// 리액트용 패럴랙스 - 설치 : npm i react-parallax
+import { Parallax } from "react-parallax";
+// 설명 : https://www.npmjs.com/package/react-parallax
+
 export function Fashion(props) {
   // 컨텍스트 API 사용!
   const myCon = useContext(pCon);
 
   // props.cat - 서브 카테고리명
-  console.log('패션페이지cat:',props.cat);
+  console.log("패션페이지cat:", props.cat);
 
   useEffect(() => {
     // [부드러운 스크롤 함수 이벤트 설정하기]
@@ -71,11 +78,16 @@ export function Fashion(props) {
     }; /////// 소멸자 ////////////////
   }, []); ///////// useEffect ///////////
 
-  useLayoutEffect(()=>{
+  // props.cat 카테고리가 변경될때만 맨위로 값 변경!
+  useLayoutEffect(() => {
+    console.log("같으면 실행안함?");
+    // 부드러운 스크롤 위치값
     setPos(0);
-  },[props.cat])
-
-  
+    // 윈도우 실제로 상단이동
+    window.scrollTo(0, 0);
+    // 열렸을 수 있는 상세페이지 닫기
+    $(".bgbx").hide();
+  }, [props.cat]);
 
   // 후크 상태변수
   const [item, setItem] = useState("m1");
@@ -106,8 +118,21 @@ export function Fashion(props) {
       <div className="bgbx">
         <ItemDetail goods={item} cat={props.cat} />
       </div>
-      {/* 3. 패럴랙스 영역 */}
-      <section id="c2" className="cont c2 men"></section>
+      {/* 3. 패럴랙스 영역 : 라액트용 패럴렉스 적용 */}
+      <section id="c2" className="cont">
+        <Parallax
+          // 패럴렉스할 배경이지미 설정 속성 bgImage
+          className="c2"
+          bgImage={"./images/sub/" + props.cat + "/02.special.png"}
+          strength={200}
+          // 패럴렉스 이동정도 조정속성 : strength
+          //   수치범위 : -500 ~ 1000 -> 높은 숫자는 반대방향
+        >
+          <h2 className="c2tit">
+                2024 {gnbData[props.cat][1]} 
+            </h2>
+        </Parallax>
+      </section>
       {/* 4. 단일상품영역 */}
       <section id="c3" className="cont c3"></section>
       {/* 5. 스타일상품영역 */}

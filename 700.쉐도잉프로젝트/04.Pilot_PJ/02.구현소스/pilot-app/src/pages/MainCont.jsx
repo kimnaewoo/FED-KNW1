@@ -1,6 +1,6 @@
 // 메인 페이지 컨텐츠 컴포넌트
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { Banner } from "../modules/Banner";
 
 // 자동스크롤 JS 불러오기
@@ -11,16 +11,16 @@ import { dragBanner } from "../func/drag_banner";
 import { FashionIntro } from "../modules/FashionIntro";
 
 // 제이쿼리
-import $ from 'jquery';
+import $ from "jquery";
 
 export function MainCont() {
   // 메인 페이지일때만 자동스크롤 기능 적용함!
   useEffect(() => {
     // 랜더링 후 한번만 적용!
     // console.log("랜더링OK!");
-    
+
     // 스크롤바 없애기
-    $('html,body').css({overflow:'hidden'});
+    $("html,body").css({ overflow: "hidden" });
 
     // (((중요!!!))) /////////////////////////////
     // 특정이벤트를 설정해제하고자 할때
@@ -29,7 +29,7 @@ export function MainCont() {
     // 해제 메서드인 removeEventListener 가 유효함!
 
     // 자동스크롤 이벤트 설정하기 /////
-    window.addEventListener('wheel',wheelFn);
+    window.addEventListener("wheel", wheelFn);
 
     // 메뉴+인디케이터 이벤트 기능설정함수 호출 ////
     evtFn();
@@ -44,30 +44,29 @@ export function MainCont() {
     dragBanner();
 
     // 컴포넌트 소멸자 : 이 컴포넌트가 삭제될때 호출됨 //
-    return(()=>{
-      console.log('난 소멸했어~!');
+    return () => {
+      console.log("난 소멸했어~!");
 
       // 이 페이지에서만 필요했던 자동스크롤 이벤트 해제!
-      window.removeEventListener('wheel',wheelFn);
+      window.removeEventListener("wheel", wheelFn);
 
       // 메인 페이지에만 사용되는 로고클릭시 상단이동 이벤트 해제
       // 제이쿼리로 특정요소에 걸어준경우 해제는 off(이벤트명)
-      $("#logo a").off('click');
-      $(".gnb li").off('click').removeClass('on');
-      $(document).off('keydown');
-
-
-    });////////// 소멸자 return //////
+      $("#logo a").off("click");
+      $(".gnb li").off("click").removeClass("on");
+      $(document).off("keydown");
+    }; ////////// 소멸자 return //////
   }, []); /////// useEffect ///////////
+
+  // 처음 로딩시 스크롤 상단이동 //////
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); ///// useLayoutEffect //////////  
 
   return (
     <>
       {/* 1. 배너 페이지 */}
-      <section
-        id="ban"
-        className="page none-sel"
-        style={{ background: "lightblue" }}
-      >
+      <section id="ban" className="page none-sel" style={{ background: "lightblue" }}>
         <Banner />
       </section>
 

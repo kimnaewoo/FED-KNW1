@@ -14,7 +14,6 @@ import "./css/swiper.css";
 // 사용할 스와이퍼 모듈을 불러온다
 // (여기서는 페이지네이션,네비게이션,자동넘김)
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import { useRef, useState } from "react";
 
 export function SwiperApp(props) {
   // 리스트만들기 함수 ////
