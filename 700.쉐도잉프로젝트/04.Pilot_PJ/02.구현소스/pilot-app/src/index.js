@@ -40,13 +40,13 @@ function App() {
 
   // 카트셋팅에 필요한 데이터를 로컬스에 따라 셋팅함!
   if (localStorage.getItem("cart")) {
-    // 로컬스토리지가 있으므로 객체화 하기!
+    // 로컬스가 있으므로 객체화하기!
     transVal = JSON.parse(localStorage.getItem("cart"));
-    // 로컬스토리지 객체화 데이터 개수가 0이 아닐때만 상태값 1로 노출하기
+    // 로컬스 객체화 데이터 개수가 0이 아닐때만 상태값 1로 노출하기
     if (transVal.length !== 0) stsVal = 1;
   } ///// if ////////
 
-  console.log("로컬스토리지 있니?", stsVal);
+  console.log("로컬스있니?", stsVal);
 
   // 로컬스 변환값 변수 - 상태변수로 리랜더링시 값을 유지하게함!
   const [transData, setTransData] = useState(transVal);
@@ -79,52 +79,60 @@ function App() {
 
     // 카트가 생성된 경우 버튼 보이기
     // (카트부모박스 .bgbx 보이기)
+    console.log("카트노출상태:", csts);
     if (csts === 1) {
       $(() => {
-        // 로딩구역
-        // 전체 보여라
+        // 로딩구역 ///
+        // 전체 보여라!
         $(".bgbx").show();
-        // 카트 사이드에 나오라
+        // 카트 사이드에 나와라!
         $("#mycart").addClass("on");
-      }); // 로딩구역
-    } // if
+      }); /// 로딩구역 /////
+    } /// if ////
 
     // 랜더링구역 한번만 실행 : 옵션 []
   }, []); ////////// useEffect //////////////
 
-  // 처음 로딩시 스크롤 상단이동
+  // 처음 로딩시 스크롤 상단이동 //////
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-  }, []); // useLayoutEffect
+  }, []); ///// useLayoutEffect //////////
 
-  useEffect(() => {
+  useEffect(()=>{
     // 전체상품리스트 페이지를 위한 초기화변수확인
-    console.log("초기화상태값:", gInit.current);
+    console.log('초기화상태값:',gInit.current);
+
   });
 
   // GList 페이지에서 사용하는 모드구분 참조변수
-  const [gMode, setGMode] = useState("F");
-  // -> 처음값은 "F" -> Filter List임
-  // "P" - Paging List , "M" - More List
+  const [gMode,setGMode] = useState('F');
+  // 처음값은 'F' -> Filter List임!
+  // 'P' -> Paging List
+  // 'M' -> More List
 
   // 전체 리스트 페이지에서 초기화 상태변수를 참조변수로 생성
   const gInit = useRef(false);
 
-  /***************************************************** 
+  /***************************************** 
     [ 컨텍스트 API 공개 변수들 ]
     1. pgName - 페이지 이름
-    2. chgPgName - 페이지 이름 업데이트 함수 
-    3. flag - 카트 데이터 상태변수 
-    4. setTransData - 카트 사용데이터 셋업 
-    5. transData - 카트 사용 데이터 
-    6. setCsts - 로컬스토리지에 카트정보 셋업 여부 
-    7. gMode, setGMode - 전체 리스트페이지 뷰모드 구분 
-    8. gInit - 초기화 여부를 결정하는 변수 
-  *****************************************************/
+    2. chgPgName - 페이지 이름 업데이트함수
+    3. flag - 카트 데이터 상태변수
+    4. setTransData - 카트 사용 데이터 셋업
+    5. transData - 카트 사용 데이터
+    6. setCsts - 로컬스에 카트정보 셋업여부
+    7. gMode, setGMode 
+      - 전체 리스트 페이지 뷰모드 구분
+    8. gInit - 초기화 여부를 결정하는 변수
+  *****************************************/
 
   // 리턴코드 //////////////////////////
   return (
-    <pCon.Provider value={{ pgName, chgPgName, flag, setTransData, transData, setCsts, gMode, setGMode, gInit }}>
+    <pCon.Provider
+      value={{ pgName, chgPgName, 
+        flag, setTransData, transData, 
+        setCsts, gMode, setGMode, gInit }}
+    >
       <TopArea cat={pgName} />
       <MainArea page={pgName} />
       <FooterArea />

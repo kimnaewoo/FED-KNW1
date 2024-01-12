@@ -57,7 +57,8 @@ export function GList() {
   // 5. 더보기 블록개수 : 상태변수로 숫자 유지하기
   const [moreNum, setMoreNum] = useState(1);
   // 6. 더보기 블록개수 한계수 계산
-  const moreLimit = Math.floor(totNum / moreBlock) + (totNum % moreBlock !== 0 ? 1 : 0);
+  const moreLimit =
+    Math.floor(totNum / moreBlock) + (totNum % moreBlock !== 0 ? 1 : 0);
   // 나누어서 나머지가 있으면 1더하고 없으면 0더함(즉,없음)
   console.log("더보기한계수:", moreLimit);
 
@@ -91,7 +92,10 @@ export function GList() {
             }}
           >
             [{i + 1}]
-            <img src={"./images/goods/" + v.cat + "/" + v.ginfo[0] + ".png"} alt="dress" />
+            <img
+              src={"./images/goods/" + v.cat + "/" + v.ginfo[0] + ".png"}
+              alt="dress"
+            />
             <aside>
               <h2>{v.ginfo[1]}</h2>
               <h3>{addComma(v.ginfo[3])}원</h3>
@@ -141,7 +145,16 @@ export function GList() {
               }}
             >
               [{i + 1}]
-              <img src={"./images/goods/" + gdata[i].cat + "/" + gdata[i].ginfo[0] + ".png"} alt="dress" />
+              <img
+                src={
+                  "./images/goods/" +
+                  gdata[i].cat +
+                  "/" +
+                  gdata[i].ginfo[0] +
+                  ".png"
+                }
+                alt="dress"
+              />
               <aside>
                 <h2>{gdata[i].ginfo[1]}</h2>
                 <h3>{addComma(gdata[i].ginfo[3])}원</h3>
@@ -184,7 +197,16 @@ export function GList() {
               }}
             >
               [{i + 1}]
-              <img src={"./images/goods/" + gdata[i].cat + "/" + gdata[i].ginfo[0] + ".png"} alt="dress" />
+              <img
+                src={
+                  "./images/goods/" +
+                  gdata[i].cat +
+                  "/" +
+                  gdata[i].ginfo[0] +
+                  ".png"
+                }
+                alt="dress"
+              />
               <aside>
                 <h2>{gdata[i].ginfo[1]}</h2>
                 <h3>{addComma(gdata[i].ginfo[3])}원</h3>
@@ -386,11 +408,29 @@ export function GList() {
           <section>
             <div id="optbx">
               <label htmlFor="men">남성</label>
-              <input type="checkbox" className="chkbx" id="men" defaultChecked onChange={changeList} />
+              <input
+                type="checkbox"
+                className="chkbx"
+                id="men"
+                defaultChecked
+                onChange={changeList}
+              />
               <label htmlFor="women">여성</label>
-              <input type="checkbox" className="chkbx" id="women" defaultChecked onChange={changeList} />
+              <input
+                type="checkbox"
+                className="chkbx"
+                id="women"
+                defaultChecked
+                onChange={changeList}
+              />
               <label htmlFor="style">스타일</label>
-              <input type="checkbox" className="chkbx" id="style" defaultChecked onChange={changeList} />
+              <input
+                type="checkbox"
+                className="chkbx"
+                id="style"
+                defaultChecked
+                onChange={changeList}
+              />
             </div>
             <div className="grid">{makeList()}</div>
           </section>

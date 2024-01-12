@@ -1,7 +1,7 @@
 // Pilot PJ 장바구니 리스트 컴포넌트
 
 // 장바구니 리스트 CSS 불러오기
-import { Fragment, memo, useCallback, useEffect, useState } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 import "../css/cartlist.css";
 
 // 제이쿼리
@@ -12,14 +12,14 @@ export const CartList = memo(({ selData, flag }) => {
   // selData - 현재 반영된 데이터
   // flag - 상태값 체크변수(true/false) -> 업데이트 여부결정!
   console.log("업뎃상태값:", flag.current);
+
   // [컴포넌트 전체 공통변수] /////////////
   // 1. 페이지 단위수 : 한 페이지 당 레코드수
   const pgBlock = 5;
-  // 2. 전체 레코드수 : 배열데이터 총개수
-  const totNum = selData.length;
+
   // console.log("페이지단위수:", pgBlock, "\n전체 레코드수:", totNum);
 
-  // 상태관리변수 설정 /////////////
+  // 상태관리변수 설정 ///////////////
   // 1. 현재 페이지 번호 : 가장중요한 리스트 바인딩의 핵심!
   const [pgNum, setPgNum] = useState(1);
   // 2. 변경 데이터 변수 : 전달된 데이터로 초기셋팅
@@ -42,7 +42,7 @@ export const CartList = memo(({ selData, flag }) => {
   // 선택 데이터 : 로컬스토리지 데이터를 객체변환! -> 주석처리
   // const selData = JSON.parse(localStorage.getItem("cart"));
 
-  // 데이터개수
+  // 전체 데이터개수
   const cntData = cartData.length;
 
   console.log(cartData, cntData + "개");
@@ -226,13 +226,16 @@ export const CartList = memo(({ selData, flag }) => {
       );
     } ////// if /////////
 
-    // console.log('찍기직전데이터:',tempData);
+    // console.log('찍기직전Data:',tempData);
 
     return tempData.map((v, i) => (
-      <tr key={i}>
+      <tr key={i} data-v={v}>
         {/* 상품이미지 */}
         <td>
-          <img src={"images/goods/" + v.cat + "/" + v.ginfo[0] + ".png"} alt="item" />
+          <img
+            src={"images/goods/" + v.cat + "/" + v.ginfo[0] + ".png"}
+            alt="item"
+          />
         </td>
         {/* 리스트순번 : 페이지별 시작번호반영 */}
         <td>{i + 1 + initNum}</td>
@@ -246,9 +249,17 @@ export const CartList = memo(({ selData, flag }) => {
         <td className="cnt-part">
           <div>
             <span>
-              <input type="text" className="item-cnt" readOnly value={v.num} /> 
-              {/* 실제개수 반영값을 위해 value속성 사용할것! defaultValue를 쓰면 값변경이 안됨 */}
-              <button className="btn-insert" onClick={goResult} data-idx={v.idx}>
+              <input type="text" 
+              className="item-cnt" 
+              readOnly
+              value={v.num} />
+              {/* 실제개수 반영값을 위해 value속성사용할것!
+              defaultValue를 쓰면 값변경 반영안됨! */}
+              <button
+                className="btn-insert"
+                onClick={goResult}
+                data-idx={v.idx}
+              >
                 반영
               </button>
               <b className="btn-cnt">
@@ -268,8 +279,12 @@ export const CartList = memo(({ selData, flag }) => {
         </td>
       </tr>
     ));
-  }; // bindList 함수
+  }; /////////// bindList 함수 ////////////
 
+  /************************************* 
+    함수명 : pagingLink
+    기능 : 리스트 페이징 링크를 생성한다!
+  *************************************/
   const pagingLink = () => {
     // 페이징 블록만들기 ////
     // 1. 블록개수 계산하기
@@ -314,7 +329,12 @@ export const CartList = memo(({ selData, flag }) => {
     } ////// for /////
 
     return pgCode;
-  };
+  }; /////////// pagingLink 함수 ////////
+
+  /************************************* 
+    함수명 : chgList
+    기능 : 페이지 링크 클릭시 리스트변경
+  *************************************/
   const chgList = (e) => {
     let currNum = e.target.innerText;
     // console.log("번호:", currNum);
@@ -347,7 +367,9 @@ export const CartList = memo(({ selData, flag }) => {
               <th>합계</th>
               <th>삭제</th>
             </tr>
+
             {bindList()}
+
             <tr>
               <td colSpan="6">총합계 :</td>
               <td>{addComma(totalCnt)}원</td>
@@ -357,7 +379,7 @@ export const CartList = memo(({ selData, flag }) => {
           {/* 하단 페이징 표시부분 */}
           <tfoot>
             <tr>
-              <td colSpan="5" className="paging">
+              <td colSpan="8" className="paging">
                 {/* 페이징번호 위치  */}
                 {pagingLink()}
               </td>
@@ -368,7 +390,8 @@ export const CartList = memo(({ selData, flag }) => {
       {/* 카트버튼이미지 박스 */}
       <div id="mycart" onClick={showList}>
         {/* 카트이미지 */}
-        <img src="./images/mycart.gif" title={cntData+"개의 상품이 있습니다."} />
+        <img src="./images/mycart.gif" 
+        title={cntData+"개의 상품이 있습니다"} />
         {/* 카트상품개수 출력박스 */}
         <div className="cntBx">{cntData}</div>
       </div>

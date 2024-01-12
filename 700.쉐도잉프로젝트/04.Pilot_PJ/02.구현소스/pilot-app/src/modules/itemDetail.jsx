@@ -1,28 +1,30 @@
 // 상품상세보기 컴포넌트
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect } from "react";
 // 신상품 데이터 가져오기
 import gdata from "../data/glist-items";
 // 컨텍스트 API 불러오기
 import { pCon } from "./PilotContext";
 
-import $, { css } from "jquery";
-
+import $ from "jquery";
 
 export function ItemDetail({ cat, goods }) {
-
   // cat - 카테고리명(men/women/style)
   // goods - 상품 아이템정보(속성코드: m1,m2,...)
 
   // 컨텍스트 API 사용하기
   const myCon = useContext(pCon);
 
+  
+  //////////////////////////////////////
   // 카트에 담기 버튼 클릭시 호출함수 ////
+  /////////////////////////////////////
   const useCart = () => {
     // 카트 선택 아이템만 추가하기 위해
     // 카트 컴포넌트와 공유한 useRef 참조변수인 flag값을
     // true로 업데이트 한다!!!
     myCon.flag.current = true;
+
 
     // 1.선택된 상품을 로컬스토리지에 담기!
     /* 데이터 구성:
@@ -51,23 +53,24 @@ export function ItemDetail({ cat, goods }) {
       localD.push(selData);
       localStorage.setItem("cart", JSON.stringify(localD));
 
-      // localD변수에 담긴 로컬스 변환값을
-      // transData에 담아
-      // CartList 컴포넌트에 전달한다!
-      myCon.setTransData(localD);
+      // localD변수에 담긴 로컬스 변환값을 
+        // transData에 담아
+        // CartList 컴포넌트에 전달한다!
+        myCon.setTransData(localD);
 
-      console.log(myCon.transData);
+        console.log(myCon.transData);
 
-      myCon.setCsts(1);
+        myCon.setCsts(1);
 
-      // 쇼핑카트버튼 초기화
-      $("#mycart")
-        .removeClass("on")
-        .delay(1000)
-        .fadeIn(300, function () {
-          // 페이드 애니후
-          $(this).addClass("on");
-        }); ////// fadeIn ////////
+        // 쇼핑카트버튼 초기화
+        $("#mycart")
+          .removeClass("on")
+          .delay(1000)
+          .fadeIn(300, function () {
+            // 페이드 애니후
+            $(this).addClass("on");
+          }); ////// fadeIn ////////
+
     } ///// if //////
     // (2) 기존 카트 로컬스가 있는 경우 기존값에 더하기
     else {
@@ -91,12 +94,13 @@ export function ItemDetail({ cat, goods }) {
 
       // **** 새로운 아이템만 등록! **** ///
       else {
+        
         // 객체변환 데이터에 push로 추가!
         localD.push(selData);
         // // 다시 문자형변환하여 넣기
         localStorage.setItem("cart", JSON.stringify(localD));
 
-        // localD변수에 담긴 로컬스 변환값을
+        // localD변수에 담긴 로컬스 변환값을 
         // transData에 담아
         // CartList 컴포넌트에 전달한다!
         myCon.setTransData(localD);
@@ -170,6 +174,7 @@ export function ItemDetail({ cat, goods }) {
       // 출력박스 : #total
       $("#total").text(addComma(ginfo[3] * num) + "원");
     });
+
     
   }, []); ////  한번만 실행 /////
 
@@ -195,7 +200,10 @@ export function ItemDetail({ cat, goods }) {
       <div id="imbx">
         <div className="inx">
           <section className="gimg">
-            <img src={"./images/goods/" + cat + "/" + goods + ".png"} alt="큰 이미지" />
+            <img
+              src={"./images/goods/" + cat + "/" + goods + ".png"}
+              alt="큰 이미지"
+            />
             <div className="small">
               <a href="#">
                 <img src="./images/goods/men/m1.png" alt="썸네일 이미지" />
@@ -236,7 +244,10 @@ export function ItemDetail({ cat, goods }) {
                   <span>무이자할부</span>
                   <span>
                     부분 무이자 할부 혜택
-                    <img src="./images/view_btn_nointerest_card.gif" alt="무이자카드보기" />
+                    <img
+                      src="./images/view_btn_nointerest_card.gif"
+                      alt="무이자카드보기"
+                    />
                   </span>
                 </li>
                 <li>
@@ -278,7 +289,7 @@ export function ItemDetail({ cat, goods }) {
         </div>
       </div>
 
-      
+     
     </>
   );
 } /////////// ItemDetail 컴포넌트 ///////////
