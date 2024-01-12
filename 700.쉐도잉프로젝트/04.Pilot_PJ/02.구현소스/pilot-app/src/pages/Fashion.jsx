@@ -22,6 +22,7 @@ import { scrolled, setPos } from "../func/smoothScroll24";
 
 // 리액트용 패럴랙스 - 설치 : npm i react-parallax
 import { Parallax } from "react-parallax";
+import { FashionIntro } from "../modules/FashionIntro";
 // 설명 : https://www.npmjs.com/package/react-parallax
 
 export function Fashion(props) {
@@ -132,9 +133,13 @@ export function Fashion(props) {
         </Parallax>
       </section>
       {/* 4. 단일상품영역 */}
-      <section id="c3" className="cont c3"></section>
+      <section id="c3" className="cont c3">
+        <FashionIntro cat="women" />
+      </section>
       {/* 5. 스타일상품영역 */}
-      <section id="c4" className="cont c4"></section>
+      <section id="c4" className="cont c4">
+        <FashionIntro cat="style" />
+      </section>
     </>
   );
 } //////// Fashion 컴포넌트 ///////
