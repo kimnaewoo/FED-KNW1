@@ -28,7 +28,11 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0;
-  transition: 3s ease-in-out;
+  transition: 3s cubic-bezier(0.01, 0.57, 0.62, 0.63);
+}
+#stc.anion div {
+  /* 공통 투명도 복원 */
+  opacity: 1;
 }
 /* 애니적용 클래스셋팅 */
 #stc.anion div:nth-child(1) {
@@ -89,6 +93,11 @@ body {
   width: 100%;
   opacity: 0;
 }
+/* 애니메이션 적용 클래스 */
+#mlogo.anion img {
+  opacity: 1;
+  transition: opacity 3s ease-in-out 3s;
+}
 /* SVG 삼각형 박스 */
 .tribox {
   position: absolute;
@@ -110,7 +119,7 @@ body {
   stroke-dashoffset: 330%;
 }
 /* 애니메이션 적용 클래스 */
-.tribox.anion polygon {
+#mlogo.anion polygon {
   /* 애니메이션 */
   animation: line-ani 3s ease-in-out forwards;
 }
@@ -142,4 +151,11 @@ body {
   to {
     stroke-dashoffset: 0%;
   }
+}
+/* 오디오박스 */
+.play-box{
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    cursor: pointer;
 }
