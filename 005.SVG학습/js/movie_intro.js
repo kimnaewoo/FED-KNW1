@@ -1,20 +1,35 @@
-// 애니메이션 클래스 적용 대상
-// 1. 라인애니
-var stage = document.querySelector(".stage");
-// 2. 스틸컷 애니
-var stc = document.querySelector("#stc");
-// 3. 로고애니
-var mlogo = document.querySelector("#mlogo");
+// 영화 인트로 JS
 
-setTimeout(() => {
-  stage.classList.add("anion");
-}, 1000);
-setTimeout(() => {
-  stc.classList.add("anion");
-}, 6000);
-setTimeout(() => {
-  mlogo.classList.add("anion");
-}, 12000);
+// [1] 애니메이션 클래스 적용 대상
+
+// 1. 라인애니
+const lineAni = $(".stage");
+
+// 2. 스틸컷 애니
+const stcAni = $("#stc");
+
+// 3. 로고애니
+const logoAni = $("#mlogo");
+
+// [2] 시차로 애니메이션 대상에 클래스 넣기
+// 공통 적용 클래스명: anion
+
+// 타임아웃 설정 공통 함수 //////
+const setTime = (ele, time) => {
+  setTimeout(() => {
+    ele.addClass("anion");
+  }, time);
+}; /////// setTime함수 ////////
+
+// 1. 2초후 라인애니
+setTime(lineAni, 2000);
+
+// 2. 6초후 스틸컷애니
+setTime(stcAni, 6000);
+
+// 3. 12초후 로고애니
+setTime(logoAni, 12000);
+
 /* 오디오 컨트롤 하기 */
 
 // 1.오디오요소 : 제이쿼리는 get(0)으로 요소를 선택
