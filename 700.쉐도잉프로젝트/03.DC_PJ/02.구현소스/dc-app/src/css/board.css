@@ -10,7 +10,7 @@
   width: 950px;
   margin: 0 auto;
 }
-.selbx>*{
+.selbx > * {
   margin-right: 10px;
 }
 
@@ -62,13 +62,13 @@
    */
 }
 /* 보드 메인리스트 a요소 말줄임표시하기 */
-#board tbody td a{
+#board tbody td a {
   display: block;
   white-space: nowrap;
   overflow: hidden;
   /* 말줄임 표시 */
   text-overflow: ellipsis;
-  width: min(420px,40vw);
+  width: min(420px, 40vw);
 }
 /*각 th별 가로크기지정 */
 .dtbl th:nth-child(1) {
@@ -182,4 +182,16 @@
 }
 .btngrp button:hover a {
   color: #fff;
+}
+
+/* 추가 첨부파일링크 */
+.dtblview td a,
+.dtblview td b {
+  font-size: 20px;
+  text-decoration: none;
+  color: #000;
+}
+.dtblview td a:hover {
+  text-decoration: underline;
+  color: #f00;
 }
