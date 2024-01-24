@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="shortcut icon" href="#">
+    <link rel="shortcut icon" href="#" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>01.컴포넌트 연습2 - 데이터 전달/이벤트호출</title>
+    <title>02.컴포넌트 연습2 - 데이터 전달/이벤트호출</title>
     <link rel="stylesheet" href="./css/comp2.css" />
 
     <!-- 뷰JS 스탠드얼론 버전 가져오기! -->
@@ -28,8 +28,8 @@
     <!-- 유튜브 동영상박스 -->
     <div class="you-box">
       <!-- 아이프레임 컴포넌트 -->
-      <ifr-comp></ifr-comp>
-      <ifr-comp></ifr-comp>
+      <ifr-comp v-bind:data-id="'ZH1Y1l1OmTY'"></ifr-comp>
+      <ifr-comp v-bind:data-id="'Whj5j3RQmFc'"></ifr-comp>
     </div>
     <!-- 2. 그리드 레이아웃 박스 -->
     <div class="grid">
@@ -38,7 +38,15 @@
       <!-- 단순반복은 in 뒤에 숫자를 쓰면 됨 -->
       <!-- v-for= "(일련번호,순번) in 횟수" -->
       <!-- 순번은 0부터, 일련번호는 1부터 -->
-      <list-comp v-for="(n,i) in 50" v-bind:data-num="n" v-bind:key="n"v-bind:my-seq="i"v-bind:end-let="'WT'" v-on:hull="goMsg" v-on:got-kimchi="overMsg"></list-comp>
+      <list-comp
+        v-for="(n,i) in 50"
+        v-bind:data-num="n"
+        v-bind:key="n"
+        v-bind:my-seq="i"
+        v-bind:end-let="'WT'"
+        v-on:hull="goMsg"
+        v-on:got-kimchi="overMsg"
+      ></list-comp>
       <!-- 
         v-bind="값" 쌍따옴표안의 값은 변수가 된다. 만약, 문자값을 보내고싶으면 쌍따옴표안에서 따옴표로 문자형을 싸준다 
         v-bind:key는 for문으로 반복하여 요소를 생성할때 내부적으로 요소를 구분하는 유일키를 설정할때 사용한다 -> 주의 : key값을 props 하지 말것!

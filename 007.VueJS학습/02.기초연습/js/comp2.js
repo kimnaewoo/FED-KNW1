@@ -33,10 +33,10 @@ Vue.component("list-comp", {
   // src속성을 셋팅된 변수로 적용하기 위해 속성앞에 v-bind:을 붙여서 v-bind:src 로 쓰면 값으로 문자형을 써도 그 안의 값은 변수가 된다
   template: `
         <div>
-            <img v-bind:src="gsrc" v-on:click="goPapa" alt="dress">
+            <img v-bind:src="gsrc" v-on:click="goPapa('나는 공유다')" alt="dress">
             <aside>
-                <h2 v-text="gname" v-on:mouseover="goMama">상품명</h2> 
-                <h3 v-html="gprice">상품가격1</h3>
+                <h2 v-text="gname" v-on:mouseover="goMama({이름:'김고은',나이:'34살'})" >상품명</h2> 
+                <h3 v-html="gprice" v-on:click="goPapa('나는김내우')" >상품가격1</h3>
             </aside>
         </div>
     `,
@@ -67,16 +67,18 @@ Vue.component("list-comp", {
   // 2-4. methods 속성 : 컴포넌트 내부 메서드 셋팅
   methods: {
     // 자식 메서드에서 부모메서드를 호출한다!
-    goPapa() {
+    goPapa(txt) {
       // $emit(부모가만든이벤트)
       // 부모가 만든 이벤트명은 여기서 hull
-      this.$emit("hull");
+      this.$emit("hull", txt);
       // 과정 : 자식이벤트인 'click' 이벤트가 부모컴포넌트에 셋팅된 hull 이벤트로 전달된다!
     },
-    goMama() {
+    goMama(pm) {
+      // pm : 전달변수
       // $emit(부모가만든이벤트)
+      // this.$emit(부모이벤트명,전달값)
       // 부모가 만든 이벤트명은 여기서 hull
-      this.$emit("got-kimchi");
+      this.$emit("got-kimchi", pm);
       // 과정 : 자식이벤트인 'mouseover' 이벤트가 부모컴포넌트에 셋팅된 hull 이벤트로 전달된다!
     },
 
@@ -111,12 +113,13 @@ new Vue({
   // 부모 뷰 인스턴스 메서드 구역
   methods: {
     // 자식 이벤트 전달후, 실행 메서드
-    goMsg() {
-      alert("자식이 부모에게 이벤트 전달 성공!");
+    goMsg(txt) {
+      alert("자식이 부모에게 이벤트 전달 성공!" + txt);
     },
     // 자식 컴포넌트의 오버이벤트가 전달되어 호출하는 함수
-    overMsg() {
-      alert("오마이갓김치~!");
+    overMsg(pm) {
+      // pm - 전달변수 파라미터
+      alert("오마이갓김치~!" + pm.이름 + "나이는" + pm.나이 + "입니다");
     },
   },
 });
@@ -127,10 +130,12 @@ Vue.component("ifr-comp", {
     <iframe width="49%" style="aspect-ratio: 16/9;" v-bind:src="ifrSrc" title="#고윤정 과 함께 차가운 겨울을 더욱 액티브하게!  l 디스커버리 23FW #goyounjung #크롭패딩" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
     `,
+  // props down 셋팅하기
+  props: ["data-id"], // this.dataId 로 사용
   // data:function(){
   data() {
     return {
-      ifrSrc: `https://www.youtube.com/embed/ZH1Y1l1OmTY?autoplay=1&mute=1&loop=1&playlist=ZH1Y1l1OmTY`,
+      ifrSrc: `https://www.youtube.com/embed/${this.dataId}?autoplay=1&mute=1&loop=1&playlist=${this.dataId}`,
     };
   },
   methods: {},
