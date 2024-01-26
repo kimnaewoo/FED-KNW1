@@ -20,13 +20,7 @@ Vue.component("my-comp", {
   template: `
         <div class="grid">
             <div v-for="(v,i) in $store.state.items">
-                <img 
-                v-bind:src="
-                    './img_gallery/' +
-                    (v.idx > 50 ? 1 : v.idx) +
-                    '.jpg'
-                " 
-                alt="dress" />
+                <img v-bind:src="'./images/' + (v.idx > 50 ? 1 : v.idx) + '.jpg'" alt="dress" />
                 <aside>
                     <h2>{{v.gname}}</h2>
                     <h3>{{v.gprice}}</h3>
@@ -52,7 +46,7 @@ new Vue({
   // 뷰인스턴스 생성직후(가상돔/돔 생성전)
   created() {
     // 뷰엑스 스토어 액션스구역 메서드 initData호출하기!
-    // store.dispatch('initData');
+    store.dispatch('initData');
     // 엑시오스 사용하여 제이슨 데이터 가져오기
     // axios.get(제이슨파일).then(데이터=>담을변수=데이터)
     // axios.get("./js/goods.json")

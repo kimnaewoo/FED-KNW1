@@ -46,6 +46,13 @@ const store = new Vuex.Store({
       // 액션스 메서드 전달값으로 {commit}을 쓰면
       //  뮤테이션 구역으로 바로 commit사용가능!
       // 제이슨 데이터 변수에 할당!
+      const result = jsnData;
+      console.log("액션스!", result);
+
+      // 데이터를 가져오고 난후 items 변수에 데이터를 셋팅하도록 구현된 메서드인 뮤테이션스의 setData 메서드를 호출!
+      // 이렇게 하면, 데이터 로딩후 셋팅을 순서대로 실행! (비동기처리)
+      // -> commit(메서드,전달값)
+      this.commit("setData", result);
     }, ///////// initData /////////
   },
 }); /////////// 뷰엑스 인스턴스 ////////
