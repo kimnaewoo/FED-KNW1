@@ -20,8 +20,8 @@ header a {
   color: #222;
   text-decoration: none;
 }
-header a:hover{
-    text-shadow: 1px 2px 2px gray;
+header a:hover {
+  text-shadow: 1px 2px 2px gray;
 }
 header a.on {
   color: orangered;
@@ -66,4 +66,9 @@ footer {
   display: inline-block;
   padding: 10px;
   text-decoration: none;
+}
+/* 선택된 라우터 선택메뉴 클래스 */
+.router-link-active {
+  text-decoration: overline !important;
+  font-weight: bold;
 }
