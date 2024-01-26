@@ -150,6 +150,7 @@ new Vue({
       url: "https://img.freepik.com/premium-vector/city-illustration_23-2147514701.jpg",
       txt: "도시소개에 오신것을 환영합니다!",
     });
+    store.dispatch('myAct')
   }, // created
   // DOM 생성후 실행구역 (mounted) (제이쿼리 코드)
   mounted: function () {
