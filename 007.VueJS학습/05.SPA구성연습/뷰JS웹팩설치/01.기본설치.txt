@@ -136,4 +136,4 @@ cmd가 처음부터 있었고 Powershell은 나중에 나와서 명령어를
 
     (4) 설치후 설치프로젝트 용량 : 134MB 정도 (비교:react는 200MB이상)
 
-npm install -g vue-cli
+npm i vue-router@3 <-- 라우터 설치시
