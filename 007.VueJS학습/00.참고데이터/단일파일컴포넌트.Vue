@@ -7,11 +7,11 @@
 
 <!-- 자바스크립트 코드 -->
 <script>
-export default await import("vue").undefineComponent({
-  name: "myTemp",
+export default await import('vue').undefineComponent({
+  name: 'myTemp',
   data() {
     return {
-      txt: "연습이예용~!",
+      txt: '연습이예용~!',
     };
   },
 });
